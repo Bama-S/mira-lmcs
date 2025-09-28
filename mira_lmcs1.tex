@@ -1,0 +1,317 @@
+\documentclass[a4paper,11pt]{lmcs}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\newcommand{\mimamsa}{M\={i}m\={a}\.ms\={a}}
+
+\title{A M\={i}m\={a}\.{m}s\={a} Inspired Framework for Instruction Sequencing in AI Agents}
+\author{Your Name}
+\address{Your Affiliation}
+\email{your.email@domain.com}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper addresses the challenge of ensuring valid instruction sequences, a common issue in Large Language Model (LLM) outputs due to inconsistencies. Building on our prior work inspired by the Indian philosophical system of \mimamsa, we propose a framework for sequencing instructions in AI agents. Instructions are classified into types—simple, goal-directed, exclusive, and sequential—and sequenced via strategies: direct assertion, purpose-based dependency, and iterative parallel procedures.
+
+We introduce a denotational semantic model that formalizes execution validity, proving soundness and completeness for instruction sequences. This model underpins a theorem ensuring consistency across dependent actions, enhancing logical rigor for AI planning. The framework’s feasibility is demonstrated through a computational implementation, with future work exploring real-time applications. This bridges \mimamsa's imperative logic with modern computational needs.
+\end{abstract}
+
+\section{Introduction}
+Assume a robot is given the task of \textit{``cooking tomato noodles stir-fry''}. Though it may appear simple at first glance, there are several intricate details that must be considered before executing each instruction. For instance, this task may consist of several steps such as \textit{``pick noodles, cook noodles in pot, chop tomato, fry tomato, and add the cooked noodle to a dish''}. The robot must determine what actions to perform, which objects to use, and the appropriate order in which to execute them. This represents one of the key challenges in task planning within Artificial Intelligence.
+
+Task planning turns out to be more complex when there are interdependencies among multiple instructions. Here, the sequence has to be determined through temporal order, object dependencies, or the resulting state after the performance of each action. Existing methods in AI have addressed these problems through rule-based methods and logic but lack flexibility and contextual understanding.
+
+With the advent of Large Language Models (LLMs), task planning has become more adaptive and efficient. LLMs can generate sequences of actions from natural language prompts and respond flexibly to user-defined task descriptions and goals. However, these models still suffer from inconsistencies in sequencing given instructions. Furthermore, instructions generated from LLMs may violate object dependencies or contradict previous instructions.
+
+To address these limitations, this paper proposes a novel framework for instruction sequencing inspired by principles from the Indian philosophical system of \mimamsa\footnote{\mimamsa~is a classical Indian philosophical system that developed a detailed theory of imperatives (vidhi), focusing on their function, classification, and execution of actions in a systematic procedure. Its procedural system has recently attracted attention in computational contexts due to its fine-grained treatment of instruction structure and intent.}. The framework builds upon MIRA~\cite{mira}, a logical formalism based on imperatives (instructions). In this approach, each instruction is represented as an \(\langle \text{action}, \text{object} \rangle\) pair, which serves as the foundation for evaluating consistency across instructions.
+
+An initial version of this work was presented and published in the proceedings of ICLA 2025, where the fundamental representation of instructions as action–object pairs was introduced~\cite{llm_mira}. The present paper significantly extends that work by formalizing the criteria for valid instruction sequencing, including the introduction of an object consistency theorem with corresponding proofs.
+
+\subsection*{Extended Contributions}
+\begin{enumerate}
+    \item Introduction of an object consistency theorem with supporting proofs to verify sequence validity.
+    \item Integration of the theoretical framework with LLMs to enable explainable instruction generation and consistency verification.
+\end{enumerate}
+
+The remainder of the paper is structured as follows: Section~\ref{sec:mira} outlines the logical formalism of MIRA, which forms the basis for the sequencing methods. Section~\ref{sec:class} presents the classification of imperatives and the representation of instructions as \(\langle \text{action}, \text{object} \rangle\) pairs. The various sequencing strategies—including Direct Assertion, Purpose-Based Sequencing, and the Sequential Completion/Iterative Procedure—are formally described in Section~\ref{sec:seq}. The validity of these sequencing methods is established in Section~\ref{sec:validity}. Related work is reviewed in Section~\ref{sec:related}, and the specific advancements made over prior approaches are summarized in Section~\ref{sec:advancements}. Finally, Section~\ref{sec:conclude} presents the conclusion and future directions.
+
+\section{Outline of the Logical Formalism of MIRA}
+\label{sec:mira}
+The language of imperatives is given by \(\mathcal{L}_i = \langle I, R, P, B \rangle\), where \(I\) - imperatives \(\{ i_1, i_2, \ldots, i_n \}\), \(R\) - reasons \(\{ r_1, r_2, \ldots, r_n \}\), \(P\) - purposes in terms of goals \(\{ p_1, p_2, \ldots, p_n \}\), and \(B\) - binary connectives \(\{ \wedge, \vee, \rightarrow_r, \rightarrow_i, \rightarrow_p \}\). Here, \(R\) and \(P\) are propositions following propositional logic. These combine with imperatives (\(I\)) in several forms and are represented as Imperative Formula \(\mathcal{F}_i\). It is given by Equation~\ref{eq:formation}:
+\begin{eqnarray}
+\label{eq:formation}
+\mathcal{F}_i = \{ i \mid i \rightarrow_p p \mid (i \rightarrow_p p_1) \wedge (j \rightarrow_p p_2) \mid (i \rightarrow_p \theta) \oplus (j \rightarrow_p \theta) \mid (\varphi \rightarrow_i \psi) \mid (\tau \rightarrow_r \varphi) \}
+\end{eqnarray}
+
+Semantically, these take the value of Satisfaction \(S\), if the imperative stands satisfied after successful completion of action, Violated \(V\) if the action is not performed, and \(N\), if there is no intention to reach the goal, respectively. The imperatives are evaluated through satisfaction tables. For more details, the reader may refer to the work on the formalism of imperatives in computational settings~\cite{mira}.
+
+Equation~\ref{eq:formation} encompasses various types of imperatives\footnote{The terms 'imperatives' and 'instructions' are used interchangeably in this paper.} commonly found in real-world scenarios. These are illustrated with an example in the following section.
+
+\section{Action-Object Mapping}
+\label{sec:class}
+The fundamental unit of an imperative is denoted by \(i\), which can be further broken down into an action and an object. For instance, in the instruction \textit{``Take a book''}, the action is \textit{``take''} and the object is \textit{``book''}.
+
+Formally, this association can be represented as a function \(f: I \rightarrow A \times P(O)\), where \(I = \{i_1, i_2, i_3, \ldots, i_n\}\) is a set of instructions, \(A = \{a_1, a_2, \ldots, a_k\}\) is a set of actions, and \(O = \{o_1, o_2, \ldots, o_n\}\) is a set of objects.
+
+Each instruction \(i_j \in I\) can be represented by Equation~\ref{eq:ac_ob}:
+\begin{eqnarray}
+\label{eq:ac_ob}
+i_j = (a_j, o_j)
+\end{eqnarray}
+where: \(a_j \in A\), \(o_j \subseteq O\).
+
+Here, each action can occur alone, or with zero, one, or multiple objects as shown in Table~\ref{tab:ac_ob}.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Action Type}           & \textbf{Representation}             & \textbf{Example}                \\
+\hline
+Action with object             & \((a_j, \{o_k\})\)                  & \((\texttt{pick}, \{\texttt{rice}\})\) - \textit{pick rice} \\
+\hline
+Action with multiple objects   & \((a_j, \{o_k, o_m\})\)             & \((\texttt{cook}, \{\texttt{rice}, \texttt{pot}\})\) - \textit{cook rice in pot} \\
+\hline
+Action without object          & \((a_j, \emptyset)\)                & \((\texttt{wait}, \emptyset)\) - \textit{wait} \\
+\hline
+\end{tabular}
+\caption{Instruction representations for actions with zero, one, or multiple objects.}
+\label{tab:ac_ob}
+\end{table}
+
+This mapping of instruction to action and objects helps in sequencing, as detailed in the next section.
+
+\section{Sequencing Methods}
+\label{sec:seq}
+According to the Indian philosophical system of \mimamsa, a set of instructions can be sequenced using six distinct ordering principles to ensure coherent and uninterrupted execution. These are: Direct Assertion (\textit{Śrutikrama}), Purpose-Based Sequencing (\textit{Arthakrama}), Order as Given (\textit{Pāṭhakrama}), Position-Based Order (\textit{Sthānakrama}), Principal Activity-Based Order (\textit{Mukhyakrama}), and Iterative Procedure (\textit{Pravṛttikrama}). For more details on the sequencing aspects from the philosophy, the reader may refer to the prior work on temporal ordering of instructions~\cite{llm_mira}. Among these, three methods—Direct Assertion, Purpose-Based Sequencing, and Iterative Procedure—are formalized in this paper and discussed in Sections~\ref{sec:sruti},~\ref{sec:artha}, and~\ref{sec:pravritti}, respectively.
+
+\subsection{Direct Assertion (\'{S}rutikrama)}
+\label{sec:sruti}
+In this type, instructions are provided in a direct and sequential manner. Following the notation from the work on sequencing methods based on \mimamsa~\cite{llm_mira}, let:
+\begin{itemize}
+    \item \(i_t = (a_t, o_t)\): instruction at time \(t\), with action \(a_t\) and object(s) \(o_t\)
+    \item \(i_{t+1} = (a_{t+1}, o_{t+1})\): instruction at time \(t+1\)
+\end{itemize}
+Then, an instruction sequence can be expressed by Equation~\ref{eq:sruti}:
+\begin{eqnarray}
+\label{eq:sruti}
+(a_t o_t) \rightarrow_i (a_{t+1} o_{t+1})
+\end{eqnarray}
+where \(\rightarrow_i\) denotes temporal sequencing of actions on objects. This can be read as ``perform \(a_t\) on \(o_t\), then perform \(a_{t+1}\) on \(o_{t+1}\''.
+
+For a sequence of \(n\) instructions, Equation~\ref{eq:sruti} can be extended as shown in Equation~\ref{eq:sruti_ext}:
+\begin{eqnarray}
+\label{eq:sruti_ext}
+(a_1 o_1) \rightarrow_i (a_2 o_2) \rightarrow_i \ldots \rightarrow_i (a_n o_n)
+\end{eqnarray}
+This representation indicates that each instruction must be completed before the next instruction.
+
+For example, consider three statements \textit{``pick rice''}, \textit{``cook rice in pot''}, \textit{``add rice to dish''}. These can be represented as:
+\begin{eqnarray}
+(\text{pick} \{\text{rice}\}) \rightarrow_i (\text{cook} \{\text{rice}, \text{pot}\}) \rightarrow_i (\text{add} \{\text{rice}, \text{dish}\})
+\end{eqnarray}
+Here, objects are progressively updated across instructions. For instance, “rice” becomes “cooked rice” after executing the instruction “cook rice.” This transformation indicates that the instructions are linked through evolving object states, a relationship known as \textbf{object dependency}.
+
+This type of representation serves two major purposes:
+\begin{enumerate}
+    \item It indicates the temporal order of the actions.
+    \item The dependencies of objects across each step are enforced.
+\end{enumerate}
+
+\subsection{Purpose-Based Sequencing (\textit{Arthakrama})}
+\label{sec:artha}
+In this type, each instruction is of the form \((\tau \rightarrow_r (i \rightarrow_p p))\)~\cite{llm_mira}, indicating there is a ground or reason (\(\tau\)) for the instruction (\(i\)) to take place in order to achieve the goal (\(p\)). Here, \(\rightarrow_r\) and \(\rightarrow_p\) denote ``because of reason'' and ``in order to achieve goal'', respectively.
+
+This representation can be extended to a series of instructions as given by Equation~\ref{eq:artha_ext}:
+\begin{eqnarray}
+\label{eq:artha_ext}
+(r_1 \rightarrow_r (i_1 \rightarrow_p p_1)), (r_2 \rightarrow_r (i_2 \rightarrow_p p_2)), \ldots, (r_n \rightarrow_r (i_n \rightarrow_p p_n))
+\end{eqnarray}
+
+If the purpose \(p_k\) of instruction \(i_k\) becomes the reason \(r_{k+1}\) for the next instruction \(i_{k+1}\), then \(i_k\) precedes \(i_{k+1}\), because \(r_{k+1} = p_k\). This relation signifies that the second instruction (\(i_{k+1}\)) depends on the first (\(i_k\)) and is referred to as \textbf{functional dependency}, which has been used in task analysis for special education~\cite{ta}.
+
+Extending this further into the representation of \(i_j\) as \((a_j, o_j)\) pair, Equation~\ref{eq:artha_ext} can be formalized as shown in Equation~\ref{eq:ao_artha}:
+\begin{eqnarray}
+\label{eq:ao_artha}
+\forall j \in \{1, \ldots, n-1\}: r_j \rightarrow_r ((a_j, o_j) \rightarrow_p p_j), r_{j+1} = p_j
+\end{eqnarray}
+
+This representation creates object dependency in addition to functional dependency, thereby strengthening the sequencing method.
+
+\subsubsection{Sequential Completion Method}
+In this method, the full sequence is performed on one object, and the same sequence is repeated for all other objects.
+
+Formally, it can be represented as follows:
+
+Let there be \(n\) actions \(A = \{a_1, a_2, \ldots, a_n\}\) and \(T\) objects for each action, \(O_k = \{o_{k1}, o_{k2}, \ldots, o_{kT}\}\) for \(1 \leq k \leq n\).
+
+For each object \(o_j\) (\(1 \leq j \leq T\)), the sequence is given by Equation~\ref{eq:seq_single}:
+\begin{eqnarray}
+\label{eq:seq_single}
+(a_1 o_{1j} \rightarrow_i a_2 o_{2j} \rightarrow_i \ldots \rightarrow_i a_n o_{nj})
+\end{eqnarray}
+
+This is repeated for all \(j\) as shown below:
+\begin{eqnarray}
+\label{eq:seq_m}
+(a_1 o_{11} \rightarrow_i a_2 o_{21} \rightarrow_i a_3 o_{31} \rightarrow_i \ldots \rightarrow_i a_n o_{n1}) \\
+(a_1 o_{12} \rightarrow_i a_2 o_{22} \rightarrow_i a_3 o_{32} \rightarrow_i \ldots \rightarrow_i a_n o_{n2}) \nonumber \\
+(a_1 o_{13} \rightarrow_i a_2 o_{23} \rightarrow_i a_3 o_{33} \rightarrow_i \ldots \rightarrow_i a_n o_{n3}) \nonumber \\
+\vdots \nonumber \\
+(a_1 o_{1T} \rightarrow_i a_2 o_{2T} \rightarrow_i a_3 o_{3T} \rightarrow_i \ldots \rightarrow_i a_n o_{nT}) \nonumber
+\end{eqnarray}
+
+Equation~\ref{eq:seq_m} can be interpreted as:
+\begin{itemize}
+    \item For each object \(j\), all actions are performed in sequence before moving to the next object.
+    \item The objects involved in the sequence are \((o_{1j}, o_{2j}, \ldots, o_{nj})\) for \(j\).
+\end{itemize}
+
+\subsubsection{Step-by-Step Parallel Method (Iterative Procedure)}
+In this method, the first action is performed on all objects, followed by the second action, and so on. The same action is grouped and distributed across objects before moving to the next action.
+
+Formally, each action \(a_k\) (\(1 \leq k \leq n\)) performed across \(T\) objects (\(1 \leq j \leq T\)) is represented as:
+\begin{eqnarray}
+\label{eq:parallel_single}
+(a_k o_{k1} \rightarrow_i a_k o_{k2} \rightarrow_i \ldots \rightarrow_i a_k o_{kT})
+\end{eqnarray}
+
+This equation, when extended to all actions, is represented as:
+\begin{eqnarray}
+\label{eq:parallel}
+(a_1 o_{11} \rightarrow_i a_1 o_{12} \rightarrow_i a_1 o_{13} \rightarrow_i \ldots \rightarrow_i a_1 o_{1T}) \\
+(a_2 o_{21} \rightarrow_i a_2 o_{22} \rightarrow_i a_2 o_{23} \rightarrow_i \ldots \rightarrow_i a_2 o_{2T}) \nonumber \\
+(a_3 o_{31} \rightarrow_i a_3 o_{32} \rightarrow_i a_3 o_{33} \rightarrow_i \ldots \rightarrow_i a_3 o_{3T}) \nonumber \\
+\vdots \nonumber \\
+(a_n o_{n1} \rightarrow_i a_n o_{n2} \rightarrow_i a_n o_{n3} \rightarrow_i \ldots \rightarrow_i a_n o_{nT}) \nonumber
+\end{eqnarray}
+
+Equation~\ref{eq:parallel} can be interpreted as follows:
+\begin{itemize}
+    \item For each action \(k\), all objects \(o_1, o_2, \ldots, o_T\) are processed before moving to the next action.
+    \item Objects involved in each action group are \(O_k = \{o_{k1}, o_{k2}, \ldots, o_{kT}\}\).
+\end{itemize}
+
+Using these sequencing mechanisms, validity can be logically determined through object dependency and consistency across subsequent instructions, as detailed in the following section.
+
+\section{Validity of Instruction Sequencing}
+\label{sec:validity}
+A set of instructions is considered to be in a valid sequence if it satisfies the conditions of object dependency and state-wise consistency of subsequent instructions. These conditions are defined below.
+
+\begin{definition}[Dependency Condition]
+For a valid dependency between \(i_j\) and \(i_{j+1}\), \(\exists o^* \in O_j \cap O_{j+1}\). That is, there exists at least one object \(o^*\) that is present in both \(O_j\) and \(O_{j+1}\).
+\end{definition}
+
+\begin{definition}[Consistency Condition for Sequential Instructions]
+Let
+\begin{itemize}
+    \item \(i_j = (a_j, O_j)\) be the \(j\)-th instruction, where \(a_j\) is the action and \(O_j \subseteq O\) is the set of objects involved.
+    \item \(i_{j+1} = (a_{j+1}, O_{j+1})\) be the next instruction in the sequence.
+    \item For each object \(o^*\), let \(s_j(o^*)\) denote the state of \(o^*\) immediately after executing \(i_j\), and \(s_{j+1}^{\mathrm{req}}(o^*)\) denote the required state of \(o^*\) for executing \(i_{j+1}\).
+\end{itemize}
+Then the \textbf{consistency condition} holds between \(i_j\) and \(i_{j+1}\) if:
+\[
+\exists o^* \in O_j \cap O_{j+1} \text{ such that } s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*)
+\]
+\end{definition}
+This means that there exists at least one object \(o^*\) that is present in both instructions, and the state of \(o^*\) after executing \(i_j\) matches the required state for \(i_{j+1}\).
+
+With these conditions, the theorem for valid instruction sequencing is formalized.
+
+\begin{theorem}[Object Consistency Theorem for Valid Instruction Sequencing]
+Given a sequence of instructions \(I = \{i_1, i_2, \ldots, i_n\}\), where each \(i_j = (a_j, O_j)\), for every pair of consecutive instructions \((i_j, i_{j+1})\) where a dependency exists, \(\exists o^* \in O_j \cap O_{j+1}\) and the state of \(o^*\) after \(i_j\) matches the required state for \(i_{j+1}\), then the sequence is valid with respect to object dependencies.
+\end{theorem}
+
+\begin{proof}
+The proof of the theorem follows by induction on the consistency maintained between instructions.
+
+\textbf{Base Case:} For the first instruction \(i_1 = (a_1, O_1)\):
+\begin{itemize}
+    \item Each object \(o \in O_1\) is in its initial state, denoted \(s_1^{\mathrm{init}}(o)\).
+    \item Since there is no prior instruction, there are no dependencies to check.
+    \item The instruction \(i_1\) can be executed as long as its required preconditions (the states of objects in \(O_1\)) are satisfied by their initial states.
+\end{itemize}
+
+\textbf{Inductive Step:} Assume that for all instructions up to step \(j\), the following holds:
+\begin{itemize}
+    \item For every pair \((i_k, i_{k+1})\) with \(1 \leq k \leq j-1\), if a dependency exists (i.e., there is at least one shared object \(o^* \in O_k \cap O_{k+1}\)), then the consistency condition is satisfied:
+    \[
+    s_k(o^*) = s_{k+1}^{\mathrm{req}}(o^*)
+    \]
+    That is, the state of \(o^*\) after executing \(i_k\) matches the required state for \(i_{k+1}\).
+\end{itemize}
+
+Now, consider the next instruction \(i_{j+1} = (a_{j+1}, O_{j+1})\):
+\begin{itemize}
+    \item \textbf{Dependency Check:} If there exists at least one object \(o^* \in O_j \cap O_{j+1}\), then \(i_{j+1}\) depends on \(i_j\) for that object.
+    \item \textbf{Consistency Condition:} The state of \(o^*\) after executing \(i_j\), denoted \(s_j(o^*)\), must equal the required state for \(i_{j+1}\), denoted \(s_{j+1}^{\mathrm{req}}(o^*)\):
+    \[
+    s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*)
+    \]
+    \item \textbf{Conclusion:} If this condition holds for all such dependencies, then \(i_{j+1}\) can be executed validly, and the sequence up to \(i_{j+1}\) maintains object state consistency.
+\end{itemize}
+\end{proof}
+
+This theorem can be formalized as follows:
+\[
+\forall j \in \{1, \ldots, n-1\}, \text{if } D(i_j, i_{j+1}) = \text{True} \implies \left( O_j \cap O_{j+1} \neq \emptyset \text{ and } \forall o^* \in O_j \cap O_{j+1}, s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*) \right)
+\]
+where \(D(i_j, i_{j+1})\) indicates a dependency from \(i_j\) to \(i_{j+1}\).
+
+\subsection*{Corollary}
+If there exists a pair \((i_j, i_{j+1})\) with a dependency such that \(O_j \cap O_{j+1} = \emptyset\) or the state is inconsistent (i.e., \(\exists o^* \in O_j \cap O_{j+1}\) such that \(s_j(o^*) \neq s_{j+1}^{\mathrm{req}}(o^*)\)), then the sequence is invalid with respect to object dependencies.
+
+\subsection{Semantic Model and Soundness/Completeness}
+\label{sec:semantics}
+
+We define a denotational semantic model for instruction sequences based on the three-valued logic \( S \), \( V \), and \( N \), as introduced in Section~\ref{sec:mira}. Each instruction \( i_j = (a_j, O_j) \) is assigned a semantic value reflecting its execution state: \( S \) if satisfied, \( V \) if violated, and \( N \) if no intention is present. The model evaluates a sequence \( I = \{i_1, i_2, \ldots, i_n\} \) by propagating states \( s_j(o^*) \) across dependencies.
+
+\begin{definition}[Semantic Valuation]
+The semantic valuation function \( \mathcal{V}: I \rightarrow \{S, V, N\} \) assigns values to each \( i_j \) based on the consistency condition and object states.
+\end{definition}
+
+\begin{theorem}[Soundness]
+If a sequence \( I \) is valid according to the Object Consistency Theorem, then \( \mathcal{V}(I) = S \) for all \( i_j \in I \).
+\end{theorem}
+
+\begin{theorem}[Completeness]
+If \( \mathcal{V}(I) = S \) for all \( i_j \in I \), then \( I \) satisfies the Object Consistency Theorem.
+\end{theorem}
+
+\begin{proof}
+% Placeholder: Induction on sequence length, mapping states to S/V/N.
+\end{proof}
+
+\section{Implementation}
+The proposed framework is computationally instantiated through the MIRA AI Agent, a system leveraging Large Language Models (e.g., Groq, Gemini) for instruction generation and sequence validation. This agent, detailed in future work, demonstrates the practical feasibility of our semantic model, with real-time deployment as a web application. Current efforts focus on formal verification, with implementation specifics to be elaborated in a forthcoming paper.
+
+\section{Related Work}
+\label{sec:related}
+% Placeholder: Add 200-300 words comparing to imperative semantics (e.g., Charlow 2016), temporal planning (e.g., PDDL+), and MIRA 2021.
+
+\section{Advancements Over Prior Approaches}
+\label{sec:advancements}
+% Placeholder: Summarize improvements (e.g., semantic model, theorem) over ICLA 2025.
+
+\section{Conclusion and Future Work}
+\label{sec:conclude}
+% Placeholder: Recap contributions, mention future work (e.g., Z3, empirical benchmarks, MIRA AI Agent paper).
+
+\begin{thebibliography}{9}
+\bibitem{mira}
+Srinivasan, R., \& Parthasarathi, T. (2021). A Formalism to Specify Unambiguous Instructions Inspired by Mīmāṁsā in Computational Settings. *Journal Reference*.
+\bibitem{llm_mira}
+Srinivasan, R., et al. (2025). Temporal Ordering of Instructions Using MIRA. *ICLA 2025 Proceedings*.
+\bibitem{ta}
+Author, X. (Year). Task Analysis for Special Education. *Journal Reference*.
+\end{thebibliography}
+
+\end{document}
