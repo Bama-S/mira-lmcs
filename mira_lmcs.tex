@@ -62,6 +62,7 @@ I - imperatives \( \{ i_1, i_2, \ldots, i_n \} \), R - reasons \( \{ r_1, r_2, \
 \}
 \end{eqnarray}
 
+
 Semantically, these take the value of Satisfaction $S$, if the imperative stands satisfied after successful completion of action, Violated $V$ if the action is not performed and $N$, if there is no intention to reach the goal, respectively. The imperatives are evaluated through satisfaction tables. For more details, the reader may refer to the work of formalism of imperatives in computational settings \cite{mira}.
 
 Equation \ref{eq:formation} encompasses various types of imperatives \footnote{The terms 'imperatives' and 'instructions' are used interchangeably in this paper.} commonly found in real-world scenarios. These are illustrated with an example in the following section.
@@ -305,6 +306,72 @@ where $D(i_j, i_{j+1})$ indicates a dependency from $i_j$ to $i_{j+1}$.
 If there exists a pair $(i_j, i_{j+1})$ with a dependency such that $O_j \cap O_{j+1} = \emptyset$
 or the state is inconsistent (i.e., $\exists o^* \in O_j \cap O_{j+1}$ such that $s_j(o^*) \neq s_{j+1}^{\mathrm{req}}(o^*)$),
 then the sequence is invalid with respect to object dependencies.
+
+\subsection{Semantic Model}
+A semantic model is defined as $\mathcal{M}$ as in Equation \ref{eq:model}.
+\begin{eqnarray}
+ \label{eq:model}
+ \mathcal{M} = \langle{\mathcal{S},\mathcal{A},  \mathcal{O}, \mathcal{G}, intention, eval \rangle}
+\end{eqnarray}
+where,
+$\mathcal{S}$: set of system states, $\mathcal{A}$: set of actions, $\mathcal{O}$: set of objects, $intention$: $\mathcal{S} X \mathcal{G} \rightarrow \{true,false\}, \mathcal{S} X (\mathcal{A} X \mathcal{O}) \rightarrow \{S,V,N\} $.
+The semantic evaluation for different imperatives are given as follows:
+\begin{itemize}
+ \item  Unconditional Imperatives: \[
+\text{eval}(s, (a, o)) =
+\begin{cases}
+S & \text{if the action $a$ is successfully performed on $o$ in $s$}, \\
+V & \text{otherwise}.
+\end{cases}
+\]
+
+\item Imperative enjoining goal: \[
+\text{eval}(s, (a, o) \rightarrow_p g) =
+\begin{cases}
+S & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s \\
+V & \text{if the agent intends} v \text{ and } (a,o) \text{ is violated}  \\
+N & \text{if there is no intention to achieve the goal } g
+\end{cases}
+\]
+
+\item Imperatives in sequence:
+\[
+\text{eval}(s, (a_1, o_1) \rightarrow_i (a_2,o_2)) =
+\begin{cases}
+S,  \text{ if} \text{ eval }(s, (a_1,o_1) = S \text{ and}\\  \text{eval} (s', (a_2,o_2)) = S \text{ and} \\  \text{ object consistency holds as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
+\end{cases}
+\]
+
+\item Imperatives in parallel
+\[
+\text{eval}((s_1, (a_1, o_1)) \wedge (s_2,(a_2,o_2))) =
+\begin{cases}
+S,  \text{ if} \text{ eval }(s_1, (a_1,o_1) = S \text{ and}\\  \text{eval} (s_2, (a_2,o_2)) = S \text{ and} \\  \text{ object consistency does not hold as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
+\end{cases}
+\]
+
+\item Imperatives with choice
+\[
+\text{eval}((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
+\begin{cases}
+S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
+  \text{ or } \text{eval}(s_2, (a_2, o_2)) = V  \\[1.5ex]
+S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
+  \text{ or } \text{eval}(s_2, (a_2, o_2)) = S  \\[1.5ex]
+V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
+  \text{ and } \text{eval}(s_2, (a_2, o_2)) = S \\[1.5ex]
+V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
+  \text{ and } \text{eval}(s_2, (a_2, o_2)) = V
+\end{cases}
+\]
+
+
+\end{itemize}
+
+
+
+
+
 
 \section{Implementation}
 The proposed framework is computationally instantiated through the MIRA AI Agent, a system leveraging Large Language Models (e.g., Groq, Gemini) for instruction generation and sequence validation. This agent, detailed in future work, demonstrates the practical feasibility of our semantic model, with real-time deployment as a web application. Current efforts focus on formal verification, with implementation specifics to be elaborated in a forthcoming paper.
