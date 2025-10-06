@@ -44,7 +44,7 @@ This section extends the formal syntax and semantics framework of Srinivasan and
 The language of imperatives is given by \(\mathcal{L}_i = \langle I, R, P, B \rangle\), where:
 \begin{itemize}
   \item \(I = \{ i_1, i_2, \ldots, i_n \}\) is the set of imperatives,
-  \item \(R = \{ r_1, r_2, \ldots, r_n \}\) is the set of reasons,
+  \item \(R = \{ r_1, r_2, \ldots, r_n \}\) is the set of reasons or Preconditions
   \item \(P = \{ p_1, p_2, \ldots, p_n \}\) is the set of purposes (goals),
   \item \(B = \{ \wedge, \vee, \rightarrow_r, \rightarrow_i, \rightarrow_p \}\) is the set of binary connectives.
 \end{itemize}
@@ -95,70 +95,6 @@ Action without object          & \((a_j, \emptyset)\)                & \((\textt
 \end{table}
 
 
-\subsection{Semantic Model}
-\label{sec:semantics}
-A semantic model is defined as $\mathcal{M}$ as in Equation \ref{eq:model}.
-\begin{eqnarray}
- \label{eq:model}
- \mathcal{M} = \langle{\mathcal{S},\mathcal{A},  \mathcal{O}, \mathcal{G}, intention, eval \rangle}
-\end{eqnarray}
-where,
-$\mathcal{S}$: set of system states, $\mathcal{A}$: set of actions, $\mathcal{O}$: set of objects, $intention$: $\mathcal{S} X \mathcal{G} \rightarrow \{true,false\}, \mathcal{S} X (\mathcal{A} X \mathcal{O}) \rightarrow \{S,V,N\} $.
-The semantic evaluation for different imperatives are given as follows:
-\begin{itemize}
- \item  Unconditional Imperatives: \[
-\text{eval}(s, (a, o)) =
-\begin{cases}
-S & \text{if the action $a$ is successfully performed on $o$ in $s$}, \\
-V & \text{otherwise}.
-\end{cases}
-\]
-
-\item Imperative enjoining goal: \[
-\text{eval}(s, (a, o) \rightarrow_p g) =
-\begin{cases}
-S & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s \\
-V & \text{if the agent intends} v \text{ and } (a,o) \text{ is violated}  \\
-N & \text{if there is no intention to achieve the goal } g
-\end{cases}
-\]
-
-\item Imperatives in sequence:
-\[
-\text{eval}(s, (a_1, o_1) \rightarrow_i (a_2,o_2)) =
-\begin{cases}
-S,  \text{ if} \text{ eval }(s, (a_1,o_1) = S \text{ and}\\  \text{eval} (s', (a_2,o_2)) = S \text{ and} \\  \text{ object consistency holds as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
-\end{cases}
-\]
-
-\item Imperatives in parallel
-\[
-\text{eval}((s_1, (a_1, o_1)) \wedge (s_2,(a_2,o_2))) =
-\begin{cases}
-S,  \text{ if} \text{ eval }(s_1, (a_1,o_1) = S \text{ and}\\  \text{eval} (s_2, (a_2,o_2)) = S \text{ and} \\  \text{ object consistency does not hold as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
-\end{cases}
-\]
-
-\item Imperatives with choice
-\[
-\text{eval}((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
-\begin{cases}
-S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
-  \text{ or } \text{eval}(s_2, (a_2, o_2)) = V  \\[1.5ex]
-S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
-  \text{ or } \text{eval}(s_2, (a_2, o_2)) = S  \\[1.5ex]
-V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
-  \text{ and } \text{eval}(s_2, (a_2, o_2)) = S \\[1.5ex]
-V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
-  \text{ and } \text{eval}(s_2, (a_2, o_2)) = V
-\end{cases}
-\]
-
-
-\end{itemize}
-The syntax of the imperative language specifies the formation rules for well-formed imperative formulas by combining imperaties, binary connectives, reasons, and goals.
-\subsection{Syntax}
-
 \subsection{Semantics}
 The semantics defines how each imperative formula is interpreted over the model, assigning it a satisfaction status based on system states, actions, objects, and goal-directed intentions.
 A semantic model \(\mathcal{M}\) is defined as:
@@ -168,7 +104,7 @@ A semantic model \(\mathcal{M}\) is defined as:
 \end{eqnarray}
 where
 \begin{itemize}
-    \item \(\mathcal{S}\) is the set of system states,
+    \item \(\mathcal{R}\) is the set of Preconditions,
     \item \(\mathcal{A}\) is the set of actions,
     \item \(\mathcal{O}\) is the set of objects,
     \item \(\mathcal{G}\) is the set of goals,
@@ -181,19 +117,19 @@ The semantic evaluations for different imperatives are given as follows:
 \begin{itemize}
  \item \textbf{Unconditional Imperatives}:
 \[
-eval(s, (a, o)) =
+eval(r, (a, o)) =
 \begin{cases}
-S, & \text{if the action } a \text{ is successfully performed on } o \text{ in } s, \\
+S, & \text{if the action } a \text{ is successfully performed on } o \text{ in } r, \\
 V, & \text{otherwise}.
 \end{cases}
 \]
 
 \item \textbf{Imperative Enjoining Goal}:
 \[
-eval(s, (a, o) \rightarrow_p g) =
+eval(r, (a, o) \rightarrow_p g) =
 \begin{cases}
-S, & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s, \\
-V, & \text{if the agent intends } g \text{ and } (a,o) \text{ is violated in } s, \\
+S, & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } r, \\
+V, & \text{if the agent intends } g \text{ and } (a,o) \text{ is violated in } r, \\
 N, & \text{if there is no intention to achieve goal } g.
 \end{cases}
 \]
@@ -202,42 +138,34 @@ N, & \text{if there is no intention to achieve goal } g.
 \[
 eval(s, (a_1, o_1) \rightarrow_i (a_2, o_2)) =
 \begin{cases}
-S, & \text{if } eval(s, (a_1, o_1)) = S \text{, } eval(s', (a_2, o_2)) = S \text{ and object consistency holds,} \\
-V, & \text{if } eval(s, (a_1, o_1)) = V \text{ or } eval(s', (a_2, o_2)) = V.
+S, & \text{if } eval(r, (a_1, o_1)) = S \text{, } eval(s', (a_2, o_2)) = S \text{ and object consistency holds,} \\
+V, & \text{if } eval(r, (a_1, o_1)) = V \text{ or } eval(s', (a_2, o_2)) = V.
 \end{cases}
 \]
 
 \item \textbf{Imperatives in Parallel}:
 \[
-eval((s_1, (a_1, o_1)) \wedge (s_2, (a_2, o_2))) =
+eval((r_1, (a_1, o_1)) \wedge (r_2, (a_2, o_2))) =
 \begin{cases}
-S, & \text{if } eval(s_1, (a_1, o_1)) = S, \quad eval(s_2, (a_2, o_2)) = S, \\
+S, & \text{if } eval(r_1, (a_1, o_1)) = S, \quad eval(r_2, (a_2, o_2)) = S, \\
 & \text{and object consistency does not hold,} \\
-V, & \text{if } eval(s_1, (a_1, o_1)) = V \text{ or } eval(s_2, (a_2, o_2)) = V.
+V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ or } eval(r_2, (a_2, o_2)) = V.
 \end{cases}
 \]
 
 \item \textbf{Imperatives with Choice}:
 \[
-eval((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
+eval((r_1, (a_1, o_1)) \oplus (r_2, (a_2, o_2))) =
 \begin{cases}
-S, & \text{if } eval(s_1, (a_1, o_1)) = S \text{ or } eval(s_2, (a_2, o_2)) = S, \\
-V, & \text{if } eval(s_1, (a_1, o_1)) = V \text{ and } eval(s_2, (a_2, o_2)) = V.
+S, & \text{if } eval(r_1, (a_1, o_1)) = S \text{ or } eval(r_2, (a_2, o_2)) = S, \\
+V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ and } eval(r_2, (a_2, o_2)) = V.
 \end{cases}
 \]
 
 \end{itemize}
 
-Equation \ref{eq:formation} encompasses various types of imperatives \footnote{The terms 'imperatives' and 'instructions' are used interchangeably in this paper.} commonly found in real-world scenarios.
 
 
-\section{Action-Object Mapping}
-\label{sec:class}
-
-\medskip
-\noindent
-
-This mapping of instruction to action and objects help in sequencing, as detailed in the next section.
 
 \section{Sequencing Methods}
 \label{sec:seq}
