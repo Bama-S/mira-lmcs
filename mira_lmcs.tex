@@ -31,56 +31,52 @@
 \end{abstract}
 
 \section{Introduction}
-Assume a robot is given the task of \textit{``cooking tomato noodles stir-fry''}. Though it may appear simple at first glance, there are several intricate details that must be considered before executing each instruction. For instance, this task may consist of several steps such as \textit{``pick noodles, cook noodles in pot, chop tomato, fry tomato, and add the cooked noodle to a dish''}. The robot must determine what actions to perform, which objects to use, and the appropriate order in which to execute them. This represents one of the key challenges in task planning within Artificial Intelligence.
+Assume a robot is given the task of \textit{``cooking tomato noodles stir-fry''}. Though it may appear simple at first glance, there are several intricate details that must be considered before executing each instruction. For instance, this task may consist of several steps such as \textit{``pick noodles, cook noodles in pot, chop tomato, fry tomato, and add the cooked noodle to a dish''}. The robot must determine what actions to perform, which objects to use, and the appropriate order in which to execute them. To logically determine the sequence with the integration of objects is a challenge.
 
-Task Planning turns out to be more complex when there are interdependence among multiple instructions. Here, the sequence has to be determined through temporal order, object dependencies or the resulting state after the performance of each action. Existing methods in AI have addressed these problem through rule based method and logic. But it lacks flexibility and contextual understanding.
+This paper addresses this challenge through novel framework for instruction sequencing inspired by principles from the Indian philosophical system of \mimamsa\footnote{\mimamsa~is a classical Indian philosophical system that developed a detailed theory of imperatives (vidhi), focusing on their function, classification, and execution of actions in a systematic procedure. Its procedural system has recently attracted attention in computational contexts due to its fine-grained treatment of instruction structure and intent.}.  In this approach, each instruction is represented as an $<\text{action}, \text{object}>$ pair, which serves as the foundation for evaluating consistency across subsequent instructions. An initial version of this work was presented and published in the proceedings of ICLA 2025, where the fundamental representation of instructions as action–object pairs was introduced \cite{llm_mira}. The present paper significantly extends that work by formalizing the criteria for valid instruction sequencing, including the introduction of an object consistency theorem with soundness and completeness.
 
-With the advent of Large Language Models (LLMs), task planning has become more adaptive and efficient. LLMs can generate sequences of actions from natural language prompts and respond flexibly to user-defined task descriptions and goals. However, these models still suffer from inconsistencies in sequencing of given instructions. Further instructions generated from LLM may violate object dependencies or contradict previous instructions.
+The remainder of the paper is structured as follows: Section~\ref{sec:mira} outlines the logical formalism of MIRA with syntax and semantics, which forms the basis for the sequencing methods. Section~\ref{sec:aopair} presents the representation of instructions as \texttt{action, object} pairs with sequencing mechanisms. The various sequencing strategies—including Direct Assertion, Purpose-Based Sequencing, and the Sequential Completion / Iterative Procedure—are formally described in Section~\ref{sec:seq}. The validity of these sequencing methods is established in Section~\ref{sec:validity}. Related work is reviewed in Section~\ref{sec:related}, and the specific advancements made over prior approaches are summarized in Section~\ref{sec:advancements}. Finally, Section~\ref{sec:conclude} presents the conclusion.
 
-To address these limitations, this paper proposes a novel framework for instruction sequencing inspired by principles from the Indian philosophical system of \mimamsa\footnote{\mimamsa~is a classical Indian philosophical system that developed a detailed theory of imperatives (vidhi), focusing on their function, classification, and execution of actions in a systematic procedure. Its procedural system has recently attracted attention in computational contexts due to its fine-grained treatment of instruction structure and intent.}. The framework builds upon MIRA~\cite{mira}, a logical formalism based on imperatives (instructions). In this approach, each instruction is represented as an $<\text{action}, \text{object}>$ pair, which serves as the foundation for evaluating consistency across instructions.
+\section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
+This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
+\subsection{Syntax}
+\label{sec:syntax}
+The language of imperatives is given by \(\mathcal{L}_i = \langle I, R, P, B \rangle\), where:
+\begin{itemize}
+  \item \(I = \{ i_1, i_2, \ldots, i_n \}\) is the set of imperatives,
+  \item \(R = \{ r_1, r_2, \ldots, r_n \}\) is the set of reasons,
+  \item \(P = \{ p_1, p_2, \ldots, p_n \}\) is the set of purposes (goals),
+  \item \(B = \{ \wedge, \vee, \rightarrow_r, \rightarrow_i, \rightarrow_p \}\) is the set of binary connectives.
+\end{itemize}
 
-An initial version of this work was presented and published in the proceedings of ICLA 2025, where the fundamental representation of instructions as action–object pairs was introduced \cite{llm_mira}. The present paper significantly extends that work by formalizing the criteria for valid instruction sequencing, including the introduction of an object consistency theorem with corresponding proofs.
-
-\subsection*{Extended Contributions}
-\begin{enumerate}
-\item Introduction of an object consistency theorem with supporting proofs to verify sequence validity.
-\item Integration of the theoretical framework with LLMs to enable explainable instruction generation and consistency verification.
-\end{enumerate}
-
-The remainder of the paper is structured as follows: Section~\ref{sec:mira} outlines the logical formalism of MIRA, which forms the basis for the sequencing methods. Section~\ref{sec:class} presents the classification of imperatives and the representation of instructions as \texttt{action, object} pairs. The various sequencing strategies—including Direct Assertion, Purpose-Based Sequencing, and the Sequential Completion / Iterative Procedure—are formally described in Section~\ref{sec:seq}. The validity of these sequencing methods is established in Section~\ref{sec:validity}. Related work is reviewed in Section~\ref{sec:related}, and the specific advancements made over prior approaches are summarized in Section~\ref{sec:advancements}. Finally, Section~\ref{sec:conclude} presents the conclusion.
-
-\section{Outline of the logical formalism of MIRA}
-\label{sec:mira}
-The language of imperatives is given by $\mathcal{L}_i = \langle I,R,P,B\rangle$, where
-I - imperatives \( \{ i_1, i_2, \ldots, i_n \} \), R - reasons \( \{ r_1, r_2, \ldots, r_n \} \), P - purpose in terms of goals \( \{ p_1, p_2, \ldots, p_n \} \) and B - Binary connectives \{$\wedge,\vee, \rightarrow_r, \rightarrow_i, \rightarrow_p$\}. Here, $R$ and $P$ are propositions, which follow Proposition Formula. These combine with imperatives ($I$) in several forms and are represented as Imperative Formula $\mathcal{F}_i$. It is given by Equation \ref{eq:formation}
+Here, \(R\) and \(P\) are propositions, following propositional formula syntax. They combine with imperatives \(I\) in several forms to build Imperative Formulas \(\mathcal{F}_i\), specified by Equation \ref{eq:formation}:
 
 \begin{eqnarray}
 \label{eq:formation}
- \mathcal{F}_i = \{i|i \rightarrow_p p| (i \rightarrow_p p_1) \wedge (j \rightarrow_p p_2)|(i \rightarrow_p \theta) \oplus (j \rightarrow_p \theta)|(\varphi \rightarrow_i \psi)| (\tau \rightarrow_r \varphi)
+\mathcal{F}_i = \{
+i \mid i \rightarrow_p p \mid (i \rightarrow_p p_1) \wedge (j \rightarrow_p p_2) \mid (i \rightarrow_p \theta) \oplus (j \rightarrow_p \theta) \mid (\varphi \rightarrow_i \psi) \mid (\tau \rightarrow_r \varphi)
 \}
 \end{eqnarray}
 
+The fundamental unit of an imperative, denoted \(i\), decomposes into an action and a set of objects. For example, the instruction \emph{``Take a book''} associates the action \emph{``take''} with the object \emph{``book''}.
 
-Semantically, these take the value of Satisfaction $S$, if the imperative stands satisfied after successful completion of action, Violated $V$ if the action is not performed and $N$, if there is no intention to reach the goal, respectively. The imperatives are evaluated through satisfaction tables. For more details, the reader may refer to the work of formalism of imperatives in computational settings \cite{mira}.
+Formally, this association is a function:
+\[
+f : I \to A \times \mathcal{P}(O),
+\]
+where \(I = \{ i_1, i_2, i_3, \ldots, i_n \}\) is a set of instructions,
+\(A = \{ a_1, a_2, \ldots, a_k \}\) is a set of actions, and
+\(O = \{ o_1, o_2, \ldots, o_m \}\) is a set of objects.
 
-Equation \ref{eq:formation} encompasses various types of imperatives \footnote{The terms 'imperatives' and 'instructions' are used interchangeably in this paper.} commonly found in real-world scenarios. These are illustrated with an example in the following section.
-
-\section{Action-Object Mapping}
-\label{sec:class}
-The fundamental unit of an imperative is denoted by $i$, which can be further broken down into an action and an object.
-For instance, in the instruction \textit{``Take a book''}, the action is \textit{``take''} and the object is \textit{``book''}.
-
-Formally, this association can be represented as a function $f$:
-$f:I\rightarrow A X P(O)$, where $I = \{i_1,i_2,i_3,...,i_n\}$ is a set of instructions, $A = \{a_1,a_2,...,a_k\}$ is a set of actions and $O = \{o_1,o_2,...,o_n\}$ is a set of objects.
-
-Each instruction $i_j \in I$ can be represented by Equation \ref{eq:ac_ob}.
+Each instruction \(i_j \in I\) can be represented as:
 \begin{eqnarray}
 \label{eq:ac_ob}
- i_j = (a_j,o_j)
+i_j = (a_j, o_j)
 \end{eqnarray}
-where: $a_j \in A$, $o_j \subseteq O$.
+where \(a_j \in A\), and \(o_j \subseteq O\).
 
-Here, each action can occur alone, or with zero, one or multiple objects as shown in Table \ref{tab:ac_ob}.
+Here, each action can stand alone, or be paired with zero, one, or multiple objects as summarized in Table \ref{tab:ac_ob}.
+
 \begin{table}[h!]
 \label{tab:ac_ob}
 \centering
@@ -88,15 +84,155 @@ Here, each action can occur alone, or with zero, one or multiple objects as show
 \hline
 \textbf{Action Type}           & \textbf{Representation}             & \textbf{Example}                \\
 \hline
-Action with object             & $(a_j, \{o_k\})$                    & (\texttt{pick}, \{\texttt{rice}\}) - \textit{pick rice} \\
+Action with object             & \((a_j, \{ o_k \})\)                & \((\texttt{pick}, \{\texttt{rice}\})\) - \emph{pick rice} \\
 \hline
-Action with multiple objects   & $(a_j, \{o_k, o_m\})$               & (\texttt{cook}, \{\texttt{rice}, \texttt{pot}\}) - \textit{cook rice in pot}\\
+Action with multiple objects   & \((a_j, \{ o_k, o_m \})\)          & \((\texttt{cook}, \{\texttt{rice}, \texttt{pot}\})\) - \emph{cook rice in pot} \\
 \hline
-Action without object          & $(a_j, \emptyset)$                  & (\texttt{wait}, $\emptyset$)  - wait  \\
+Action without object          & \((a_j, \emptyset)\)                & \((\texttt{wait}, \emptyset)\) - \emph{wait} \\
 \hline
 \end{tabular}
-\caption{Instruction representations for actions with zero, one, or multiple objects.}
+\caption{Instruction representations for actions paired with zero, one, or multiple objects.}
 \end{table}
+
+
+\subsection{Semantic Model}
+\label{sec:semantics}
+A semantic model is defined as $\mathcal{M}$ as in Equation \ref{eq:model}.
+\begin{eqnarray}
+ \label{eq:model}
+ \mathcal{M} = \langle{\mathcal{S},\mathcal{A},  \mathcal{O}, \mathcal{G}, intention, eval \rangle}
+\end{eqnarray}
+where,
+$\mathcal{S}$: set of system states, $\mathcal{A}$: set of actions, $\mathcal{O}$: set of objects, $intention$: $\mathcal{S} X \mathcal{G} \rightarrow \{true,false\}, \mathcal{S} X (\mathcal{A} X \mathcal{O}) \rightarrow \{S,V,N\} $.
+The semantic evaluation for different imperatives are given as follows:
+\begin{itemize}
+ \item  Unconditional Imperatives: \[
+\text{eval}(s, (a, o)) =
+\begin{cases}
+S & \text{if the action $a$ is successfully performed on $o$ in $s$}, \\
+V & \text{otherwise}.
+\end{cases}
+\]
+
+\item Imperative enjoining goal: \[
+\text{eval}(s, (a, o) \rightarrow_p g) =
+\begin{cases}
+S & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s \\
+V & \text{if the agent intends} v \text{ and } (a,o) \text{ is violated}  \\
+N & \text{if there is no intention to achieve the goal } g
+\end{cases}
+\]
+
+\item Imperatives in sequence:
+\[
+\text{eval}(s, (a_1, o_1) \rightarrow_i (a_2,o_2)) =
+\begin{cases}
+S,  \text{ if} \text{ eval }(s, (a_1,o_1) = S \text{ and}\\  \text{eval} (s', (a_2,o_2)) = S \text{ and} \\  \text{ object consistency holds as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
+\end{cases}
+\]
+
+\item Imperatives in parallel
+\[
+\text{eval}((s_1, (a_1, o_1)) \wedge (s_2,(a_2,o_2))) =
+\begin{cases}
+S,  \text{ if} \text{ eval }(s_1, (a_1,o_1) = S \text{ and}\\  \text{eval} (s_2, (a_2,o_2)) = S \text{ and} \\  \text{ object consistency does not hold as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
+\end{cases}
+\]
+
+\item Imperatives with choice
+\[
+\text{eval}((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
+\begin{cases}
+S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
+  \text{ or } \text{eval}(s_2, (a_2, o_2)) = V  \\[1.5ex]
+S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
+  \text{ or } \text{eval}(s_2, (a_2, o_2)) = S  \\[1.5ex]
+V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
+  \text{ and } \text{eval}(s_2, (a_2, o_2)) = S \\[1.5ex]
+V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
+  \text{ and } \text{eval}(s_2, (a_2, o_2)) = V
+\end{cases}
+\]
+
+
+\end{itemize}
+The syntax of the imperative language specifies the formation rules for well-formed imperative formulas by combining imperaties, binary connectives, reasons, and goals.
+\subsection{Syntax}
+
+\subsection{Semantics}
+The semantics defines how each imperative formula is interpreted over the model, assigning it a satisfaction status based on system states, actions, objects, and goal-directed intentions.
+A semantic model \(\mathcal{M}\) is defined as:
+\begin{eqnarray}
+\label{eq:model}
+\mathcal{M} = \langle \mathcal{S}, \mathcal{A}, \mathcal{O}, \mathcal{G}, intention, eval \rangle,
+\end{eqnarray}
+where
+\begin{itemize}
+    \item \(\mathcal{S}\) is the set of system states,
+    \item \(\mathcal{A}\) is the set of actions,
+    \item \(\mathcal{O}\) is the set of objects,
+    \item \(\mathcal{G}\) is the set of goals,
+    \item \(intention : \mathcal{S} \times \mathcal{G} \to \{ true, false \}\),
+    \item \(eval : \mathcal{S} \times (\mathcal{A} \times \mathcal{O}) \to \{ S, V, N \}\).
+\end{itemize}
+
+The semantic evaluations for different imperatives are given as follows:
+
+\begin{itemize}
+ \item \textbf{Unconditional Imperatives}:
+\[
+eval(s, (a, o)) =
+\begin{cases}
+S, & \text{if the action } a \text{ is successfully performed on } o \text{ in } s, \\
+V, & \text{otherwise}.
+\end{cases}
+\]
+
+\item \textbf{Imperative Enjoining Goal}:
+\[
+eval(s, (a, o) \rightarrow_p g) =
+\begin{cases}
+S, & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s, \\
+V, & \text{if the agent intends } g \text{ and } (a,o) \text{ is violated in } s, \\
+N, & \text{if there is no intention to achieve goal } g.
+\end{cases}
+\]
+
+\item \textbf{Imperatives in Sequence}:
+\[
+eval(s, (a_1, o_1) \rightarrow_i (a_2, o_2)) =
+\begin{cases}
+S, & \text{if } eval(s, (a_1, o_1)) = S \text{, } eval(s', (a_2, o_2)) = S \text{ and object consistency holds,} \\
+V, & \text{if } eval(s, (a_1, o_1)) = V \text{ or } eval(s', (a_2, o_2)) = V.
+\end{cases}
+\]
+
+\item \textbf{Imperatives in Parallel}:
+\[
+eval((s_1, (a_1, o_1)) \wedge (s_2, (a_2, o_2))) =
+\begin{cases}
+S, & \text{if } eval(s_1, (a_1, o_1)) = S, \quad eval(s_2, (a_2, o_2)) = S, \\
+& \text{and object consistency does not hold,} \\
+V, & \text{if } eval(s_1, (a_1, o_1)) = V \text{ or } eval(s_2, (a_2, o_2)) = V.
+\end{cases}
+\]
+
+\item \textbf{Imperatives with Choice}:
+\[
+eval((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
+\begin{cases}
+S, & \text{if } eval(s_1, (a_1, o_1)) = S \text{ or } eval(s_2, (a_2, o_2)) = S, \\
+V, & \text{if } eval(s_1, (a_1, o_1)) = V \text{ and } eval(s_2, (a_2, o_2)) = V.
+\end{cases}
+\]
+
+\end{itemize}
+
+Equation \ref{eq:formation} encompasses various types of imperatives \footnote{The terms 'imperatives' and 'instructions' are used interchangeably in this paper.} commonly found in real-world scenarios.
+
+
+\section{Action-Object Mapping}
+\label{sec:class}
 
 \medskip
 \noindent
@@ -305,66 +441,6 @@ If there exists a pair $(i_j, i_{j+1})$ with a dependency such that $O_j \cap O_
 or the state is inconsistent (i.e., $\exists o^* \in O_j \cap O_{j+1}$ such that $s_j(o^*) \neq s_{j+1}^{\mathrm{req}}(o^*)$),
 then the sequence is invalid with respect to object dependencies.
 
-\subsection{Semantic Model}
-A semantic model is defined as $\mathcal{M}$ as in Equation \ref{eq:model}.
-\begin{eqnarray}
- \label{eq:model}
- \mathcal{M} = \langle{\mathcal{S},\mathcal{A},  \mathcal{O}, \mathcal{G}, intention, eval \rangle}
-\end{eqnarray}
-where,
-$\mathcal{S}$: set of system states, $\mathcal{A}$: set of actions, $\mathcal{O}$: set of objects, $intention$: $\mathcal{S} X \mathcal{G} \rightarrow \{true,false\}, \mathcal{S} X (\mathcal{A} X \mathcal{O}) \rightarrow \{S,V,N\} $.
-The semantic evaluation for different imperatives are given as follows:
-\begin{itemize}
- \item  Unconditional Imperatives: \[
-\text{eval}(s, (a, o)) =
-\begin{cases}
-S & \text{if the action $a$ is successfully performed on $o$ in $s$}, \\
-V & \text{otherwise}.
-\end{cases}
-\]
-
-\item Imperative enjoining goal: \[
-\text{eval}(s, (a, o) \rightarrow_p g) =
-\begin{cases}
-S & \text{if the agent intends } g \text{ and } (a,o) \text{ is satisfied in } s \\
-V & \text{if the agent intends} v \text{ and } (a,o) \text{ is violated}  \\
-N & \text{if there is no intention to achieve the goal } g
-\end{cases}
-\]
-
-\item Imperatives in sequence:
-\[
-\text{eval}(s, (a_1, o_1) \rightarrow_i (a_2,o_2)) =
-\begin{cases}
-S,  \text{ if} \text{ eval }(s, (a_1,o_1) = S \text{ and}\\  \text{eval} (s', (a_2,o_2)) = S \text{ and} \\  \text{ object consistency holds as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
-\end{cases}
-\]
-
-\item Imperatives in parallel
-\[
-\text{eval}((s_1, (a_1, o_1)) \wedge (s_2,(a_2,o_2))) =
-\begin{cases}
-S,  \text{ if} \text{ eval }(s_1, (a_1,o_1) = S \text{ and}\\  \text{eval} (s_2, (a_2,o_2)) = S \text{ and} \\  \text{ object consistency does not hold as per Equation \ref{eq:}} \\ V, \text{ if either }  \text{ eval }(s, (a_1,o_1) = V) \text{ or }  \\ \text{ eval }(s, (a_2,o_2) = V
-\end{cases}
-\]
-
-\item Imperatives with choice
-\[
-\text{eval}((s_1, (a_1, o_1)) \oplus (s_2, (a_2, o_2))) =
-\begin{cases}
-S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
-  \text{ or } \text{eval}(s_2, (a_2, o_2)) = V  \\[1.5ex]
-S, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
-  \text{ or } \text{eval}(s_2, (a_2, o_2)) = S  \\[1.5ex]
-V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = S
-  \text{ and } \text{eval}(s_2, (a_2, o_2)) = S \\[1.5ex]
-V, & \text{if } \text{eval}(s_1, (a_1, o_1)) = V
-  \text{ and } \text{eval}(s_2, (a_2, o_2)) = V
-\end{cases}
-\]
-
-
-\end{itemize}
 
 \begin{theorem}[Soundness of Sequential Composition]
 Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If
