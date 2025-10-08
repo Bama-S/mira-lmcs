@@ -4,6 +4,9 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+\newcommand{\bigseq}{\mathop{\raisebox{0.3ex}{\scalebox{1.5}{$\prod$}}}}
+\newcommand{\paralleli}{\mathrel{\|_i}}
+
 
 %\newtheorem{proposition}[theorem]{Proposition}%
 %\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
@@ -161,11 +164,8 @@ S, & \text{if } eval(r_1, (a_1, o_1)) = S \text{ or } eval(r_2, (a_2, o_2)) = S,
 V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ and } eval(r_2, (a_2, o_2)) = V.
 \end{cases}
 \]
-
 \end{itemize}
-
-
-
+This formal action-object representation provides a foundation for capturing the ordering and dependency relationships among instructions. The philosophy of \mimamsa\ includes several principled methods for sequencing such instructions to achieve coherent execution. The next section introduces these methods and formally develops three sequencing strategies by extending this representation.
 
 \section{Sequencing Methods}
 \label{sec:seq}
@@ -176,8 +176,8 @@ According to the Indian philosophical system of \mimamsa, a set of instructions 
 \label{sec:sruti}
 In this type, instructions are provided in a direct and sequential manner. Following the notation from the work of sequencing methods based on \mimamsa~\cite{llm_mira}, let:
 \begin{itemize}
- \item $i_t = (a_t,o_t)$: instruction at time $t$, with action $a_t$ and object(s) $o_t$
-\item $i_{t+1} = (a_{t+1},o_{t+1})$: instruction at time t+1
+ \item $i_t = (a_t,o_t)$: instruction at the first instant $t$, with action $a_t$ and object(s) $o_t$
+\item $i_{t+1} = (a_{t+1},o_{t+1})$: instruction at the next instant $t+1$
  \end{itemize}
 Then, Instruction in sequence can be expressed by Equation \ref{eq:sruti}.
 \begin{eqnarray}
@@ -186,17 +186,18 @@ Then, Instruction in sequence can be expressed by Equation \ref{eq:sruti}.
 \end{eqnarray}
 where $\rightarrow_i$ denotes temporal sequencing of actions on objects. The indication can be read as  ``perform $a_t$ on $o_t$, then perform $a_{t+1}$ on $o_{t+1}$''.
 
-For a sequence of $n$ instructions, Equation \ref{eq:sruti} can be extended as shown in Equation \ref{eq:sruti_ext}.
+For a sequence of $n$ instructions, the temporal order and precedence can be formally represented using nested left brackets as shown in Equation \ref{eq:sruti_ext}.
 \begin{eqnarray}
  \label{eq:sruti_ext}
- (a_1o_1) \rightarrow_i (a_2o_2) \rightarrow_i ... \rightarrow_i (a_no_n)
+(\cdots ((a_1 o_1) \rightarrow_i (a_2 o_2)) \rightarrow_i (a_3 o_3) \cdots ) \rightarrow_i (a_n o_n)
 \end{eqnarray}
+
 This representation indicates that each instruction must be completed before the next instruction.
 
 For example, consider three statements \textit{``pick rice''}, \textit{``cook rice in pot''}, \textit{``add rice to dish''}. These can be represented as:
 \begin{eqnarray}
- (pick \{rice\}) \rightarrow_i (cook \{rice,
- pot\}) \rightarrow_i (add \{rice,dish\})
+ (((pick \{rice\}) \rightarrow_i (cook \{rice,
+ pot\})) \rightarrow_i (add \{rice,dish\}))
 \end{eqnarray}
 Here, objects are progressively updated across instructions. For instance, “rice” becomes “cooked rice” after executing the instruction “cook rice.” This transformation indicates that the instructions are linked through evolving object states, a relationship known as \textbf{object dependency}.
 
@@ -208,7 +209,7 @@ This type of representation serves two major purposes.
 \end{enumerate}
 \subsection{Sequencing based on purpose}
 \label{sec:artha}
-In this type, each instruction is of the form $(\tau \rightarrow_r (i \rightarrow_p) p)$ \cite{llm_mira}, indicating there is a ground or reason ($\tau$) for the instruction ($i$) to take place, inorder to achieve the goal ($p$). Here, $\rightarrow_r$ and $\rightarrow_p$ denote ``because of reason'' and ``inorder to achieve  goal'', respectively.
+In this type, each instruction is of the form $(\tau \rightarrow_r (i \rightarrow_p p))$ \cite{llm_mira}, indicating there is a precondition ($\tau$) for the instruction ($i$) to take place, inorder to achieve the goal ($p$). Here, $\rightarrow_r$ and $\rightarrow_p$ denote ``because of reason (indicating precondition)'' and ``inorder to achieve  goal'', respectively.
 
 This representation can be extended to a series of instructions as given by Equation \ref{eq:artha_ext}.
 \begin{eqnarray}
@@ -216,7 +217,7 @@ This representation can be extended to a series of instructions as given by Equa
  (r_1 \rightarrow_r (i_1 \rightarrow_p p_1)), (r_2 \rightarrow_r (i_2 \rightarrow_p p_2), ..., (r_n \rightarrow_r (i_n \rightarrow_p p_n))
 \end{eqnarray}
 
-If the purpose $p_k$ of instruction $i_k$ becomes the reason $r_{k+1}$ for the next instruction $i_{k+1}$, then $i_k$ precedes $i_{k+1}$, because $r_{k+1} = p_k$. This relation signifies that the second insruction ($i_{k+1}$) depends on the first ($i_k$) and is referred to as \textbf{functional dependency} and has already been used in task analysis for special education \cite{ta}.
+If the purpose $p_k$ of instruction $i_k$ becomes the precondition $r_{k+1}$ for the next instruction $i_{k+1}$, then $i_k$ precedes $i_{k+1}$, because $r_{k+1} = p_k$. This relation signifies that the second insruction ($i_{k+1}$) depends on the first ($i_k$) and is referred to as \textbf{functional dependency} and has already been used in task analysis for special education \cite{ta}.
 
 Extending this further into the representation  of $i_j$ as ($a_j,o_j$) pair, Equation \ref{eq:artha_ext} can be formalized as shown in Equation \ref{eq:ao_artha}.
 \begin{eqnarray}
@@ -224,7 +225,12 @@ Extending this further into the representation  of $i_j$ as ($a_j,o_j$) pair, Eq
 \forall j \in \{1,...,n-1\}: r_j \rightarrow_r ((a_j,o_j) \rightarrow_p p_j), r_{j+1} = p_j
 \end{eqnarray}
 
-This representation creates object dependency in addition to functional dependency, thereby strengthening the sequencing method.
+\subsection{Sequential and Parallel Execution Methods for Repetitive Tasks}
+\label{sec:pravritti}
+In some tasks, it is necessary to repeat the same action multiple times across different items. Two common approaches to sequence such repetitive actions have been identified in previous work with LLMs \cite{llm_mira}, reiterated here for clarity.
+
+Consider the task of a teacher grading answer scripts from 20 students, each answer script containing 5 questions. In the \textbf{Sequential Completion Method}, the teacher grades all five questions of the first student's script before moving on to completely grade the second student’s script, continuing this process sequentially for all students. Alternatively, the \textbf{Step-by-Step Parallel Method}, also known as the \textbf{Iterative Procedure}, involves the teacher grading the first question across all 20 scripts before proceeding to grade the second question for all scripts, and so forth.
+
 
 \subsubsection{Sequential Completion Method}
 In this method, the full sequence is performed on one object and the same sequence is repeated for all other objects.
@@ -241,14 +247,12 @@ For each object $o_j (1 \leq j \leq T)$, the sequence is given by Equation \ref{
 
 This is repeated for all $j$ as shown below.
 
+
 \begin{eqnarray}
 \label{eq:seq_m}
-(a_{1} o_{11} \rightarrow_i a_2 o_{21} \rightarrow a_3 o_{31} \rightarrow_i ... \rightarrow_i a_n o_{n1}) \\
-(a_{1} o_{12} \rightarrow_i a_2 o_{22} \rightarrow a_3 o_{32} \rightarrow_i ... \rightarrow_i a_n o_{n2}) \nonumber \\
-(a_{1} o_{13} \rightarrow_i a_2 o_{23} \rightarrow a_3 o_{33} \rightarrow_i ... \rightarrow_i a_n o_{n3}) \nonumber \\
-\vdots \nonumber \\
-(a_{1} o_{1T} \rightarrow_i a_2 o_{2T} \rightarrow a_3 o_{3T} \rightarrow_i ... \rightarrow_i a_n o_{nT}) \nonumber
+\bigseq_{j=1}^T (a_1 o_{1j} \rightarrow_i \cdots \rightarrow_i a_n o_{nj})
 \end{eqnarray}
+
 
 Equation \ref{eq:seq_m} can be interpreted as:
 \begin{itemize}
@@ -257,99 +261,108 @@ Equation \ref{eq:seq_m} can be interpreted as:
 \end{itemize}
 
 \subsubsection{Step-by-Step Parallel Method (Iterative Procedure)}
+The step-by-step parallel method can be formalized using a parallel composition connective \(\parallel_i\), which groups actions performed independently on different objects without enforcing temporal sequencing or object dependency among them.
+
+Formally, this method is represented as follows:
+\begin{eqnarray}
+\label{eq:step_parallel_formal}
+\Bigl(
+(a_1 o_{11} \parallel_i a_1 o_{12} \parallel_i \cdots \parallel_i a_1 o_{1T})
+\rightarrow_i \\ \nonumber
+(a_2 o_{21} \parallel_i a_2 o_{22} \parallel_i \cdots \parallel_i a_2 o_{2T})
+\rightarrow_i \cdots \rightarrow_i \\ \nonumber
+(a_n o_{n1} \parallel_i a_n o_{n2} \parallel_i \cdots \parallel_i a_n o_{nT})
+\Bigr).
+\end{eqnarray}
+
+Here:
+\begin{itemize}
+  \item \(\parallel_i\) groups the same action \(a_k\) applied to objects \(o_{k1}, \ldots, o_{kT}\) in parallel, without a strict order or dependency between object-specific actions.
+  \item \(\rightarrow_i\) imposes a temporal ordering between these groups, requiring all actions in a given group to complete before the next group begins.
+\end{itemize}
+
 In this method, the first action is performed on all objects, followed by second action and so on. Same action is grouped and distributed across objects before moving to the next action.
 
-Formally, each action $a_k$ ($1 \leq k \leq n$) performed across $T$ objects ($1 \leq j \leq T)$ is represented as:
-
-\begin{eqnarray}
- \label{eq:parallel_single}
- (a_ko_{k1} \rightarrow_i a_ko_{k2} \rightarrow_i,...,\rightarrow_i a_ko_{kT})
-\end{eqnarray}
-This Equation when extended to all actions is represented as:
-\begin{eqnarray}
-\label{eq:parallel}
-(a_{1} o_{11} \rightarrow_i a_1 o_{12} \rightarrow a_1 o_{13} \rightarrow_i ... \rightarrow_i a_1 o_{1T}) \\
-(a_{2} o_{21} \rightarrow_i a_2 o_{22} \rightarrow a_2 o_{23} \rightarrow_i ... \rightarrow_i a_2 o_{2T}) \nonumber \\
-(a_{3} o_{31} \rightarrow_i a_3 o_{32} \rightarrow a_3 o_{33} \rightarrow_i ... \rightarrow_i a_3 o_{3T}) \nonumber \\
-\vdots \nonumber \\
-(a_{n} o_{n1} \rightarrow_i a_n o_{n2} \rightarrow a_n o_{n3} \rightarrow_i ... \rightarrow_i a_n o_{nT}) \nonumber
-\end{eqnarray}
-
-Equation \ref{eq:parallel} can be interpreted as follows:
-\begin{itemize}
- \item For each action $k$, all objects $o_1,o_2,...,o_T$ are processed before moving to the next action.
- \item Objects involved in each action group are $O_k = \{o_{k1},o_{k2},...,o_{kT} \}$
-\end{itemize}
+In both the Sequential Completion and Step-by-Step Parallel Methods, object dependency is preserved in accordance with the principle of direct assertion (śrutikrama). Specifically, within the sequential composition $\rightarrow_i$, each instruction group or action sequence enforces the temporal order and dependency relations established by direct assertion, ensuring coherent and consistent execution even when tasks are performed repetitively over multiple objects.
 
 Using these sequencing mechanisms, validity can be logically determined through object dependency and consistency across subsequent instructions, as detailed in the following section.
-\section{Validity of Instruction Sequencing}
-\label{sec:validity}
-A set of instructions is considered to be in a valid sequence if it satisfies the conditions of object dependency and state-wise  consistency of subsequent instructions. These conditions are defined below.
-\begin{definition}
-\textbf{Dependency Condition} \\
-For a valid dependency between $ i_j $ and $ i_{j+1} $, $
-\exists o^* \in O_j \cap O_{j+1}$. \\
-That is, there exists at least one object \( o^* \) that is present in both \( O_j \) and \( O_{j+1} \).
-\end{definition}
-\begin{definition}
-\textbf{Consistency Condition for Sequential Instructions}
-\\
-Let
-\begin{itemize}
-    \item $i_j = (a_j, O_j)$ be the $j$-th instruction, where $a_j$ is the action and $O_j \subseteq O$ is the set of objects involved.
-    \item $i_{j+1} = (a_{j+1}, O_{j+1})$ be the next instruction in the sequence.
-    \item For each object $o^*$, let $s_j(o^*)$ denote the state of $o^*$ immediately after executing $i_j$, and $s_{j+1}^{\mathrm{req}}(o^*)$ denote the required state of $o^*$ for executing $i_{j+1}$.
-\end{itemize}
+\section{Object Dependency and Functional Dependency in Instruction Sequencing}
 
-Then the \textbf{consistency condition} holds between $i_j$ and $i_{j+1}$ if:
+The validity of an instruction sequence relies on two main conditions: \textbf{object dependency} and \textbf{functional dependency} across instructions. These ensure that the instruction sequence respects the logical dependencies and state transformations of objects involved.
+
+\subsection{Object Dependency Condition}
+\begin{definition}
+\textbf{Object Dependency Condition} \\
+A sequence of instructions \( I = \{i_1, i_2, \ldots, i_n\} \), where each \( i_j = (a_j, O_j) \), exhibits valid object dependency if for every pair of consecutive instructions \( (i_j, i_{j+1}) \), there exists at least one object \( o^* \) such that:
 \[
-\exists\, o^* \in O_j \cap O_{j+1} \;\; \text{such that} \;\; s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*)
+o^* \in O_j \cap O_{j+1}.
 \]
+This signifies that the two instructions share at least one object, establishing a valid dependency consistent with direct assertion (śrutikrama).
 \end{definition}
-This means that there exists at least one object $o^*$ that is present in both instructions, and the state of $o^*$ after executing $i_j$ matches the required state for $i_{j+1}$.
 
-With these conditions, the theorem for Valid Instruction Sequencing is formalized.
+\subsection{Functional Dependency Condition}
+\begin{definition}
+\textbf{Functional Dependency Condition} \\
+For instructions \( i_j = (a_j, O_j) \) and \( i_{j+1} = (a_{j+1}, O_{j+1}) \) with shared objects \( o^* \in O_j \cap O_{j+1} \), the sequence maintains functional dependency if:
+\[
+s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*).
+\]
+Here:
+\begin{itemize}
+  \item \( s_j(o^*) \) is the state of object \( o^* \) immediately after executing instruction \( i_j \),
+  \item \( s_{j+1}^{\mathrm{req}}(o^*) \) is the required state of \( o^* \) to start executing \( i_{j+1} \).
+\end{itemize}
+This relation captures the classical notion of functional dependency, where the post-state of an object after one instruction determines the input state required for the next.
+\end{definition}
+
+\subsection{Validity Theorem for Object and Functional Dependencies}
 \begin{theorem}
-\textbf{Object Consistency Theorem for Valid Instruction Sequencing}
-\\
-Given a sequence of instructions \( I = \{i_1, i_2, \ldots, i_n\} \), where each \( i_j = (a_j, O_j) \),
-for every pair of consecutive instructions \( (i_j, i_{j+1}) \) where a dependency exists, $\exists o^* \in O_j \cap O_{j+1}$
-and the state of $ o^*$  after $i_j$ matches the required state for $i_{j+1}$, then the sequence is valid with respect to object dependencies.
+\textbf{Validity of Instruction Sequence with Object and Functional Dependencies} \\
+Let \( I = \{i_1, i_2, \ldots, i_n\} \) be a sequence of instructions with \( i_j = (a_j, O_j) \). The sequence is valid if:
+\[
+\forall j \in \{1, \ldots, n-1\}, \quad \text{if} \quad D(i_j, i_{j+1}) = \text{True},
+\]
+then:
+\[
+O_j \cap O_{j+1} \neq \emptyset \quad \text{and} \quad
+\forall o^* \in O_j \cap O_{j+1}, \quad s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*),
+\]
+where \( D(i_j, i_{j+1}) \) expresses a dependency between \( i_j \) and \( i_{j+1} \).
 \end{theorem}
 \begin{proof}
-
-The proof of the theorem follows by induction on the consistency maintained between instructions.
+We prove the theorem by induction on the instruction sequence length, focusing on maintenance of functional dependency (state consistency) between consecutive instructions.
 
 \textbf{Base Case:}
 
-For the first instruction $i_1 = (a_1, O_1)$:
+Consider the first instruction \( i_1 = (a_1, O_1) \):
 \begin{itemize}
-    \item Each object $o \in O_1$ is in its initial state, denoted $s_1^{\mathrm{init}}(o)$.
-    \item Since there is no prior instruction, there are no dependencies to check.
-    \item The instruction $i_1$ can be executed as long as its required preconditions (the states of objects in $O_1$) are satisfied by their initial states.
+    \item Each object \( o \in O_1 \) is initially in state \( s_1^{\mathrm{init}}(o) \).
+    \item There are no preceding instructions, so no dependencies are checked.
+    \item Instruction \( i_1 \) is executable as long as its required preconditions on object states are satisfied by the initial states.
 \end{itemize}
 
 \textbf{Inductive Step:}
 
-Assume that for all instructions up to step $j$, the following holds:
+Assume that for all instructions up to step \(j\), the following holds: For every pair \((i_k, i_{k+1})\) with \(1 \leq k \leq j-1\),
+\[
+O_k \cap O_{k+1} \neq \emptyset \quad \text{and} \quad
+\forall o^* \in O_k \cap O_{k+1},\ s_k(o^*) = s_{k+1}^{\mathrm{req}}(o^*)
+\]
+That is, both object dependency and functional dependency are satisfied for all previous pairs in the sequence.
+
+
+Now consider the next instruction \( i_{j+1} = (a_{j+1}, O_{j+1}) \):
 \begin{itemize}
-    \item For every pair $(i_k, i_{k+1})$ with $1 \leq k \leq j-1$, if a dependency exists (i.e., there is at least one shared object $o^* \in O_k \cap O_{k+1}$), then the consistency condition is satisfied:
+    \item \textbf{Dependency Check:} If \( \exists o^* \in O_j \cap O_{j+1} \), then \( i_{j+1} \) depends on \( i_j \) through object \( o^* \).
+    \item \textbf{Functional Dependency Check:} The state of \( o^* \) after executing \( i_j \), denoted \( s_j(o^*) \), must match the required state for \( i_{j+1} \), denoted \( s_{j+1}^{\mathrm{req}}(o^*) \):
     \[
-    s_k(o^*) = s_{k+1}^{\mathrm{req}}(o^*)
+    s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*).
     \]
-    That is, the state of $o^*$ after executing $i_k$ matches the required state for $i_{k+1}$.
 \end{itemize}
 
-Now, consider the next instruction $i_{j+1} = (a_{j+1}, O_{j+1})$:
-\begin{itemize}
-    \item \textbf{Dependency Check:} If there exists at least one object $o^* \in O_j \cap O_{j+1}$, then $i_{j+1}$ depends on $i_j$ for that object.
-    \item \textbf{Consistency Condition:} The state of $o^*$ after executing $i_j$, denoted $s_j(o^*)$, must equal the required state for $i_{j+1}$, denoted $s_{j+1}^{\mathrm{req}}(o^*)$:
-    \[
-    s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*)
-    \]
-    \item \textbf{Conclusion:} If this condition holds for all such dependencies, then $i_{j+1}$ can be executed validly, and the sequence up to $i_{j+1}$ maintains object state consistency.
-\end{itemize}
+This ensures that the functional dependency condition is preserved for \( (i_j, i_{j+1}) \), allowing \( i_{j+1} \) to be validly executed. By the principle of induction, the functional dependency holds for all pairs of instructions in the sequence, thus establishing validity.
 \end{proof}
+
 This theorem can be formalized as follows:
 
 \[
@@ -363,12 +376,23 @@ This theorem can be formalized as follows:
 
 where $D(i_j, i_{j+1})$ indicates a dependency from $i_j$ to $i_{j+1}$.
 
-\subsection*{Corollary}
 
-If there exists a pair $(i_j, i_{j+1})$ with a dependency such that $O_j \cap O_{j+1} = \emptyset$
-or the state is inconsistent (i.e., $\exists o^* \in O_j \cap O_{j+1}$ such that $s_j(o^*) \neq s_{j+1}^{\mathrm{req}}(o^*)$),
-then the sequence is invalid with respect to object dependencies.
+\subsubsection{Corollary}
+A sequence is invalid if there exists a pair \( (i_j, i_{j+1}) \) such that:
+\begin{itemize}
+  \item \( O_j \cap O_{j+1} = \emptyset \), indicating no common object and thus no dependency.
+  \item Or, there exists an object \( o^* \in O_j \cap O_{j+1} \) for which:
+    \[
+    s_j(o^*) \neq s_{j+1}^{\mathrm{req}}(o^*),
+    \]
+    violating the functional dependency condition.
+\end{itemize}
+\section{Soundness and Completeness of Deduction Rules}
+\label{sec:soundness}
 
+The previous section established the formal requirements for valid instruction sequencing, namely object dependency and functional dependency. Having defined these criteria and their role in the semantics of imperative logic, we now turn to the relationship between the deduction system and the semantic model.
+
+In particular, we show that the deduction rules for sequential and purpose-based composition are both \emph{sound} (every derivable sequence is semantically valid) and \emph{complete} (every semantically valid sequence is derivable), provided the relevant dependency conditions hold. The following theorems formalize these properties for both sequential composition and functional dependency.
 
 \begin{theorem}[Soundness of Sequential Composition]
 Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If
