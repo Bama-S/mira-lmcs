@@ -387,6 +387,35 @@ A sequence is invalid if there exists a pair \( (i_j, i_{j+1}) \) such that:
     \]
     violating the functional dependency condition.
 \end{itemize}
+\subsection{Deduction Rules for Instruction Sequencing}
+In this section, two deduction rules are specified, one for object consistency and the other for functional dependency.
+
+
+\paragraph{Deduction Rule for Sequential Composition}
+Given two instructions $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$, the rule for deriving their temporal sequence is:
+\[
+\frac{
+  \vdash i_1 \quad \vdash i_2 \quad \text{Object consistency holds between $i_1$ and $i_2$}
+}{
+  \vdash i_1 \rightarrow_i i_2
+}
+\]
+\emph{Description}: If both $i_1$ and $i_2$ are derivable and the state(s) of any shared objects between $i_1$ and $i_2$ are consistent (i.e., object dependency and post/pre-state compatibility hold), then the composed sequential instruction $i_1 \rightarrow_i i_2$ is derivable.
+
+\paragraph{Deduction Rule for Functional Dependency (Purpose-Based Sequencing)}
+For instructions $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ with intended goal or purpose connection, the rule is:
+\[
+\frac{
+  \vdash i_1 \quad \vdash i_2 \quad \text{Functional dependency holds between $i_1$ and $i_2$}
+}{
+  \vdash i_1 \rightarrow_p i_2
+}
+\]
+\emph{Description}: If both $i_1$ and $i_2$ are derivable and the state(s) of any shared objects after executing $i_1$ align precisely with the required states for $i_2$ (i.e., functional dependency holds), then the composed purpose-based instruction $i_1 \rightarrow_p i_2$ is derivable.
+
+\paragraph{Remarks}
+These rules ensure that instruction sequencing is logically justified only when the relevant object and functional dependencies are maintained. They form the basis for the forthcoming proofs of soundness and completeness, which demonstrate the alignment of proof theory and semantic interpretation in this system.
+
 \section{Soundness and Completeness of Deduction Rules}
 \label{sec:soundness}
 
