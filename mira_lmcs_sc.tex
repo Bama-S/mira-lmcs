@@ -34,11 +34,6 @@
 \end{abstract}
 
 \section{Introduction}
-Assume a robot is given the task of \textit{``cooking tomato noodles stir-fry''}. Though it may appear simple at first glance, there are several intricate details that must be considered before executing each instruction. For instance, this task may consist of several steps such as \textit{``pick noodles, cook noodles in pot, chop tomato, fry tomato, and add the cooked noodle to a dish''}. The robot must determine what actions to perform, which objects to use, and the appropriate order in which to execute them. To logically determine the sequence with the integration of objects is a challenge.
-
-This paper addresses this challenge through novel framework for instruction sequencing inspired by principles from the Indian philosophical system of \mimamsa\footnote{\mimamsa~is a classical Indian philosophical system that developed a detailed theory of imperatives (vidhi), focusing on their function, classification, and execution of actions in a systematic procedure. Its procedural system has recently attracted attention in computational contexts due to its fine-grained treatment of instruction structure and intent.}.  In this approach, each instruction is represented as an $<\text{action}, \text{object}>$ pair, which serves as the foundation for evaluating consistency across subsequent instructions. An initial version of this work was presented and published in the proceedings of ICLA 2025, where the fundamental representation of instructions as action–object pairs was introduced \cite{llm_mira}. The present paper significantly extends that work by formalizing the criteria for valid instruction sequencing, including the introduction of an object consistency theorem with soundness and completeness.
-
-The remainder of the paper is structured as follows: Section~\ref{sec:mira} outlines the logical formalism of MIRA with syntax and semantics, which forms the basis for the sequencing methods. Section~\ref{sec:aopair} presents the representation of instructions as \texttt{action, object} pairs with sequencing mechanisms. The various sequencing strategies—including Direct Assertion, Purpose-Based Sequencing, and the Sequential Completion / Iterative Procedure—are formally described in Section~\ref{sec:seq}. The validity of these sequencing methods is established in Section~\ref{sec:validity}. Related work is reviewed in Section~\ref{sec:related}, and the specific advancements made over prior approaches are summarized in Section~\ref{sec:advancements}. Finally, Section~\ref{sec:conclude} presents the conclusion.
 
 \section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
 This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
@@ -430,107 +425,6 @@ These rules ensure that instruction sequencing is logically justified only when 
 \label{sec:soundness}
 
 With the deduction rules and the semantic model, we provide the soundness and completeness of the validity theorem.
-
-\begin{theorem}[Soundness of Sequential Composition]
-Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If
-\[
-\vdash i_1 \rightarrow_i i_2
-\]
-is derivable using the deduction rules and object consistency holds, then for any state $s$,
-\[
-\text{eval}(s, i_1 \rightarrow_i i_2) = S.
-\]
-\end{theorem}
-
-\begin{proof}
-By the deduction rule, both $i_1$ and $i_2$ are derivable.
-By induction, $\text{eval}(s, i_1) = S$.
-Let $s' = \text{resultState}(s, i_1)$. By induction, $\text{eval}(s', i_2) = S$.
-Object consistency holds: the state of shared objects after $i_1$ matches the state before $i_2$.
-By the semantic clause for sequence,
-\[
-\text{eval}(s, i_1 \rightarrow_i i_2) = S.
-\]
-Thus, the rule is sound.
-\end{proof}
-\begin{theorem}[Soundness of Functional Dependency]
-Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If
-\[
-\vdash i_1 \rightarrow_p i_2
-\]
-is derivable using the deduction rules and functional dependency holds (state after $i_1$ equals state before $i_2$), then for any state $s$,
-\[
-\text{eval}(s, i_1 \rightarrow_p i_2) = S.
-\]
-\end{theorem}
-
-\begin{proof}
-By the deduction rule, both $i_1$ and $i_2$ are derivable.
-By induction, $\text{eval}(s, i_1) = S$.
-Functional dependency: $\text{resultState}(s, i_1) = s''$, and $s''$ is the state before $i_2$.
-By induction, $\text{eval}(s'', i_2) = S$.
-By the semantic clause for functional dependency,
-\[
-\text{eval}(s, i_1 \rightarrow_p i_2) = S.
-\]
-Thus, the rule is sound.
-\end{proof}
-\begin{theorem}[Completeness of Sequential Composition]
-Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If for every state $s$,
-\[
-\text{eval}(s, i_1 \rightarrow_i i_2) = S,
-\]
-and object consistency holds, then
-\[
-\vdash i_1 \rightarrow_i i_2.
-\]
-\end{theorem}
-
-\begin{proof}
-By the semantic clause for sequence,
-\[
-\text{eval}(s, i_1 \rightarrow_i i_2) = S \implies \text{eval}(s, i_1) = S, \quad \text{eval}(s', i_2) = S,
-\]
-where $s' = \text{resultState}(s, i_1)$, and object consistency holds.
-
-By induction on the structure of instructions, since $\text{eval}(s, i_1) = S$ for all $s$, we have $\vdash i_1$.
-
-Similarly, since $\text{eval}(s', i_2) = S$ for all $s'$, we have $\vdash i_2$.
-
-By the deduction rule for sequence composition, and object consistency, we conclude
-\[
-\vdash i_1 \rightarrow_i i_2.
-\]
-\end{proof}
-\begin{theorem}[Completeness of Functional Dependency]
-Let $i_1 = (a_1, o_1)$ and $i_2 = (a_2, o_2)$ be instructions. If for every state $s$,
-\[
-\text{eval}(s, i_1 \rightarrow_p i_2) = S,
-\]
-and functional dependency holds (state after $i_1$ equals state before $i_2$), then
-\[
-\vdash i_1 \rightarrow_p i_2.
-\]
-\end{theorem}
-
-\begin{proof}
-By the semantic clause for functional dependency,
-\[
-\text{eval}(s, i_1 \rightarrow_p i_2) = S \implies \text{eval}(s, i_1) = S, \quad \text{eval}(s'', i_2) = S,
-\]
-where $s'' = \text{resultState}(s, i_1)$, and functional dependency holds.
-
-By induction on the structure of instructions, since $\text{eval}(s, i_1) = S$ for all $s$, we have $\vdash i_1$.
-
-Similarly, since $\text{eval}(s'', i_2) = S$ for all $s''$, we have $\vdash i_2$.
-
-By the deduction rule for functional dependency, and the state equality condition, we conclude
-\[
-\vdash i_1 \rightarrow_p i_2.
-\]
-\end{proof}
-
-
 
 
 
