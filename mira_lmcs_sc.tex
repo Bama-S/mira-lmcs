@@ -35,6 +35,47 @@
 
 \section{Introduction}
 
+\section{Related Work}
+### 2. Related Work
+
+The development of frameworks for instruction sequencing in AI agents draws from a rich intersection of formal logic, philosophical hermeneutics, and modern machine learning techniques for task planning. This section surveys key contributions in imperative logic, the application of Indian philosophical systems like Mīmāṃsā to computational settings, and recent advances in task decomposition and dependency management in large language models (LLMs).
+
+#### 2.1 Foundations in Imperative Logic and Action Representation
+
+Imperative logic provides the theoretical backbone for representing and reasoning about instructions, actions, and their sequences. Early work by Vranas (2008) established new foundations for imperative logic, introducing connectives, consistency, and quantifiers for pure imperatives, emphasizing that imperatives can be obeyed or binding but not true or false. This formalism distinguishes imperatives from declaratives and has influenced subsequent models for action-oriented reasoning.
+
+Building on this, Srinivasan and Parthasarathi (2012) proposed the Mīmāṃsā Inspired Representation of Actions (MIRA), modifying Vranas' imperative logic with principles from Mīmāṃsā philosophy to handle action representations in AI. MIRA focuses on deontic aspects, such as satisfaction, violation, and avoidance values for prescriptions, enabling more nuanced handling of conflicting instructions.
+
+Their later work (2017) surveyed imperatives and action representation formalisms, categorizing approaches from Western logic (e.g., Ross's paradox) and Indian systems, highlighting gaps in handling temporal and dependency relations. The 2021 formalism by the same authors, which this paper extends, introduces a syntax for unambiguous instructions inspired by Mīmāṃsā, incorporating preconditions, purposes, and binary connectives to build imperative formulas. This work emphasizes decomposition into action-object pairs, laying the groundwork for sequencing strategies.
+
+Recent extensions include a 2022 analysis of imperative logic from Indian and Western perspectives, exploring deontic clashes and resolutions. These foundations address core challenges in AI, such as ensuring coherent execution of instructions without ambiguity.
+
+#### 2.2 Applications of Indian Philosophy in AI Frameworks
+
+Indian philosophical systems, particularly Mīmāṃsā (hermeneutics for Vedic interpretation), have increasingly informed AI frameworks for reasoning, ethics, and sequencing. Mīmāṃsā's principles—such as Śrutikrama (direct assertion), Arthakrama (purpose-based), and others—provide methods for ordering ambiguous statements, which translate well to computational instruction handling.
+
+Freschi (2020) explores Mīmāṃsā's epistemology and linguistics, applying it to deontic logic for resolving command clashes in sacred texts, with implications for AI ethical reasoning. Taber (2021) delves into deontic concepts in Mīmāṃsā, offering a normative framework for obligations that can guide AI decision-making.
+
+Srinivasan and Parthasarathi (2025) apply Mīmāṃsā to temporal reasoning in AI, proposing a framework for sequencing based on Vedic ordering principles. Broader integrations include using Nyāya (logic) and Vedanta for AI ethics, emphasizing dharma (righteousness) to mitigate biases and promote harmony. A 2024 study frames AI risks through Hindu lenses, advocating for compassionate and spiritually aligned systems. Recent works (2025) propose Vedic-inspired ethical AI, incorporating ahimsa (non-harm) and dharma for governance. These applications bridge ancient hermeneutics with modern AI, addressing gaps in Western deontic logics for culturally diverse systems.
+
+#### 2.3 Task Decomposition and Sequencing in Large Language Models
+
+In AI agents, particularly LLMs, task decomposition breaks complex goals into sub-tasks, while sequencing ensures logical ordering with dependencies. Huang et al. (2023) introduce ADaPT, an as-needed decomposition approach using LLMs to plan and execute sub-tasks dynamically, improving efficiency for long-horizon tasks.
+
+Amazon Science (2025) explores using multiple smaller LLMs for decomposition, reducing costs compared to monolithic models. Ma et al. (2024) propose Task Navigator for multimodal LLMs, decomposing via dialogue or direct questions to handle vision-language tasks.
+
+Surveys like Liu et al. (2025) review LLM-based task planning, categorizing methods into zero-shot, few-shot, and fine-tuned approaches, noting challenges in handling dependencies. DELTA (2024) decomposes long-term robot tasks autoregressively, integrating LLMs with planners for embodied AI. Decomposition prompting techniques (2024) break problems into sub-tasks for better LLM performance.
+
+Benchmarking studies (2024) divide automation into decomposition, tool selection, and parameter prediction, evaluating LLMs on dependency handling. These works highlight the need for robust dependency models, which this paper addresses through object and functional dependencies.
+
+#### 2.4 Dependency Conditions and Challenges in AI Planning
+
+Dependency management ensures instructions respect preconditions and transformations. Dart AI (2025) discusses AI-assisted tracking of project dependencies, using automation for timeline predictions. Zemith (2024) provides a guide to task dependency analysis, categorizing types like finish-to-start.
+
+In education, over-reliance on AI can create dependency issues, hindering critical thinking (2024). Broader AI data dependency concerns include quality and diversity for ethical systems (2025).
+
+While these approaches advance sequencing, they often lack formal philosophical grounding for handling ambiguities and dependencies. This paper fills this gap by integrating Mīmāṃsā-inspired strategies with action-object logic, enabling coherent, dependency-aware instruction execution in AI agents.
+
 \section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
 This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
 \subsection{Syntax}
