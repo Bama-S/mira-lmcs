@@ -35,12 +35,24 @@
 
 \section{Introduction}
 
-\section{Related Work}
-### 2. Related Work
+In the rapidly evolving field of artificial intelligence, AI agents are increasingly tasked with executing complex sequences of instructions to achieve specified goals. These agents, ranging from robotic systems to large language model (LLM)-based assistants, must interpret, order, and perform actions in a coherent manner to ensure effective and reliable outcomes. However, challenges arise in handling ambiguous, interdependent, or repetitive instructions, where improper sequencing can lead to inefficiencies, errors, or failures. Traditional approaches in task planning and imperative logic often fall short in addressing these issues, particularly in dynamic environments where dependencies between actions and objects evolve over time.
 
+This paper draws inspiration from the ancient Indian philosophical system of \mimamsa, a hermeneutical tradition focused on interpreting Vedic texts through principled methods of ordering and resolving ambiguities in prescriptions. \mimamsa~ offers a rich set of sequencing principles—such as Śrutikrama (direct assertion), Arthakrama (purpose-based ordering), and Pravṛttikrama (iterative procedure)—that ensure uninterrupted and coherent execution. By adapting these principles to computational frameworks, we propose an extended formal system for instruction sequencing in AI agents.
+
+Building upon the foundational work of Srinivasan and Parthasarathi (2021) on imperative logic with action-object pairs, this framework refines the syntax and semantics to explicitly incorporate preconditions, purposes, and dependencies. Key contributions include:
+\begin{itemize}
+\item An extension of the imperative language to decompose instructions into action-object pairs, enabling precise representation and evaluation.
+\item Formalization of three Mīmāṃsā-inspired sequencing methods: direct assertion for temporal ordering, purpose-based sequencing for functional dependencies, and iterative procedures for repetitive tasks.
+\item Definitions of object dependency and functional dependency conditions, along with a validity theorem that ensures sequence coherence through state consistency.
+\item Deduction rules (Object-Consistent Sequencing and Purpose-Linked Sequencing) for deriving valid sequences, with proofs of soundness and completeness relative to the semantic model.
+\item Discussion of implementation via the MIRA AI Agent, leveraging LLMs for practical validation.
+\end{itemize}
+The remainder of the paper is structured as follows: Section 2 extends the syntax and semantics for action-object imperative logic. Section 3 introduces the sequencing methods. Section 4 details object and functional dependencies, including the validity theorem. Section 5 provides the deduction rules and proofs of soundness and completeness. Section 6 outlines the implementation, followed by conclusions.
+
+\section{Related Work}
 The development of frameworks for instruction sequencing in AI agents draws from a rich intersection of formal logic, philosophical hermeneutics, and modern machine learning techniques for task planning. This section surveys key contributions in imperative logic, the application of Indian philosophical systems like Mīmāṃsā to computational settings, and recent advances in task decomposition and dependency management in large language models (LLMs).
 
-#### 2.1 Foundations in Imperative Logic and Action Representation
+\subsection{Foundations in Imperative Logic and Action Representation}
 
 Imperative logic provides the theoretical backbone for representing and reasoning about instructions, actions, and their sequences. Early work by Vranas (2008) established new foundations for imperative logic, introducing connectives, consistency, and quantifiers for pure imperatives, emphasizing that imperatives can be obeyed or binding but not true or false. This formalism distinguishes imperatives from declaratives and has influenced subsequent models for action-oriented reasoning.
 
@@ -50,7 +62,7 @@ Their later work (2017) surveyed imperatives and action representation formalism
 
 Recent extensions include a 2022 analysis of imperative logic from Indian and Western perspectives, exploring deontic clashes and resolutions. These foundations address core challenges in AI, such as ensuring coherent execution of instructions without ambiguity.
 
-#### 2.2 Applications of Indian Philosophy in AI Frameworks
+\subsection{Applications of Indian Philosophy in AI Frameworks}
 
 Indian philosophical systems, particularly Mīmāṃsā (hermeneutics for Vedic interpretation), have increasingly informed AI frameworks for reasoning, ethics, and sequencing. Mīmāṃsā's principles—such as Śrutikrama (direct assertion), Arthakrama (purpose-based), and others—provide methods for ordering ambiguous statements, which translate well to computational instruction handling.
 
@@ -58,7 +70,7 @@ Freschi (2020) explores Mīmāṃsā's epistemology and linguistics, applying it
 
 Srinivasan and Parthasarathi (2025) apply Mīmāṃsā to temporal reasoning in AI, proposing a framework for sequencing based on Vedic ordering principles. Broader integrations include using Nyāya (logic) and Vedanta for AI ethics, emphasizing dharma (righteousness) to mitigate biases and promote harmony. A 2024 study frames AI risks through Hindu lenses, advocating for compassionate and spiritually aligned systems. Recent works (2025) propose Vedic-inspired ethical AI, incorporating ahimsa (non-harm) and dharma for governance. These applications bridge ancient hermeneutics with modern AI, addressing gaps in Western deontic logics for culturally diverse systems.
 
-#### 2.3 Task Decomposition and Sequencing in Large Language Models
+\subsection{Task Decomposition and Sequencing in Large Language Models}
 
 In AI agents, particularly LLMs, task decomposition breaks complex goals into sub-tasks, while sequencing ensures logical ordering with dependencies. Huang et al. (2023) introduce ADaPT, an as-needed decomposition approach using LLMs to plan and execute sub-tasks dynamically, improving efficiency for long-horizon tasks.
 
@@ -68,7 +80,7 @@ Surveys like Liu et al. (2025) review LLM-based task planning, categorizing meth
 
 Benchmarking studies (2024) divide automation into decomposition, tool selection, and parameter prediction, evaluating LLMs on dependency handling. These works highlight the need for robust dependency models, which this paper addresses through object and functional dependencies.
 
-#### 2.4 Dependency Conditions and Challenges in AI Planning
+\subsection{Dependency Conditions and Challenges in AI Planning}
 
 Dependency management ensures instructions respect preconditions and transformations. Dart AI (2025) discusses AI-assisted tracking of project dependencies, using automation for timeline predictions. Zemith (2024) provides a guide to task dependency analysis, categorizing types like finish-to-start.
 

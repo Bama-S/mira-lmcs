@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.11.26)  10 OCT 2025 13:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.11.26)  10 OCT 2025 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -897,92 +897,88 @@ LaTeX Font Info:    Font shape `OMS/phv/b/n' in size <6> not available
 Class lmcs Warning: Abstract should precede \maketitle in AMS documentclasses; 
 reported on input line 32.
 
-
-LaTeX Warning: Citation `mira' on page 1 undefined on input line 39.
-
-
-Overfull \hbox (9.69441pt too wide) in paragraph at lines 39--40
-\OT1/cmr/m/n/10.95 (-20) This sec-tion ex-tends the for-mal syn-tax and se-man-
-tics frame-work of Srini-vasan and Parthasarathi
- []
-
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
 Overfull \vbox (5.50977pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (24.16pt too high) has occurred while \output is active []
 
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (90.76901pt too wide) detected at line 142
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+
+LaTeX Warning: Citation `mira' on page 3 undefined on input line 92.
+
+
+Overfull \hbox (9.69441pt too wide) in paragraph at lines 92--93
+\OT1/cmr/m/n/10.95 (-20) This sec-tion ex-tends the for-mal syn-tax and se-man-
+tics frame-work of Srini-vasan and Parthasarathi
+ []
+
+[3]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [4]
+Overfull \hbox (90.76901pt too wide) detected at line 195
 \OML/cmm/m/it/10.95 eval\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 s; \OT1/cmr/m/n
 /10.95 (\OML/cmm/m/it/10.95 a[]; o[]\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ![
 ] \OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 a[]; o[]\OT1/cmr/m/n/10.95 )) = []
  []
 
-[2]
 
-LaTeX Warning: Citation `llm_mira' on page 3 undefined on input line 167.
-
-
-LaTeX Warning: Citation `llm_mira' on page 3 undefined on input line 172.
+LaTeX Warning: Citation `llm_mira' on page 5 undefined on input line 220.
 
 
-LaTeX Warning: Citation `llm_mira' on page 3 undefined on input line 207.
+LaTeX Warning: Citation `llm_mira' on page 5 undefined on input line 225.
 
-[3]
+[5]
 
-LaTeX Warning: Citation `ta' on page 4 undefined on input line 215.
+LaTeX Warning: Citation `llm_mira' on page 6 undefined on input line 260.
 
 
-LaTeX Warning: Citation `llm_mira' on page 4 undefined on input line 225.
+LaTeX Warning: Citation `ta' on page 6 undefined on input line 268.
 
-[4]
+
+LaTeX Warning: Citation `llm_mira' on page 6 undefined on input line 278.
+
+[6] [7]
 Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
-nput line 290.
- [5]
+nput line 343.
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 315.
- [6]
-Overfull \hbox (63.54442pt too wide) detected at line 371
+t line 368.
+ [8]
+Overfull \hbox (63.54442pt too wide) detected at line 424
 \OMS/cmsy/m/n/10.95 8\OML/cmm/m/it/10.95 j \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/
 10.95 1\OML/cmm/m/it/10.95 ; [] ; n \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 
 1\OMS/cmsy/m/n/10.95 g\OML/cmm/m/it/10.95 ;  [] D\OT1/cmr/m/n/10.95 (\OML/cmm/m
 /it/10.95 i[]; i[]\OT1/cmr/m/n/10.95 ) = []  =[]\OMS/cmsy/m/n/10.95 )  []
  []
 
+[9]
 
-LaTeX Warning: Citation `mira' on page 7 undefined on input line 388.
-
-
-LaTeX Warning: Reference `sec:srutikrama' on page 7 undefined on input line 388
-.
+LaTeX Warning: Citation `mira' on page 10 undefined on input line 441.
 
 
-LaTeX Warning: Reference `sec:arthakrama' on page 7 undefined on input line 388
-.
+LaTeX Warning: Reference `sec:srutikrama' on page 10 undefined on input line 44
+1.
 
 
-Overfull \hbox (11.83118pt too wide) detected at line 419
+LaTeX Warning: Reference `sec:arthakrama' on page 10 undefined on input line 44
+1.
+
+
+Overfull \hbox (11.83118pt too wide) detected at line 472
 []\OML/cmm/m/it/10.95 PLS
  []
 
-[7] [8]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-74.
+[10] [11]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
+27.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
@@ -990,22 +986,25 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [9]
+ [12]
 (./mira_lmcs_sc.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `mira_lmcs_sc.out' has not changed.
-(rerunfilecheck)             Checksum: EB7B3F64E2A392FD3154D05162ABCB0B;3947.
+(rerunfilecheck)             Checksum: F2791AF8915F2AC35927C195F9689E3E;5568.
  ) 
 Here is how much of TeX's memory you used:
- 25717 strings out of 478051
- 474983 string characters out of 5840942
- 1870330 words of memory out of 5000000
- 45003 multiletter control sequences out of 15000+600000
- 538699 words of font info for 167 fonts, out of 8000000 for 9000
+ 25736 strings out of 478051
+ 475179 string characters out of 5840942
+ 1866330 words of memory out of 5000000
+ 45008 multiletter control sequences out of 15000+600000
+ 538852 words of font info for 170 fonts, out of 8000000 for 9000
  175 hyphenation exceptions out of 8191
- 102i,12n,104p,1515b,614s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,12n,104p,1515b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/bama/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.450p
 k>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy6.pfb></usr/share/texlive
@@ -1022,10 +1021,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on mira_lmcs_sc.pdf (9 pages, 242979 bytes).
+Output written on mira_lmcs_sc.pdf (12 pages, 254630 bytes).
 PDF statistics:
- 272 PDF objects out of 1000 (max. 8388607)
- 206 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 33429 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 305 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 60 named destinations out of 1000 (max. 500000)
+ 33469 words of extra memory for PDF output out of 35830 (max. 10000000)
 
