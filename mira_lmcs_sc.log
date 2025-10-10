@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.11.26)  9 OCT 2025 15:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.11.26)  10 OCT 2025 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -957,7 +957,7 @@ nput line 290.
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
 t line 315.
  [6]
-Overfull \hbox (63.54442pt too wide) detected at line 370
+Overfull \hbox (63.54442pt too wide) detected at line 371
 \OMS/cmsy/m/n/10.95 8\OML/cmm/m/it/10.95 j \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/
 10.95 1\OML/cmm/m/it/10.95 ; [] ; n \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 
 1\OMS/cmsy/m/n/10.95 g\OML/cmm/m/it/10.95 ;  [] D\OT1/cmr/m/n/10.95 (\OML/cmm/m
@@ -965,24 +965,24 @@ Overfull \hbox (63.54442pt too wide) detected at line 370
  []
 
 
-LaTeX Warning: Citation `mira' on page 7 undefined on input line 387.
+LaTeX Warning: Citation `mira' on page 7 undefined on input line 388.
 
 
-LaTeX Warning: Reference `sec:srutikrama' on page 7 undefined on input line 387
+LaTeX Warning: Reference `sec:srutikrama' on page 7 undefined on input line 388
 .
 
 
-LaTeX Warning: Reference `sec:arthakrama' on page 7 undefined on input line 387
+LaTeX Warning: Reference `sec:arthakrama' on page 7 undefined on input line 388
 .
 
 
-Overfull \hbox (11.83118pt too wide) detected at line 418
+Overfull \hbox (11.83118pt too wide) detected at line 419
 []\OML/cmm/m/it/10.95 PLS
  []
 
-[7]
+[7] [8]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-34.
+74.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
@@ -990,22 +990,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [8]
+ [9]
 (./mira_lmcs_sc.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `mira_lmcs_sc.out' has not changed.
-(rerunfilecheck)             Checksum: 7D6EA08718CB473C798E26C2CDA529FC;3799.
+(rerunfilecheck)             Checksum: EB7B3F64E2A392FD3154D05162ABCB0B;3947.
  ) 
 Here is how much of TeX's memory you used:
- 25694 strings out of 478051
- 474781 string characters out of 5840942
+ 25717 strings out of 478051
+ 474983 string characters out of 5840942
  1870330 words of memory out of 5000000
- 45001 multiletter control sequences out of 15000+600000
- 538204 words of font info for 158 fonts, out of 8000000 for 9000
+ 45003 multiletter control sequences out of 15000+600000
+ 538699 words of font info for 167 fonts, out of 8000000 for 9000
  175 hyphenation exceptions out of 8191
- 102i,12n,104p,1009b,614s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,12n,104p,1515b,614s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/bama/.texlive2022/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.450p
 k>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy6.pfb></usr/share/texlive
@@ -1022,10 +1022,10 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on mira_lmcs_sc.pdf (8 pages, 233595 bytes).
+Output written on mira_lmcs_sc.pdf (9 pages, 242979 bytes).
 PDF statistics:
- 259 PDF objects out of 1000 (max. 8388607)
- 195 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 33413 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 206 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 33429 words of extra memory for PDF output out of 35830 (max. 10000000)
 

@@ -98,7 +98,7 @@ The semantics defines how each imperative formula is interpreted over the model,
 A semantic model \(\mathcal{M}\) is defined as:
 \begin{eqnarray}
 \label{eq:model}
-\mathcal{M} = \langle \mathcal{S}, \mathcal{A}, \mathcal{O}, \mathcal{G}, intention, eval \rangle,
+\mathcal{M} = \langle \mathcal{R}, \mathcal{A}, \mathcal{O}, \mathcal{G}, intention, eval \rangle,
 \end{eqnarray}
 where
 \begin{itemize}
@@ -106,8 +106,8 @@ where
     \item \(\mathcal{A}\) is the set of actions,
     \item \(\mathcal{O}\) is the set of objects,
     \item \(\mathcal{G}\) is the set of goals,
-    \item \(intention : \mathcal{S} \times \mathcal{G} \to \{ true, false \}\),
-    \item \(eval : \mathcal{S} \times (\mathcal{A} \times \mathcal{O}) \to \{ S, V, N \}\).
+    \item \(intention : \mathcal{R} \times \mathcal{G} \to \{ true, false \}\),
+    \item \(eval : \mathcal{R} \times (\mathcal{A} \times \mathcal{O}) \to \{ S, V, N \}\).
 \end{itemize}
 
 The semantic evaluations for different imperatives are given as follows:
@@ -310,8 +310,9 @@ Here:
 This relation captures the classical notion of functional dependency, where the post-state of an object after one instruction determines the input state required for the next.
 \end{definition}
 
-\subsection{Validity Theorem for Object and Functional Dependencies}
+\subsection{Validity Theorem for Sequencing}
 \begin{theorem}
+\label{th:validity}
 \textbf{Validity of Instruction Sequence with Object and Functional Dependencies} \\
 Let \( I = \{i_1, i_2, \ldots, i_n\} \) be a sequence of instructions with \( i_j = (a_j, O_j) \). The sequence is valid if:
 \[
@@ -422,9 +423,48 @@ This rule derives a sequenced instruction chain when both components are derivab
 These rules ensure that instruction sequencing is logically justified only when the relevant object and functional dependencies are maintained. They form the basis for the forthcoming proofs of soundness and completeness, which demonstrate the alignment of proof theory and semantic interpretation in this system.
 
 \section{Soundness and Completeness of Deduction Rules}
-\label{sec:soundness}
 
-With the deduction rules and the semantic model, we provide the soundness and completeness of the validity theorem.
+In this section, we establish the soundness and completeness of the deduction rules (OCS and PLS) with respect to the semantic model and the Validity Theorem (Theorem 1). Soundness ensures that if a sequence of instructions is derivable using the rules, then it satisfies the semantic validity conditions (both object dependency and functional dependency). Completeness ensures the converse: if a sequence satisfies the semantic validity conditions, then it is derivable using the rules.
+
+We consider sequences of instructions \( I = \{i_1, i_2, \dots, i_n\} \), where each \( i_j = (a_j, O_j) \), and validity is defined per Theorem 1. The semantic model \( M = \langle \mathcal{R}, A, O, G, \textit{intention}, \textit{eval} \rangle \) interprets these sequences, with satisfaction statuses S (satisfied), V (violated), or N (neutral). Derivability (\( \vdash \)) refers to proofs using OCS and PLS.
+
+\subsection{Soundness}
+
+\textbf{Theorem 2 (Soundness).} If a sequence \( I \) is derivable (\( \vdash I \)) using OCS and PLS, then \( I \) is semantically valid in \( M \) (i.e., it satisfies Theorem 1: for all dependent consecutive pairs \( (i_j, i_{j+1}) \), \( O_j \cap O_{j+1} \neq \emptyset \) and \( \forall o^* \in O_j \cap O_{j+1} \), \( r_j(o^*) = r_{j+1}^{\text{req}}(o^*) \), and \( \textit{eval}(r, I) = S \) for some initial precondition \( r \in \mathcal{R} \)).
+
+\textbf{Proof.} We proceed by induction on the length of the derivation.
+
+\textbf{Base Case:} For a single instruction \( i_1 = (a_1, O_1) \), derivability is trivial (no rules applied). Semantic validity holds vacuously (no pairs). By the semantics, \( \textit{eval}(r, (a_1, O_1)) = S \) if \( a_1 \) is performed on objects in \( O_1 \) under precondition \( r \), assuming initial preconditions match requirements.
+
+\textbf{Inductive Step:} Assume soundness holds for derivations of length up to \( k \). Consider a derivation of length \( k+1 \). Since validity requires both object and functional dependencies, derivations involve applications of both OCS and PLS for sequences with such dependencies. The last rule applied could be OCS or PLS, but the full derivation combines them to capture both conditions.
+
+- \textbf{Case OCS (Object Dependency):} The rule derives \( i_1 \rightarrow_i i_2 \) from premises \( [i_1] \dots i_2 \), with \( O_1 \cap O_2 \neq \emptyset \) and object consistency. By inductive hypothesis, the premises are semantically valid (each sub-sequence evaluates to S). Semantics for imperatives in sequence (Section 2.2) yield \( \textit{eval}(r, (a_1, o_1) \rightarrow_i (a_2, o_2)) = S \) if both sub-evaluations are S and object consistency holds. This satisfies the object dependency part of Theorem 1 for the pair. Functional dependency, if required, is preserved through concurrent or prior applications of PLS in the derivation.
+
+- \textbf{Case PLS (Functional Dependency):} The rule derives \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \rightarrow (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) from premises with functional dependency \( p_k = r_{k+1} \). By inductive hypothesis, premises are valid. Semantics for purpose-enjoined imperatives ensure \( \textit{eval}(r, (a_k, o_k) \rightarrow_p g) = S \) only if intention holds and the action satisfies the goal. Specifically, in the context of functional dependency: (i) \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \) evaluates to S if the intention of the goal \( p_k \) is true and the action \( i_k \) is performed with precondition \( r_k \) true; (ii) after execution, the intention of goal \( p_k \) becomes reality (i.e., the evaluation from step (i) turns to a true value, serving as the precondition for the next step \( r_{k+1} \)); (iii) the next \( (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) then becomes S when the intention of goal \( p_{k+1} \) is true and action \( i_{k+1} \) is performed with precondition \( r_{k+1} \). The linkage \( p_k = r_{k+1} \) enforces functional dependency (post-precondition of \( i_k \) provides the precondition for \( i_{k+1} \)), yielding overall S. Object dependency, if required, is enforced through concurrent or prior OCS applications in the full derivation (e.g., ensuring shared objects with consistent preconditions), satisfying both parts of Theorem 1.
+
+Derivations combine OCS and PLS as needed (e.g., OCS for object overlap and PLS for purpose-precondition chaining in mixed sequences), ensuring both dependencies are captured and leading to overall semantic validity by induction.
+
+\subsection{Completeness}
+
+\textbf{Theorem 3 (Completeness).} If a sequence \( I \) is semantically valid in \( M \) (i.e., satisfies Theorem 1 and \( \textit{eval}(r, I) = S \) for some \( r \in \mathcal{R} \)), then \( I \) is derivable (\( \vdash I \)) using OCS and PLS.
+
+\textbf{Proof.} Again, by induction on the sequence length \( n \).
+
+\textbf{Base Case:} For \( n=1 \), \( i_1 \) is valid if \( \textit{eval}(r, (a_1, O_1)) = S \). No rules needed; derivability is trivial.
+
+\textbf{Inductive Step:} Assume completeness for sequences up to length \( n-1 \). For length \( n \), since \( I \) is valid, all consecutive pairs satisfy both object and functional dependencies per Theorem 1.
+
+The sub-sequence \( \{i_1, \dots, i_{n-1}\} \) is valid by assumption, so derivable by inductive hypothesis. To extend to the full sequence, apply both OCS and PLS as required by the dependencies:
+
+- Apply OCS for object dependency (pairs share objects \( O_j \cap O_{j+1} \neq \emptyset \) and preconditions match), deriving temporal sequencing \( i_{n-1} \rightarrow_i i_n \).
+
+- Apply PLS for functional dependency (pairs link via \( p_j = r_{j+1} \)), deriving purpose-chained sequencing, where the semantic evaluation to S follows the steps: (i) intention of \( p_{n-1} \) true and action performed under \( r_{n-1} \); (ii) post-execution realization of \( p_{n-1} \) as true, becoming \( r_n \); (iii) subsequent evaluation to S for the next imperative under \( r_n \) with intention of \( p_n \) true.
+
+Since Theorem 1 requires both dependencies for validity, apply both rules for each relevant pair: OCS to enforce object overlap and precondition consistency, and PLS to enforce purpose-precondition linkage. For mixed sequences, decompose into sub-sequences, derive them using the appropriate rule(s), then combine. Semantic validity ensures both conditions align with the premises of OCS and PLS, so the full derivation exists by combining the rules.
+
+By induction, all semantically valid sequences are derivable.
+
+These proofs align the proof theory (deduction rules) with the semantics, ensuring the framework's logical consistency for instruction sequencing.
 
 
 
