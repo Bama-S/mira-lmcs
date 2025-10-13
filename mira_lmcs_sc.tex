@@ -4,9 +4,14 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+\usepackage{natbib}
 \newcommand{\bigseq}{\mathop{\raisebox{0.3ex}{\scalebox{1.5}{$\prod$}}}}
 \newcommand{\paralleli}{\mathrel{\|_i}}
 
+
+
+
+% Specify the name of your bibliography file
 
 %\newtheorem{proposition}[theorem]{Proposition}%
 %\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
@@ -50,27 +55,28 @@ Building upon the foundational work of Srinivasan and Parthasarathi (2021) on im
 The remainder of the paper is structured as follows: Section 2 extends the syntax and semantics for action-object imperative logic. Section 3 introduces the sequencing methods. Section 4 details object and functional dependencies, including the validity theorem. Section 5 provides the deduction rules and proofs of soundness and completeness. Section 6 outlines the implementation, followed by conclusions.
 
 \section{Related Work}
-The development of frameworks for instruction sequencing in AI agents draws from a rich intersection of formal logic, philosophical hermeneutics, and modern machine learning techniques for task planning. This section surveys key contributions in imperative logic, the application of Indian philosophical systems like Mīmāṃsā to computational settings, and recent advances in task decomposition and dependency management in large language models (LLMs).
+Reasoning with actions has been the focus of extensive research across multiple domains, including formal logic, task planning and more recently, large language models. This section presents an overview of the major developments in these areas.
+\subsection{Classical Planning and Temoral Logic}
+Traditional planning systems, such as STRIPS, model actions as transitions between states \citep{strips}. Each action is expressed through logical formulas that define its preconditions and effects, and a search process identifies a path from the initial state to a goal state. While effective for deterministic domains, this approach suffers from several limitations such as:
+\begin{itemize}
+\item Simultaneous or concurrent actions cannot be easily represented,
+\item Representation of composite actions is difficult, and
+\item External event representation is not possible.
+\end{itemize}
 
-\subsection{Foundations in Imperative Logic and Action Representation}
+To overcome these limitations, temporal logic frameworks have been integrated into planning. Allen's interval temporal logic \citep{allen1983maintaining} treats events as intervals, enabling representation of concurrent actions and non-linear plans. Building on this, Kautz and Ladkin \citep{kautz1991integrating} extended temporal reasoning to include metric constraints like dates and durations. Linear Temporal Logic (LTL) \citep{huth2004logic} introduces operators such as $\square$ (always), $\Diamond$ (eventually), $\bigcirc$ (next), and $U$ (until), allowing domain-specific knowledge to guide planning and make intractable problems solvable \citep{bacchus1996planning}. Metric Interval Temporal Logic (MITL) further represents goals as sequences of states with temporal deadlines, supporting universal/existential quantification and safety/maintenance goals \citep{bacchus2000using}.
 
-Imperative logic provides the theoretical backbone for representing and reasoning about instructions, actions, and their sequences. Early work by Vranas (2008) established new foundations for imperative logic, introducing connectives, consistency, and quantifiers for pure imperatives, emphasizing that imperatives can be obeyed or binding but not true or false. This formalism distinguishes imperatives from declaratives and has influenced subsequent models for action-oriented reasoning.
+Hierarchical structures incorporate temporal reasoning across subtasks \citep{fei2025hierarchical}, while explanation-based reasoning surveys algorithmic, model-based, and plan-based methods for automated planning \citep{eriksson2019explanation}.While these approaches offer strong foundations, they often fall short in directly handling actions expressed as imperatives (instructions), ensuring goal achievement, and maintaining consistency during instruction execution.
 
-Building on this, Srinivasan and Parthasarathi (2012) proposed the Mīmāṃsā Inspired Representation of Actions (MIRA), modifying Vranas' imperative logic with principles from Mīmāṃsā philosophy to handle action representations in AI. MIRA focuses on deontic aspects, such as satisfaction, violation, and avoidance values for prescriptions, enabling more nuanced handling of conflicting instructions.
-
-Their later work (2017) surveyed imperatives and action representation formalisms, categorizing approaches from Western logic (e.g., Ross's paradox) and Indian systems, highlighting gaps in handling temporal and dependency relations. The 2021 formalism by the same authors, which this paper extends, introduces a syntax for unambiguous instructions inspired by Mīmāṃsā, incorporating preconditions, purposes, and binary connectives to build imperative formulas. This work emphasizes decomposition into action-object pairs, laying the groundwork for sequencing strategies.
-
-Recent extensions include a 2022 analysis of imperative logic from Indian and Western perspectives, exploring deontic clashes and resolutions. These foundations address core challenges in AI, such as ensuring coherent execution of instructions without ambiguity.
+\subsection{Imperative Logic}
+Imperative logic complements temporal models by focusing on instructions as binding commands which directly indicates actions. Against this backdrop, an imperative logic with three values $S$ (Satisfaction), $V$ (Violation and $A$ (Avoidance) has been formulated \citep{vranas2008}. This influenced MIRA \citep{srinivasan2012mira}, which modifies Vranas' logic with \mimamsa~principles for AI action representation. Later surveys \cite{srinivasan2017survey} categorized Western (e.g., Ross's paradox) and Indian approaches, highlighting gaps in temporal dependencies. The 2021 formalism \citep{srinivasan2021formalism}, extended here, decomposes instructions into action-object pairs with preconditions and purposes, setting the stage for sequencing of the given set of instructions. Recent analyses \citep{sanyal} explore deontic approaches from Indian and Western perspectives of Imperative Logic.
 
 \subsection{Applications of Indian Philosophy in AI Frameworks}
-
-Indian philosophical systems, particularly Mīmāṃsā (hermeneutics for Vedic interpretation), have increasingly informed AI frameworks for reasoning, ethics, and sequencing. Mīmāṃsā's principles—such as Śrutikrama (direct assertion), Arthakrama (purpose-based), and others—provide methods for ordering ambiguous statements, which translate well to computational instruction handling.
-
-Freschi (2020) explores Mīmāṃsā's epistemology and linguistics, applying it to deontic logic for resolving command clashes in sacred texts, with implications for AI ethical reasoning. Taber (2021) delves into deontic concepts in Mīmāṃsā, offering a normative framework for obligations that can guide AI decision-making.
-
-Srinivasan and Parthasarathi (2025) apply Mīmāṃsā to temporal reasoning in AI, proposing a framework for sequencing based on Vedic ordering principles. Broader integrations include using Nyāya (logic) and Vedanta for AI ethics, emphasizing dharma (righteousness) to mitigate biases and promote harmony. A 2024 study frames AI risks through Hindu lenses, advocating for compassionate and spiritually aligned systems. Recent works (2025) propose Vedic-inspired ethical AI, incorporating ahimsa (non-harm) and dharma for governance. These applications bridge ancient hermeneutics with modern AI, addressing gaps in Western deontic logics for culturally diverse systems.
-
-\subsection{Task Decomposition and Sequencing in Large Language Models}
+\subsection{Applications of Indian Philosophy in AI Frameworks}
+Indian philosophical systems, particularly \mimamsa, offer hermeneutical tools for ordering prescriptions, applicable to AI sequencing. Mīmāṃsā's principles—Śrutikrama (direct assertion), Arthakrama (purpose-based), and Pravṛttikrama (iterative)—ensure coherent execution, translating to computational contexts.
+Freschi (2020) applies Mīmāṃsā epistemology to deontic logic for resolving command clashes. Taber (2021) examines normative obligations in Mīmāṃsā for AI decision-making. Srinivasan and Parthasarathi (2025) adapt Mīmāṃsā for temporal reasoning in AI sequencing.
+Broader integrations include Nyāya for logical inference and Vedanta for ethics, emphasizing dharma to mitigate biases. Studies (2024) frame AI risks through Hindu lenses, advocating compassionate systems. Recent works (2025) propose Vedic-inspired ethical AI with ahimsa and dharma. These bridge ancient hermeneutics with modern AI, filling gaps in Western logics for culturally diverse systems.
+\subsection{Task Planning with Large Language Models}
 
 In AI agents, particularly LLMs, task decomposition breaks complex goals into sub-tasks, while sequencing ensures logical ordering with dependencies. Huang et al. (2023) introduce ADaPT, an as-needed decomposition approach using LLMs to plan and execute sub-tasks dynamically, improving efficiency for long-horizon tasks.
 
@@ -523,5 +529,8 @@ These proofs align the proof theory (deduction rules) with the semantics, ensuri
 
 \section{Implementation}
 The proposed framework is computationally instantiated through the MIRA AI Agent, a system leveraging Large Language Models (e.g., Groq, Gemini) for instruction generation and sequence validation. This agent, detailed in future work, demonstrates the practical feasibility of our semantic model, with real-time deployment as a web application. Current efforts focus on formal verification, with implementation specifics to be elaborated in a forthcoming paper.
+
+\bibliographystyle{plainnat} % or any style you prefer, e.g., unsrtnat for numerical order
+\bibliography{mira_ref}
 
 \end{document}

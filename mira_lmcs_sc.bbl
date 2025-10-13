@@ -1,0 +1,76 @@
+\begin{thebibliography}{12}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Allen(1983)]{allen1983maintaining}
+James~F. Allen.
+\newblock Maintaining knowledge about temporal intervals.
+\newblock \emph{Communications of the ACM}, 26\penalty0 (11):\penalty0
+  832--843, 1983.
+
+\bibitem[Bacchus and Kabanza(1996)]{bacchus1996planning}
+Fahiem Bacchus and Froduald Kabanza.
+\newblock Planning for temporally extended goals.
+\newblock In \emph{Proceedings of the Thirteenth National Conference on
+  Artificial Intelligence (AAAI-96)}, pages 1215--1222, 1996.
+
+\bibitem[Bacchus and Kabanza(2000)]{bacchus2000using}
+Fahiem Bacchus and Froduald Kabanza.
+\newblock Using temporal logics to express search control knowledge for
+  planning.
+\newblock \emph{Artificial Intelligence}, 116\penalty0 (1-2):\penalty0
+  123--191, 2000.
+
+\bibitem[Eriksson and Zimmerman()]{eriksson2019explanation}
+Anders Eriksson and Aaron Zimmerman.
+\newblock Explanation-based reasoning in ai.
+\newblock In \emph{Proceedings of Some Conference on AI}.
+
+\bibitem[Fei et~al.()]{fei2025hierarchical}
+X.~Fei et~al.
+
+\bibitem[Fikes and Nilsson(1971)]{strips}
+Richard~E. Fikes and Nils~J. Nilsson.
+\newblock Strips: A new approach to the application of theorem proving to
+  problem solving.
+\newblock \emph{Artificial Intelligence}, 2\penalty0 (3-4):\penalty0 189--208,
+  1971.
+
+\bibitem[Huth and Ryan(2004)]{huth2004logic}
+Michael Huth and Mark Ryan.
+\newblock \emph{Logic in Computer Science: Modelling and Reasoning about
+  Systems}.
+\newblock Cambridge University Press, 2 edition, 2004.
+
+\bibitem[Kautz and Ladkin(1991)]{kautz1991integrating}
+Henry~A. Kautz and Peter~B. Ladkin.
+\newblock Integrating metric and qualitative temporal reasoning.
+\newblock \emph{Proceedings of the Ninth National Conference on Artificial
+  Intelligence (AAAI-91)}, pages 241--246, 1991.
+
+\bibitem[Sanyal(2022)]{sanyal}
+Manidipa Sanyal.
+\newblock Imperative logic: Indian and western.
+\newblock \emph{In Handbook of Logical Thought in India}, pages 889--928, 2022.
+
+\bibitem[Srinivasan and Parthasarathi(2017)]{srinivasan2017survey}
+Bama Srinivasan and Ranjani Parthasarathi.
+\newblock A survey of imperatives and action representation formalisms.
+\newblock \emph{Artificial Intelligence Review}, 48:\penalty0 263--297, 2017.
+
+\bibitem[Srinivasan and Parthasarathi(2021)]{srinivasan2021formalism}
+Bama Srinivasan and Ranjani Parthasarathi.
+\newblock A formalism to specify unambiguous instructions inspired by
+  mīmāṃsā in computational settings.
+\newblock \emph{Logica Universalis}, 16\penalty0 (1):\penalty0 27--55, 2021.
+
+\bibitem[Vranas(2008)]{vranas2008}
+Peter~BM Vranas.
+\newblock New foundations for imperative logic i: Logical connectives,
+  consistency, and quantifiers.
+\newblock \emph{No{\^u}s}, 42\penalty0 (4):\penalty0 529--572, 2008.
+
+\end{thebibliography}
