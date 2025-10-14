@@ -1,36 +1,21 @@
-\begin{thebibliography}{12}
+\begin{thebibliography}{9}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Allen(1983)]{allen1983maintaining}
+\bibitem[Allen(1983)]{allen}
 James~F. Allen.
 \newblock Maintaining knowledge about temporal intervals.
 \newblock \emph{Communications of the ACM}, 26\penalty0 (11):\penalty0
   832--843, 1983.
 
-\bibitem[Bacchus and Kabanza(1996)]{bacchus1996planning}
-Fahiem Bacchus and Froduald Kabanza.
+\bibitem[Bacchus and Kabanza(1996)]{Bacchus1996}
+F.~Bacchus and F.~Kabanza.
 \newblock Planning for temporally extended goals.
 \newblock In \emph{Proceedings of the Thirteenth National Conference on
-  Artificial Intelligence (AAAI-96)}, pages 1215--1222, 1996.
-
-\bibitem[Bacchus and Kabanza(2000)]{bacchus2000using}
-Fahiem Bacchus and Froduald Kabanza.
-\newblock Using temporal logics to express search control knowledge for
-  planning.
-\newblock \emph{Artificial Intelligence}, 116\penalty0 (1-2):\penalty0
-  123--191, 2000.
-
-\bibitem[Eriksson and Zimmerman()]{eriksson2019explanation}
-Anders Eriksson and Aaron Zimmerman.
-\newblock Explanation-based reasoning in ai.
-\newblock In \emph{Proceedings of Some Conference on AI}.
-
-\bibitem[Fei et~al.()]{fei2025hierarchical}
-X.~Fei et~al.
+  Artificial Intelligence}, volume~2, pages 1215--1222. AAAI Press, 1996.
 
 \bibitem[Fikes and Nilsson(1971)]{strips}
 Richard~E. Fikes and Nils~J. Nilsson.
@@ -39,38 +24,43 @@ Richard~E. Fikes and Nils~J. Nilsson.
 \newblock \emph{Artificial Intelligence}, 2\penalty0 (3-4):\penalty0 189--208,
   1971.
 
-\bibitem[Huth and Ryan(2004)]{huth2004logic}
+\bibitem[Huth and Ryan(2004)]{huth}
 Michael Huth and Mark Ryan.
 \newblock \emph{Logic in Computer Science: Modelling and Reasoning about
   Systems}.
 \newblock Cambridge University Press, 2 edition, 2004.
 
-\bibitem[Kautz and Ladkin(1991)]{kautz1991integrating}
+\bibitem[Kautz and Ladkin(1991)]{kautz}
 Henry~A. Kautz and Peter~B. Ladkin.
 \newblock Integrating metric and qualitative temporal reasoning.
-\newblock \emph{Proceedings of the Ninth National Conference on Artificial
-  Intelligence (AAAI-91)}, pages 241--246, 1991.
+\newblock In \emph{Proceedings of the Ninth National Conference on Artificial
+  Intelligence (AAAI-91)}, volume~1, pages 241--246, Anaheim, California, 1991.
+  AAAI Press.
 
-\bibitem[Sanyal(2022)]{sanyal}
-Manidipa Sanyal.
-\newblock Imperative logic: Indian and western.
-\newblock \emph{In Handbook of Logical Thought in India}, pages 889--928, 2022.
+\bibitem[Song and Cohen(1991)]{fei}
+Fei Song and Robin Cohen.
+\newblock Temporal reasoning during plan recognition.
+\newblock In \emph{Proceedings of the Ninth National Conference on Artificial
+  Intelligence - Volume 1}, AAAI'91, page 247–252. AAAI Press, 1991.
+\newblock ISBN 0262510596.
 
-\bibitem[Srinivasan and Parthasarathi(2017)]{srinivasan2017survey}
+\bibitem[Srinivasan and Parthasarathi(2017)]{survey}
 Bama Srinivasan and Ranjani Parthasarathi.
 \newblock A survey of imperatives and action representation formalisms.
-\newblock \emph{Artificial Intelligence Review}, 48:\penalty0 263--297, 2017.
+\newblock \emph{Artif. Intell. Rev.}, 48\penalty0 (2):\penalty0 263--297,
+  August 2017.
 
-\bibitem[Srinivasan and Parthasarathi(2021)]{srinivasan2021formalism}
+\bibitem[Srinivasan and Parthasarathi(2021)]{mira}
 Bama Srinivasan and Ranjani Parthasarathi.
 \newblock A formalism to specify unambiguous instructions inspired by
   mīmāṃsā in computational settings.
 \newblock \emph{Logica Universalis}, 16\penalty0 (1):\penalty0 27--55, 2021.
 
-\bibitem[Vranas(2008)]{vranas2008}
-Peter~BM Vranas.
-\newblock New foundations for imperative logic i: Logical connectives,
-  consistency, and quantifiers.
-\newblock \emph{No{\^u}s}, 42\penalty0 (4):\penalty0 529--572, 2008.
+\bibitem[Srinivasan and Vijayan(2025)]{llmmira}
+Bama Srinivasan and Mohan~Raj Vijayan.
+\newblock A {M\={\i}m\={a}\d{m}\c{s}\={a}} inspired framework towards temporal
+  reasoning in large language models.
+\newblock In \emph{Proceedings of the 11th Indian Conference on Logic and
+  Applications}, Calcutta, India, 2025. Springer LNCS.
 
 \end{thebibliography}
