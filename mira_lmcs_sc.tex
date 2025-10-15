@@ -71,37 +71,41 @@ Extending the work of Allen, Henry A. Kautz and Peter B. Ladkin, has provided a 
 Given the general intractability of AI planning, one effective approach is to incorporate domain-specific knowledge. In this direction, knowledge specific to the problem domain is utilized to guide the search process, resulting in a sequence of actions that constitute a valid plan \citep{Bacchus2000}. This domain knowledge is expressed using Linear Temporal Logic (LTL), along with the GOAL modality. This method offers several advantages, including modularity, a declarative specification of the planning problem, and the transformation of intractable problems into solvable ones. In another work, the goal is represented as a sequence of states rather than a single final state \citep{Bacchus1996}. Metric Interval Temporal Logic (MITL) is employed to capture various types of goals, including those with temporal deadlines, quantified goals (both universal and existential), as well as safety and maintenance goals.
 
 Recent advancements in automated planning have highlighted various approaches to explanation-based reasoning \citep{expai}. These approaches encompass algorithmic methods, model-based techniques, inference reconciliation, model reconciliation, and plan-based explanations.
-
-
-\subsection{Imperative Logic}
-Imperatives differ from declarative statements in that they cannot be evaluated as \textit{True} or \textit{False}, which limits the applicability of classical logic in reasoning about them. To address this, several studies have explored translating imperatives into propositions and then applying classical logic rules. However, such approaches often encounter paradoxes, as highlighted by Ross, revealing fundamental limitations in representing imperatives within standard logical frameworks. A detailed survey of various perspectives on imperative logic, particularly in the context of action representation in AI, has been presented in \cite{survey}.Inspired by the Indian philosophical system of \mimamsa, a three-valued formalism has been proposed to handle imperatives, where each instruction is evaluated as \textit{Satisfaction} ($S$), \textit{Violation} ($V$), or \textit{No intention to achieve the goal} ($N$) \citep{mira}. This framework provides a more expressive representation of the normative and intentional aspects of actions than classical logic. Building on this foundation, the same authors have also extended the formalism to handle the temporal sequencing of instructions, enabling reasoning about ordered action execution \citep{llmmira}.
+\subsection{Hierarchial Planning and Task Networks}
+\subsection{Plan Recognition and Goal Inference}
+\subsection{Dependency Analysis and Constraint Satisfaction}
+\subsection{Multi-Agent Coordination and Distributed Planning}
+\subsection{BDI Agents and Practical Reasoning}
+\subsection{Reactive Planning and Dynamic Environments}
+\subsection{Formal Methods and Verification}
+\subsection{Normative Systems and Philosophical Foundations}
+\subsection{Business Process Modeling and Workflow Management}
+\subsection{Imperative Logic and Action Representation}
+Imperatives differ from declarative statements in that they cannot be evaluated as \textit{True} or \textit{False}, which limits the applicability of classical logic in reasoning about them. To address this, several studies have explored translating imperatives into propositions and then applying classical logic rules. However, such approaches often encounter paradoxes, as highlighted by Ross, revealing fundamental limitations in representing imperatives within standard logical frameworks. A detailed survey of various perspectives on imperative logic, particularly in the context of action representation in AI, has been presented in \citep{survey}.Inspired by the Indian philosophical system of \mimamsa, a three-valued formalism has been proposed to handle imperatives, where each instruction is evaluated as \textit{Satisfaction} ($S$), \textit{Violation} ($V$), or \textit{No intention to achieve the goal} ($N$) \citep{mira}. This framework provides a more expressive representation of the normative and intentional aspects of actions than classical logic. Building on this foundation, the same authors have also extended the formalism to handle the temporal sequencing of instructions, enabling reasoning about ordered action execution \citep{llmmira}.
 
 \subsection{Task Planning with Large Language Models}
 Oflate LLM has been seen to be helpful for helping task planning.
- Although LLMs excel at text generation and general reasoning, they struggle with temporal reasoning. A proposed solution involves translating temporal information into a graph structure, enabling LLMs to learn and reason over it more effectively \citep{xiong}.
+ Although LLMs excel at text generation and general reasoning, they struggle with temporal reasoning. A proposed solution involves translating temporal information into a graph structure, enabling LLMs to learn and reason over it more effectively \citep{xiong}. LLMs do not always produce truthful or consistent responses and may sometimes generate hallucinated or incorrect information. To address these issues and better align model outputs with human expectations, InstructGPT was developed using reinforcement learning from human feedback (RLHF) \citep{llm_human}
 
-LLMs do not always produce truthful or consistent responses and may sometimes generate hallucinated or incorrect information. To address these issues and better align model outputs with human expectations, InstructGPT was developed using reinforcement learning from human feedback (RLHF) \citep{llm_human}
 
-In AUCARENA, an auction scenario is simulated using LLLMs structured around the Belief-Desire-Intention (BDI) model \citep{auction}. These experiments assess the decision-making capabilities of LLMs by prompting them to plan and bid with the goal of maximizing profit. The study indicates that although LLMs can perform the task, there remains significant room for improvement.
+\subsection*{Positioning of the proposed paper}
+The proposed \mimamsa~inspired framework contributes to this landscape by providing a philosophically grounded approach to instruction sequencing that addresses several gaps in existing work:
+\begin{itemize}
+ \item Philosophical Foundation: Unlike purely algorithmic approaches, this framework draws on sophisticated hermeneutical principles from \mimamsa~philosophy, providing principled methods for resolving ambiguities and establishing coherent sequences.
+ \item Action-Object Decomposition: The explicit representation of instructions as action-object pairs enables more precise dependency analysis than traditional atomic action representations.
+ \item Multiple Sequencing Paradigms: The formalization of three complementary sequencing methods (direct assertion, purpose-based, and iterative procedure) provides flexibility for different types of instruction coordination challenges.
+ \item Formal Verification: Our deduction rules and completeness proofs provide formal guarantees about sequence validity, bridging the gap between philosophical principles and computational verification.
+\item Cultural Perspective: By drawing from Indian philosophical traditions, our work expands the Western-centric theoretical foundations of AI planning and reasoning systems.
+\end{itemize}
 
-In another study, a framework has been proposed for a task planning agent operating in indoor environments \citep{embodied_task}. In this approach, an executable action plan is generated using a Large Language Model (LLM), guided by a predefined set of objects drawn from a large-scale multimodal dataset. By constraining the objects used in planning, the framework effectively reduces hallucinations by the LLM.
-%-----------------------
 
-In AI agents, particularly LLMs, task decomposition breaks complex goals into sub-tasks, while sequencing ensures logical ordering with dependencies. Huang et al. (2023) introduce ADaPT, an as-needed decomposition approach using LLMs to plan and execute sub-tasks dynamically, improving efficiency for long-horizon tasks.
 
-Amazon Science (2025) explores using multiple smaller LLMs for decomposition, reducing costs compared to monolithic models. Ma et al. (2024) propose Task Navigator for multimodal LLMs, decomposing via dialogue or direct questions to handle vision-language tasks.
 
-Surveys like Liu et al. (2025) review LLM-based task planning, categorizing methods into zero-shot, few-shot, and fine-tuned approaches, noting challenges in handling dependencies. DELTA (2024) decomposes long-term robot tasks autoregressively, integrating LLMs with planners for embodied AI. Decomposition prompting techniques (2024) break problems into sub-tasks for better LLM performance.
 
-Benchmarking studies (2024) divide automation into decomposition, tool selection, and parameter prediction, evaluating LLMs on dependency handling. These works highlight the need for robust dependency models, which this paper addresses through object and functional dependencies.
 
-\subsection{Dependency Conditions and Challenges in AI Planning}
 
-Dependency management ensures instructions respect preconditions and transformations. Dart AI (2025) discusses AI-assisted tracking of project dependencies, using automation for timeline predictions. Zemith (2024) provides a guide to task dependency analysis, categorizing types like finish-to-start.
 
-In education, over-reliance on AI can create dependency issues, hindering critical thinking (2024). Broader AI data dependency concerns include quality and diversity for ethical systems (2025).
 
-While these approaches advance sequencing, they often lack formal philosophical grounding for handling ambiguities and dependencies. This paper fills this gap by integrating Mīmāṃsā-inspired strategies with action-object logic, enabling coherent, dependency-aware instruction execution in AI agents.
 
 \section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
 This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
