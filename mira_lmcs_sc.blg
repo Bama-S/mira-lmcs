@@ -1,50 +1,58 @@
-This is BibTeX, Version 0.99d (TeX Live 2022/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: mira_lmcs_sc.aux
 The style file: plainnat.bst
 Database file #1: mira_ref.bib
 Warning--I didn't find a database entry for "Bacchus2000"
+Warning--I didn't find a database entry for "patterson_2004"
+Warning--I didn't find a database entry for "johansson_nugues_2008"
+Warning--I didn't find a database entry for "aher_kritika_2019"
+Warning--I didn't find a database entry for "makni_2012"
+Warning--I didn't find a database entry for "sainburg_2022"
+Warning--I didn't find a database entry for "goffman_2023"
+Warning--I didn't find a database entry for "kartmann_2021"
+Warning--I didn't find a database entry for "yin_2025"
 Warning--I didn't find a database entry for "llm_mira"
 Warning--I didn't find a database entry for "ta"
-You've used 12 entries,
+You've used 17 entries,
             2773 wiz_defined-function locations,
-            682 strings with 7612 characters,
-and the built_in function-call counts, 7198 in all, are:
-= -- 675
-> -- 441
-< -- 16
-+ -- 147
-- -- 135
-* -- 563
-:= -- 1057
-add.period$ -- 46
-call.type$ -- 12
-change.case$ -- 80
-chr.to.int$ -- 12
-cite$ -- 24
-duplicate$ -- 319
-empty$ -- 535
-format.name$ -- 163
-if$ -- 1565
+            729 strings with 9177 characters,
+and the built_in function-call counts, 10349 in all, are:
+= -- 981
+> -- 627
+< -- 20
++ -- 209
+- -- 192
+* -- 811
+:= -- 1511
+add.period$ -- 70
+call.type$ -- 17
+change.case$ -- 114
+chr.to.int$ -- 17
+cite$ -- 34
+duplicate$ -- 470
+empty$ -- 765
+format.name$ -- 227
+if$ -- 2263
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 12
-newline$ -- 72
-num.names$ -- 50
-pop$ -- 164
+missing$ -- 17
+newline$ -- 104
+num.names$ -- 70
+pop$ -- 227
 preamble$ -- 1
-purify$ -- 68
+purify$ -- 97
 quote$ -- 0
-skip$ -- 288
+skip$ -- 424
 stack$ -- 0
-substring$ -- 296
-swap$ -- 82
-text.length$ -- 7
+substring$ -- 412
+swap$ -- 130
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 127
+type$ -- 182
 warning$ -- 0
-while$ -- 58
+while$ -- 82
 width$ -- 0
-write$ -- 181
-(There were 3 warnings)
+write$ -- 263
+(There were 11 warnings)

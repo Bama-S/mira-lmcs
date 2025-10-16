@@ -1,4 +1,4 @@
-\begin{thebibliography}{12}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -17,6 +17,28 @@ F.~Bacchus and F.~Kabanza.
 \newblock In \emph{Proceedings of the Thirteenth National Conference on
   Artificial Intelligence}, volume~2, pages 1215--1222. AAAI Press, 1996.
 
+\bibitem[Bercher et~al.(2014)Bercher, Biundo, Geier, Hoernle, Richter,
+  Schattenberg, and Nothdurft]{hplan1}
+Pascal Bercher, Susanne Biundo, Thomas Geier, Thilo Hoernle, Felix Richter,
+  Bernd Schattenberg, and Florian Nothdurft.
+\newblock Plan, repair, execute, explain — how planning helps to assemble
+  your home theater.
+\newblock In \emph{Proceedings of the Twenty-Fourth International Conferenc on
+  International Conference on Automated Planning and Scheduling}, ICAPS'14,
+  page 386–394. AAAI Press, 2014.
+\newblock ISBN 9781577356608.
+
+\bibitem[Bercher et~al.(2019)Bercher, Alford, and Höller]{hplan2}
+Pascal Bercher, Ron Alford, and Daniel Höller.
+\newblock A survey on hierarchical planning – one abstract idea, many
+  concrete realizations.
+\newblock In \emph{Proceedings of the Twenty-Eighth International Joint
+  Conference on Artificial Intelligence, {IJCAI-19}}, pages 6267--6275.
+  International Joint Conferences on Artificial Intelligence Organization, 7
+  2019.
+\newblock \doi{10.24963/ijcai.2019/875}.
+\newblock URL \url{https://doi.org/10.24963/ijcai.2019/875}.
+
 \bibitem[Chakraborti et~al.(2020)Chakraborti, Sreedharan, and
   Kambhampati]{expai}
 Tathagata Chakraborti, Sarath Sreedharan, and Subbarao Kambhampati.
@@ -26,6 +48,13 @@ Tathagata Chakraborti, Sarath Sreedharan, and Subbarao Kambhampati.
   Conference on Artificial Intelligence (IJCAI’20)}, pages 4803--4811. AAAI
   Press, 2020.
 \newblock URL \url{https://www.ijcai.org/proceedings/2020/bibtex/669}.
+
+\bibitem[Erol et~al.(1994)Erol, Hendler, and Nau]{htn1}
+Kutluhan Erol, James Hendler, and Dana~S. Nau.
+\newblock Umcp: A sound and complete procedure for hierarchical task network
+  planning.
+\newblock In \emph{Proceedings of the Second International Conference on AI
+  Planning Systems (AIPS)}, pages 249--254, 1994.
 
 \bibitem[Fikes and Nilsson(1971)]{strips}
 Richard~E. Fikes and Nils~J. Nilsson.
@@ -46,6 +75,13 @@ Henry~A. Kautz and Peter~B. Ladkin.
 \newblock In \emph{Proceedings of the Ninth National Conference on Artificial
   Intelligence (AAAI-91)}, volume~1, pages 241--246, Anaheim, California, 1991.
   AAAI Press.
+
+\bibitem[Mirsky et~al.(2025)Mirsky, Keren, Gal, and Karpas]{plan_library}
+Reuth Mirsky, Gal Keren, Alon Gal, and Erez Karpas.
+\newblock Goal and plan recognition design for plan libraries.
+\newblock \emph{ACM Transactions on Intelligent Systems and Technology},
+  16\penalty0 (1):\penalty0 1--25, 2025.
+\newblock \doi{10.1145/3234464}.
 
 \bibitem[Ouyang et~al.(2022)Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin,
   Zhang, Agarwal, Slama, Ray, Schulman, Hilton, Kelton, Miller, Simens, Askell,
@@ -83,6 +119,15 @@ Bama Srinivasan and Mohan~Raj Vijayan.
   reasoning in large language models.
 \newblock In \emph{Proceedings of the 11th Indian Conference on Logic and
   Applications}, Calcutta, India, 2025. Springer LNCS.
+
+\bibitem[Van-Horenbeke and Peer(2021)]{goal_act_plan}
+Franz~A. Van-Horenbeke and Angelika Peer.
+\newblock Activity, plan, and goal recognition: A review.
+\newblock \emph{Frontiers in Robotics and AI}, Volume 8 - 2021, 2021.
+\newblock ISSN 2296-9144.
+\newblock \doi{10.3389/frobt.2021.643010}.
+\newblock URL
+  \url{https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.643010}.
 
 \bibitem[Xiong et~al.(2024)Xiong, Payani, Kompella, and Fekri]{xiong}
 Siheng Xiong, Ali Payani, Ramana Kompella, and Faramarz Fekri.
