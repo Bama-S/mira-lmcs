@@ -11,12 +11,6 @@ James~F. Allen.
 \newblock \emph{Communications of the ACM}, 26\penalty0 (11):\penalty0
   832--843, 1983.
 
-\bibitem[Bacchus and Kabanza(1996)]{Bacchus1996}
-F.~Bacchus and F.~Kabanza.
-\newblock Planning for temporally extended goals.
-\newblock In \emph{Proceedings of the Thirteenth National Conference on
-  Artificial Intelligence}, volume~2, pages 1215--1222. AAAI Press, 1996.
-
 \bibitem[Bercher et~al.(2014)Bercher, Biundo, Geier, Hoernle, Richter,
   Schattenberg, and Nothdurft]{hplan1}
 Pascal Bercher, Susanne Biundo, Thomas Geier, Thilo Hoernle, Felix Richter,
@@ -38,16 +32,6 @@ Pascal Bercher, Ron Alford, and Daniel Höller.
   2019.
 \newblock \doi{10.24963/ijcai.2019/875}.
 \newblock URL \url{https://doi.org/10.24963/ijcai.2019/875}.
-
-\bibitem[Chakraborti et~al.(2020)Chakraborti, Sreedharan, and
-  Kambhampati]{expai}
-Tathagata Chakraborti, Sarath Sreedharan, and Subbarao Kambhampati.
-\newblock The emerging landscape of explainable automated planning \& decision
-  making.
-\newblock In \emph{Proceedings of the Twenty-Ninth International Joint
-  Conference on Artificial Intelligence (IJCAI’20)}, pages 4803--4811. AAAI
-  Press, 2020.
-\newblock URL \url{https://www.ijcai.org/proceedings/2020/bibtex/669}.
 
 \bibitem[Dan and Singh(2013)]{srl_survey}
 Avishek Dan and Janardhan Singh.
@@ -133,11 +117,29 @@ Fei Song and Robin Cohen.
   Intelligence - Volume 1}, AAAI'91, page 247–252. AAAI Press, 1991.
 \newblock ISBN 0262510596.
 
-\bibitem[Srinivasan and Parthasarathi(2017)]{survey}
+\bibitem[Srinivasan and Parthasarathi(2013)]{ta}
+Bama Srinivasan and Ranjani Parthasarathi.
+\newblock An intelligent task analysis approach for special education based on
+  mira.
+\newblock \emph{Journal of Applied Logic}, 11\penalty0 (1):\penalty0 137--145,
+  2013.
+\newblock ISSN 1570-8683.
+\newblock \doi{https://doi.org/10.1016/j.jal.2012.12.001}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S1570868312000754}.
+
+\bibitem[Srinivasan and Parthasarathi(2017{\natexlab{a}})]{mira_robot}
+Bama Srinivasan and Ranjani Parthasarathi.
+\newblock Action representation for robots using mira.
+\newblock In \emph{2017 2nd International Conference on Knowledge Engineering
+  and Applications (ICKEA)}, pages 210--214, 2017{\natexlab{a}}.
+\newblock \doi{10.1109/ICKEA.2017.8169931}.
+
+\bibitem[Srinivasan and Parthasarathi(2017{\natexlab{b}})]{survey}
 Bama Srinivasan and Ranjani Parthasarathi.
 \newblock A survey of imperatives and action representation formalisms.
 \newblock \emph{Artif. Intell. Rev.}, 48\penalty0 (2):\penalty0 263--297,
-  August 2017.
+  August 2017{\natexlab{b}}.
 
 \bibitem[Srinivasan and Parthasarathi(2021)]{mira}
 Bama Srinivasan and Ranjani Parthasarathi.

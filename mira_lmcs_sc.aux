@@ -1,11 +1,13 @@
 \relax 
-\providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -13,6 +15,8 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{mira}
+\citation{llmmira}
 \@writefile{toc}{\contentsline {section}{\tocsection {}{1}{Introduction}}{1}{section.1}\protected@file@percent }
 \citation{strips}
 \citation{allen}
@@ -20,44 +24,45 @@
 \citation{fei}
 \citation{kautz}
 \citation{Bacchus2000}
-\citation{Bacchus1996}
-\citation{expai}
-\@writefile{toc}{\contentsline {section}{\tocsection {}{2}{Related Work}}{2}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.1}{Classical Planning and Temoral Logic}}{2}{subsection.3}\protected@file@percent }
 \citation{hplan2}
 \citation{htn1}
 \citation{hplan1}
+\@writefile{toc}{\contentsline {section}{\tocsection {}{2}{Related Work}}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Classical Planning and Temporal Logic}}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.1}{Hierarchical Planning}}{2}{subsection.4}\protected@file@percent }
 \citation{goal_act_plan}
 \citation{plan_library}
 \citation{srl}
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.2}{Hierarchial Planning}}{3}{subsection.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.3}{Plan Recognition and Goal Inference}}{3}{subsection.5}\protected@file@percent }
 \citation{srl_survey}
 \citation{bdi}
 \citation{bdi_reasoning}
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.2}{Plan Recognition and Goal Inference}}{3}{subsection.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Dependency and Semantic Relations}}{3}{section*.6}\protected@file@percent }
 \citation{sanyal}
 \citation{davis}
 \citation{survey}
 \citation{mira}
+\citation{ta}
+\citation{mira_robot}
 \citation{llmmira}
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Dependency and Semantic Relations}}{4}{section*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.4}{BDI Model and Practical Reasoning}}{4}{subsection.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.5}{Normative Systems and Philosophical Foundations}}{4}{subsection.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.6}{Imperative Logic and Action Representation}}{4}{subsection.9}\protected@file@percent }
 \citation{xiong}
 \citation{llm_human}
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{BDI Model and Practical Reasoning}}{4}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Normative Systems and Philosophical Foundations}}{4}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Imperative Logic and Action Representation}}{4}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Task Planning with Large Language Models}}{4}{section*.10}\protected@file@percent }
 \citation{mira}
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{2.7}{Task Planning with Large Language Models}}{5}{subsection.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{}{Positioning of the proposed paper}}{5}{section*.11}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\tocsection {}{3}{Extension of Syntax and Semantics for Action-Object Imperative Logic}}{5}{section.12}\protected@file@percent }
 \newlabel{sec:syntax}{{3.1}{5}{Syntax}{subsection.13}{}}
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{3.1}{Syntax}}{5}{subsection.13}\protected@file@percent }
-\newlabel{eq:formation}{{3.1}{6}{Syntax}{equation.14}{}}
-\newlabel{eq:ac_ob}{{3.2}{6}{Syntax}{equation.15}{}}
+\newlabel{eq:formation}{{3.1}{5}{Syntax}{equation.14}{}}
+\newlabel{eq:ac_ob}{{3.2}{5}{Syntax}{equation.15}{}}
 \newlabel{tab:ac_ob}{{3.1}{6}{Syntax}{equation.15}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Instruction representations for actions paired with zero, one, or multiple objects.}}{6}{table.16}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{3.2}{Semantics}}{6}{subsection.17}\protected@file@percent }
 \newlabel{eq:model}{{3.3}{6}{Semantics}{equation.18}{}}
+\citation{llm_mira}
 \citation{llm_mira}
 \citation{llm_mira}
 \@writefile{toc}{\contentsline {section}{\tocsection {}{4}{Sequencing Methods}}{7}{section.19}\protected@file@percent }
@@ -65,24 +70,23 @@
 \newlabel{sec:sruti}{{4.1}{7}{Direct Assertion (\'{S}rutikrama)}{subsection.20}{}}
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{4.1}{Direct Assertion (\'{S}rutikrama)}}{7}{subsection.20}\protected@file@percent }
 \newlabel{eq:sruti}{{4.1}{7}{Direct Assertion (\'{S}rutikrama)}{equation.21}{}}
-\citation{llm_mira}
+\newlabel{eq:sruti_ext}{{4.2}{7}{Direct Assertion (\'{S}rutikrama)}{equation.22}{}}
 \citation{ta}
 \citation{llm_mira}
-\newlabel{eq:sruti_ext}{{4.2}{8}{Direct Assertion (\'{S}rutikrama)}{equation.22}{}}
 \newlabel{sec:artha}{{4.2}{8}{Sequencing based on purpose}{subsection.26}{}}
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{4.2}{Sequencing based on purpose}}{8}{subsection.26}\protected@file@percent }
 \newlabel{eq:artha_ext}{{4.4}{8}{Sequencing based on purpose}{equation.27}{}}
 \newlabel{eq:ao_artha}{{4.5}{8}{Sequencing based on purpose}{equation.28}{}}
 \newlabel{sec:pravritti}{{4.3}{8}{Sequential and Parallel Execution Methods for Repetitive Tasks}{subsection.29}{}}
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{4.3}{Sequential and Parallel Execution Methods for Repetitive Tasks}}{8}{subsection.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\tocsubsubsection {}{4.3.1}{Sequential Completion Method}}{9}{subsubsection.30}\protected@file@percent }
-\newlabel{eq:seq_single}{{4.6}{9}{Sequential Completion Method}{equation.31}{}}
-\newlabel{eq:seq_m}{{4.7}{9}{Sequential Completion Method}{equation.32}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\tocsubsubsection {}{4.3.1}{Sequential Completion Method}}{8}{subsubsection.30}\protected@file@percent }
+\newlabel{eq:seq_single}{{4.6}{8}{Sequential Completion Method}{equation.31}{}}
+\newlabel{eq:seq_m}{{4.7}{8}{Sequential Completion Method}{equation.32}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\tocsubsubsection {}{4.3.2}{Step-by-Step Parallel Method (Iterative Procedure)}}{9}{subsubsection.33}\protected@file@percent }
 \newlabel{eq:step_parallel_formal}{{4.8}{9}{Step-by-Step Parallel Method (Iterative Procedure)}{equation.34}{}}
-\@writefile{toc}{\contentsline {section}{\tocsection {}{5}{Object Dependency and Functional Dependency in Instruction Sequencing}}{10}{section.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{5.1}{Object Dependency Condition}}{10}{thmt@dummyctr.37}\protected@file@percent }
-\@writefile{loe}{\contentsline {definition}{\ifthmt@listswap Definition\nonbreakingspace 1\else \numberline {1}Definition\fi }{10}{definition.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\tocsection {}{5}{Object Dependency and Functional Dependency in Instruction Sequencing}}{9}{section.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{5.1}{Object Dependency Condition}}{9}{thmt@dummyctr.37}\protected@file@percent }
+\@writefile{loe}{\contentsline {definition}{\ifthmt@listswap Definition\nonbreakingspace 1\else \numberline {1}Definition\fi }{9}{definition.38}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{5.2}{Functional Dependency Condition}}{10}{thmt@dummyctr.40}\protected@file@percent }
 \@writefile{loe}{\contentsline {definition}{\ifthmt@listswap Definition\nonbreakingspace 2\else \numberline {2}Definition\fi }{10}{definition.41}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{5.3}{Validity Theorem for Sequencing}}{10}{thmt@dummyctr.43}\protected@file@percent }
@@ -91,33 +95,33 @@
 \citation{mira}
 \@writefile{toc}{\contentsline {subsubsection}{\tocsubsubsection {}{5.3.1}{Corollary}}{11}{subsubsection.45}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{5.4}{Deduction Rules for Sequencing}}{11}{subsection.46}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\tocparagraph {}{}{Object-Consistent Sequencing Rule (OCS)}}{12}{section*.47}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\tocparagraph {}{}{Purpose-Linked Sequencing Rule (PLS)}}{12}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\tocparagraph {}{}{Object-Consistent Sequencing Rule (OCS)}}{11}{section*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\tocparagraph {}{}{Purpose-Linked Sequencing Rule (PLS)}}{11}{section*.48}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\tocsection {}{6}{Soundness and Completeness of Deduction Rules}}{12}{section.49}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{6.1}{Soundness}}{12}{subsection.50}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{6.2}{Completeness}}{13}{subsection.51}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{mira_ref}
 \bibcite{allen}{{1}{1983}{{Allen}}{{}}}
-\bibcite{Bacchus1996}{{2}{1996}{{Bacchus and Kabanza}}{{}}}
-\bibcite{hplan1}{{3}{2014}{{Bercher et~al.}}{{Bercher, Biundo, Geier, Hoernle, Richter, Schattenberg, and Nothdurft}}}
-\bibcite{hplan2}{{4}{2019}{{Bercher et~al.}}{{Bercher, Alford, and Höller}}}
-\bibcite{expai}{{5}{2020}{{Chakraborti et~al.}}{{Chakraborti, Sreedharan, and Kambhampati}}}
-\bibcite{srl_survey}{{6}{2013}{{Dan and Singh}}{{}}}
-\bibcite{davis}{{7}{2010}{{Davis}}{{}}}
-\bibcite{htn1}{{8}{1994}{{Erol et~al.}}{{Erol, Hendler, and Nau}}}
-\@writefile{toc}{\contentsline {section}{\tocsection {}{7}{Implementation}}{14}{section.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\tocsubsection {}{6.2}{Completeness}}{13}{subsection.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\tocsection {}{7}{Implementation}}{13}{section.52}\protected@file@percent }
+\bibcite{hplan1}{{2}{2014}{{Bercher et~al.}}{{Bercher, Biundo, Geier, Hoernle, Richter, Schattenberg, and Nothdurft}}}
+\bibcite{hplan2}{{3}{2019}{{Bercher et~al.}}{{Bercher, Alford, and Höller}}}
+\bibcite{srl_survey}{{4}{2013}{{Dan and Singh}}{{}}}
+\bibcite{davis}{{5}{2010}{{Davis}}{{}}}
+\bibcite{htn1}{{6}{1994}{{Erol et~al.}}{{Erol, Hendler, and Nau}}}
+\bibcite{strips}{{7}{1971}{{Fikes and Nilsson}}{{}}}
+\bibcite{huth}{{8}{2004}{{Huth and Ryan}}{{}}}
+\bibcite{srl}{{9}{2008}{{Johansson}}{{}}}
+\bibcite{kautz}{{10}{1991}{{Kautz and Ladkin}}{{}}}
+\bibcite{plan_library}{{11}{2025}{{Mirsky et~al.}}{{Mirsky, Keren, Gal, and Karpas}}}
+\bibcite{llm_human}{{12}{2022}{{Ouyang et~al.}}{{Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin, Zhang, Agarwal, Slama, Ray, Schulman, Hilton, Kelton, Miller, Simens, Askell, Welinder, Christiano, Leike, and Lowe}}}
+\bibcite{bdi}{{13}{1991}{{Rao and Georgeff}}{{}}}
+\bibcite{sanyal}{{14}{2021}{{Sanyal}}{{}}}
+\bibcite{fei}{{15}{1991}{{Song and Cohen}}{{}}}
 \@writefile{toc}{\contentsline {section}{\tocsection {}{}{References}}{14}{section*.53}\protected@file@percent }
-\bibcite{strips}{{9}{1971}{{Fikes and Nilsson}}{{}}}
-\bibcite{huth}{{10}{2004}{{Huth and Ryan}}{{}}}
-\bibcite{srl}{{11}{2008}{{Johansson}}{{}}}
-\bibcite{kautz}{{12}{1991}{{Kautz and Ladkin}}{{}}}
-\bibcite{plan_library}{{13}{2025}{{Mirsky et~al.}}{{Mirsky, Keren, Gal, and Karpas}}}
-\bibcite{llm_human}{{14}{2022}{{Ouyang et~al.}}{{Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin, Zhang, Agarwal, Slama, Ray, Schulman, Hilton, Kelton, Miller, Simens, Askell, Welinder, Christiano, Leike, and Lowe}}}
-\bibcite{bdi}{{15}{1991}{{Rao and Georgeff}}{{}}}
-\bibcite{sanyal}{{16}{2021}{{Sanyal}}{{}}}
-\bibcite{fei}{{17}{1991}{{Song and Cohen}}{{}}}
-\bibcite{survey}{{18}{2017}{{Srinivasan and Parthasarathi}}{{}}}
+\bibcite{ta}{{16}{2013}{{Srinivasan and Parthasarathi}}{{}}}
+\bibcite{mira_robot}{{17}{2017{a}}{{Srinivasan and Parthasarathi}}{{}}}
+\bibcite{survey}{{18}{2017{b}}{{Srinivasan and Parthasarathi}}{{}}}
 \bibcite{mira}{{19}{2021}{{Srinivasan and Parthasarathi}}{{}}}
 \bibcite{llmmira}{{20}{2025}{{Srinivasan and Vijayan}}{{}}}
 \bibcite{goal_act_plan}{{21}{2021}{{Van-Horenbeke and Peer}}{{}}}
@@ -128,4 +132,4 @@
 \newlabel{tocindent1}{19.4667pt}
 \newlabel{tocindent2}{32.18062pt}
 \newlabel{tocindent3}{0pt}
-\gdef \@abspage@last{16}
+\gdef \@abspage@last{15}
