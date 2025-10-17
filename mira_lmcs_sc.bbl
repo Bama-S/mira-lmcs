@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -49,6 +49,19 @@ Tathagata Chakraborti, Sarath Sreedharan, and Subbarao Kambhampati.
   Press, 2020.
 \newblock URL \url{https://www.ijcai.org/proceedings/2020/bibtex/669}.
 
+\bibitem[Dan and Singh(2013)]{srl_survey}
+Avishek Dan and Janardhan Singh.
+\newblock A survey on semantic role labeling and dependency parsing.
+\newblock Technical report, 2013.
+\newblock Survey covers SRL Task till 2010 and Dependency Parsing concepts up
+  to 2008.
+
+\bibitem[Davis(2010)]{davis}
+Donald~R. Davis.
+\newblock Hermeneutics and ethics (mīmāṃsā).
+\newblock In \emph{The Spirit of Hindu Law}, pages 47--69. Cambridge University
+  Press, 2010.
+
 \bibitem[Erol et~al.(1994)Erol, Hendler, and Nau]{htn1}
 Kutluhan Erol, James Hendler, and Dana~S. Nau.
 \newblock Umcp: A sound and complete procedure for hierarchical task network
@@ -68,6 +81,11 @@ Michael Huth and Mark Ryan.
 \newblock \emph{Logic in Computer Science: Modelling and Reasoning about
   Systems}.
 \newblock Cambridge University Press, 2 edition, 2004.
+
+\bibitem[Johansson(2008)]{srl}
+Richard Johansson.
+\newblock \emph{Dependency-based Semantic Analysis of Natural-language Text}.
+\newblock Doctoral dissertation (monograph), Lund University, Lund, 2008.
 
 \bibitem[Kautz and Ladkin(1991)]{kautz}
 Henry~A. Kautz and Peter~B. Ladkin.
@@ -93,6 +111,20 @@ Long Ouyang, Jeff Wu, Xu~Jiang, Diogo Almeida, Carroll~L. Wainwright, Pamela
 \newblock Training language models to follow instructions with human feedback,
   2022.
 \newblock URL \url{https://arxiv.org/abs/2203.02155}.
+
+\bibitem[Rao and Georgeff(1991)]{bdi}
+Anand~S. Rao and Michael~P. Georgeff.
+\newblock Modeling rational agents within a bdi-architecture.
+\newblock In \emph{Proceedings of the International Conference on Principles of
+  Knowledge Representation and Reasoning (KR)}, pages 473--484, 1991.
+
+\bibitem[Sanyal(2021)]{sanyal}
+Manidipa Sanyal.
+\newblock Imperative logic: Indian and western.
+\newblock In Jonardon Ganeri and Sundar Sarukkai, editors, \emph{Handbook of
+  Logical Thought in India}, pages 1--40. Springer India, 2021.
+\newblock \doi{10.1007/978-81-322-1812-8_52-1}.
+\newblock URL \url{https://ouci.dntb.gov.ua/works/9Jp6rG34/}.
 
 \bibitem[Song and Cohen(1991)]{fei}
 Fei Song and Robin Cohen.
@@ -128,6 +160,11 @@ Franz~A. Van-Horenbeke and Angelika Peer.
 \newblock \doi{10.3389/frobt.2021.643010}.
 \newblock URL
   \url{https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.643010}.
+
+\bibitem[Wooldridge(2000)]{bdi_reasoning}
+Michael Wooldridge.
+\newblock \emph{Reasoning About Rational Agents}.
+\newblock MIT Press, Cambridge, MA, 2000.
 
 \bibitem[Xiong et~al.(2024)Xiong, Payani, Kompella, and Fekri]{xiong}
 Siheng Xiong, Ali Payani, Ramana Kompella, and Faramarz Fekri.
