@@ -41,9 +41,9 @@
 \section{Introduction}
 Assume a robot is tasked with preparing a tomato noodle stir-fry and painting 10 fence panels. The cooking task requires steps like "pick noodles," "cook noodles," "chop tomato," and "fry and combine," where chopping must precede frying to maintain object states. The painting task involves applying primer, first coat, and second coat to each panel, executable either panel-by-panel or by completing each step across all panels sequentially. These examples indicate the challenges of determining action order, object usage, and optimal sequencing to maximize efficiency, motivating the need for a robust sequencing framework.
 
-Over the years, numerous studies have explored reasoning with actions across different domains, including hierarchical planning, temporal logic, Belief-Desire-Intention (BDI) models, Natural Language Processing, and Large Language Models. Despite this progress, effectively sequencing instructions for successful task execution remains a significant challenge.
+To address such challenges, numerous studies have explored solutions across different domains, including hierarchical planning, temporal logic, Belief-Desire-Intention (BDI) models, Natural Language Processing, and Large Language Models. Despite this progress, effectively sequencing instructions for successful task execution remains a significant challenge. While these methods have advanced reasoning about time, intention, and structure, they often lack a principled framework for handling imperatives as instruction sequences.
 
-This paper addresses this challenge by formalizing various instruction sequencing methods inspired by the Indian philosophical system of \mimamsa. These methods include: direct assertion sequencing (\textit{'Srutikrama}), purpose-driven sequencing (\textit{Arthakrama}), and step-by-step parallel sequencing (\textit{Pravṛttikrama}). Building upon the MIRA framework \citep{mira} and temporal reasoning approaches \citep{llmmira}, instructions are treated as action–object pairs, which serve as the fundamental unit for sequencing in these three methods.
+Along this line, this paper aims to address the aforementioned challenges by formalizing various instruction sequencing methods inspired by the Indian philosophical system of \mimamsa. This philosophy has a systematic and logical method of resolving ambiguities in instructions which help to perform actions in a sequence.These methods include: direct assertion sequencing (\textit{'Srutikrama}), purpose-driven sequencing (\textit{Arthakrama}), and step-by-step parallel sequencing (\textit{Pravṛttikrama}). Building upon the MIRA framework \citep{mira} and temporal reasoning approaches \citep{llmmira}, instructions are treated as action–object pairs, which serve as the fundamental unit for sequencing in these three methods.
 
 The contributions of this paper are as follows:
 \begin{itemize}
@@ -53,10 +53,10 @@ The contributions of this paper are as follows:
 \item Deduction rules for sequence validity, supported by soundness and completeness proofs.
 \end{itemize}
 
-The rest of the paper is organized as follows:
-
+The rest of this paper is structured as follows. Section \ref{sec:related} discusses related work. Section \ref{sec:syn_sem} describes the syntax and semantics of the action–object imperative logic. Section \ref{sec:sequencing} presents the formal representations of the three sequencing methods. Section \ref{sec:dependency} explains the object and functional dependencies, introduces the validity theorem with its proof, and outlines additional deduction rules for sequencing. Section \ref{sec:sound_complete} establishes the soundness and completeness of the proposed sequencing methods. Finally, Section \ref{sec:conclude} summarizes the findings and outlines directions for future implementation.
 
 \section{Related Work}
+\label{sec:related}
 This section reviews key developments in classical and temporal planning, hierarchical methods, plan recognition, dependency modeling, BDI reasoning, normative systems, imperative logic, and LLM-based task planning. Based on this review, the proposed framework is positioned as a logical approach that addresses instruction sequencing.
 
 \subsection*{Classical Planning and Temporal Logic}
@@ -111,6 +111,7 @@ The proposed \mimamsa–inspired framework advances this domain by offering a ph
 \end{itemize}
 
  \section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
+ \label{sec:syn_sem}
 This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
 \subsection{Syntax}
 \label{sec:syntax}
@@ -238,7 +239,7 @@ V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ and } eval(r_2, (a_2, o_2)) = V
 This formal action-object representation provides a foundation for capturing the ordering and dependency relationships among instructions. The philosophy of \mimamsa\ includes several principled methods for sequencing such instructions to achieve coherent execution. The next section introduces these methods and formally develops three sequencing strategies by extending this representation.
 
 \section{Sequencing Methods}
-\label{sec:seq}
+\label{sec:sequencing}
 According to the Indian philosophical system of \mimamsa, a set of instructions can be sequenced using six distinct ordering principles to ensure coherent and uninterrupted execution. These are: Direct Assertion (\textit{Śrutikrama}), Purpose-Based Sequencing (\textit{Arthakrama}), Order as Given (\textit{P\={a}\d{t}hakrama}), Position-Based Order (\textit{Sth\={a}nakrama}), Principal Activity-Based Order (\textit{Mukhyakrama}), and Iterative Procedure (\textit{Pravri\d{t}\d{t}ikrama}). For more details on the sequencing aspects from the philosophy, the reader may refer to the prior work on temporal ordering of instructions \cite{llm_mira}. Among these, three methods—Direct Assertion, Purpose-Based Sequencing, and Iterative Procedure—are formalized in this paper and discussed in Sections \ref{sec:sruti}, \ref{sec:artha}, and \ref{sec:pravritti}, respectively.
 
 
@@ -357,6 +358,7 @@ In both the Sequential Completion and Step-by-Step Parallel Methods, object depe
 
 Using these sequencing mechanisms, validity can be logically determined through object dependency and consistency across subsequent instructions, as detailed in the following section.
 \section{Object Dependency and Functional Dependency in Instruction Sequencing}
+\label{sec:dependency}
 
 The validity of an instruction sequence relies on two main conditions: \textbf{object dependency} and \textbf{functional dependency} across instructions. These ensure that the instruction sequence respects the logical dependencies and state transformations of objects involved.
 
@@ -498,7 +500,7 @@ This rule derives a sequenced instruction chain when both components are derivab
 These rules ensure that instruction sequencing is logically justified only when the relevant object and functional dependencies are maintained. They form the basis for the forthcoming proofs of soundness and completeness, which demonstrate the alignment of proof theory and semantic interpretation in this system.
 
 \section{Soundness and Completeness of Deduction Rules}
-
+\label{sec:sound_complete}
 In this section, we establish the soundness and completeness of the deduction rules (OCS and PLS) with respect to the semantic model and the Validity Theorem (Theorem 1).
 Soundness ensures that every sequence of instructions derivable within the framework satisfies the semantic validity conditions, which consists of both object and functional dependencies.
 Completeness guarantees the converse, that is every sequence that satisfies these semantic validity conditions is derivable within the framework.
@@ -545,8 +547,14 @@ These proofs align the proof theory (deduction rules) with the semantics, ensuri
 
 
 
-\section{Implementation}
+\section{Conclusion and Future Work}
+\label{sec:conclude}
+
+
+
 The proposed framework is computationally instantiated through the MIRA AI Agent, a system leveraging Large Language Models (e.g., Groq, Gemini) for instruction generation and sequence validation. This agent, detailed in future work, demonstrates the practical feasibility of our semantic model, with real-time deployment as a web application. Current efforts focus on formal verification, with implementation specifics to be elaborated in a forthcoming paper.
+
+
 
 \bibliographystyle{plainnat} % or any style you prefer, e.g., unsrtnat for numerical order
 \bibliography{mira_ref}
