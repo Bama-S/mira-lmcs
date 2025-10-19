@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.6.19)  18 OCT 2025 22:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.6.19)  19 OCT 2025 13:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -918,10 +918,10 @@ Overfull \vbox (24.16pt too high) has occurred while \output is active []
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
 Package natbib Warning: Citation `Bacchus2000' on page 2 undefined on input lin
-e 74.
+e 75.
 
 [2] [3] [4]
-Overfull \hbox (9.69441pt too wide) in paragraph at lines 115--116
+Overfull \hbox (9.69441pt too wide) in paragraph at lines 116--117
 \OT1/cmr/m/n/10.95 (-20) This sec-tion ex-tends the for-mal syn-tax and se-man-
 tics frame-work of Srini-vasan and Parthasarathi
  []
@@ -932,7 +932,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (90.76901pt too wide) detected at line 218
+Overfull \hbox (90.76901pt too wide) detected at line 219
 \OML/cmm/m/it/10.95 eval\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 s; \OT1/cmr/m/n
 /10.95 (\OML/cmm/m/it/10.95 a[]; o[]\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ![
 ] \OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 a[]; o[]\OT1/cmr/m/n/10.95 )) = []
@@ -941,46 +941,45 @@ Overfull \hbox (90.76901pt too wide) detected at line 218
 [6]
 
 Package natbib Warning: Citation `llm_mira' on page 7 undefined on input line 2
-43.
+44.
 
 
 Package natbib Warning: Citation `llm_mira' on page 7 undefined on input line 2
-48.
+49.
 
 [7]
 
 Package natbib Warning: Citation `llm_mira' on page 8 undefined on input line 2
-83.
+84.
 
 
 Package natbib Warning: Citation `llm_mira' on page 8 undefined on input line 3
-01.
+02.
 
-[8]
+[8] [9]
 Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
-nput line 367.
- [9]
+nput line 368.
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 392.
+t line 393.
  [10]
-Overfull \hbox (63.54442pt too wide) detected at line 448
+Overfull \hbox (63.54442pt too wide) detected at line 449
 \OMS/cmsy/m/n/10.95 8\OML/cmm/m/it/10.95 j \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/
 10.95 1\OML/cmm/m/it/10.95 ; [] ; n \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 
 1\OMS/cmsy/m/n/10.95 g\OML/cmm/m/it/10.95 ;  [] D\OT1/cmr/m/n/10.95 (\OML/cmm/m
 /it/10.95 i[]; i[]\OT1/cmr/m/n/10.95 ) = []  =[]\OMS/cmsy/m/n/10.95 )  []
  []
 
-
-Overfull \hbox (11.83118pt too wide) detected at line 496
+[11]
+Overfull \hbox (11.83118pt too wide) detected at line 497
 []\OML/cmm/m/it/10.95 PLS
  []
 
-[11] [12] (./mira_lmcs_sc.bbl [13]
+[12] [13] (./mira_lmcs_sc.bbl [14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14])
+ [15])
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5
-62.
+63.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
@@ -993,18 +992,18 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 Package natbib Warning: There were undefined citations.
 
-[15] (./mira_lmcs_sc.aux)
+[16] (./mira_lmcs_sc.aux)
 Package rerunfilecheck Info: File `mira_lmcs_sc.out' has not changed.
 (rerunfilecheck)             Checksum: 596341DB45A52BE16FB8B479516A0F54;6438.
  ) 
 Here is how much of TeX's memory you used:
- 26115 strings out of 480171
- 478902 string characters out of 5894489
- 778797 words of memory out of 5000000
+ 26130 strings out of 480171
+ 478997 string characters out of 5894489
+ 776798 words of memory out of 5000000
  43141 multiletter control sequences out of 15000+600000
- 497009 words of font info for 179 fonts, out of 8000000 for 9000
+ 497366 words of font info for 186 fonts, out of 8000000 for 9000
  220 hyphenation exceptions out of 8191
- 100i,12n,104p,1515b,506s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 100i,12n,104p,1515b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/bama/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.450p
 k>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy6.pfb></usr/share/texlive
@@ -1015,17 +1014,18 @@ ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on mira_lmcs_sc.pdf (15 pages, 291095 bytes).
+m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/font
+s/type1/urw/helvetic/uhvr8a.pfb>
+Output written on mira_lmcs_sc.pdf (16 pages, 310330 bytes).
 PDF statistics:
- 452 PDF objects out of 1000 (max. 8388607)
- 377 compressed objects within 4 object streams
- 92 named destinations out of 1000 (max. 500000)
+ 464 PDF objects out of 1000 (max. 8388607)
+ 386 compressed objects within 4 object streams
+ 93 named destinations out of 1000 (max. 500000)
  33517 words of extra memory for PDF output out of 35830 (max. 10000000)
 
