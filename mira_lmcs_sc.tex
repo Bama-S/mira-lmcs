@@ -27,22 +27,22 @@
 \newcommand{\mimamsa}{M\={i}m\={a}\.ms\={a}}
 %opening
 \title{A M\={i}m\={a}\.{m}s\={a} Inspired Framework for Instruction Sequencing in AI Agents}
-\author{}
-\address{}
-\email{}
+\author{Bama Srinivasan}
+\address{Department of Information Science and Technology, CEG Campus, Anna University, India}
+\email{bama@auist.net}
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-This paper presents a formal framework for sequencing instructions in AI agents, influenced by the Indian philosophical system of \mimamsa. The framework formalizes sequencing mechanisms through action–object pairs in three distinct ways: direct assertion (Śrutikrama) for temporal precedence, purpose-driven sequencing (Arthakrama) for functional dependencies, and iterative procedures (Pravṛttikrama) for distinguishing between parallel and sequential execution in repetitive tasks. It introduces the syntax and semantics of an action–object imperative logic, extending the MIRA formalism \cite{mira} with explicit deduction rules for sequencing. The correctness of instruction sequencing is established through a validated theorem based on object dependencies across successive instructions, supported by proofs of soundness and completeness.
+This paper presents a formal framework for sequencing instructions in AI agents, inspired by the Indian philosophical system of \mimamsa. The framework formalizes sequencing mechanisms through action–object pairs in three distinct ways: direct assertion (Śrutikrama) for temporal precedence, purpose-driven sequencing (Arthakrama) for functional dependencies, and iterative procedures (Pravṛttikrama) for distinguishing between parallel and sequential execution in repetitive tasks. It introduces the syntax and semantics of an action–object imperative logic, extending the MIRA formalism \citep{mira} with explicit deduction rules for sequencing. The correctness of instruction sequencing is established through a validated theorem, which is based on object dependencies across successive instructions. This is further supported by proofs of soundness and completeness.
 
 \end{abstract}
 
 \section{Introduction}
 Assume a robot is given two different tasks. The first one is preparing a tomato noodle stir-fry, and the second one, painting 10 fence panels. The cooking task requires steps such as "pick noodles," "cook noodles," "chop tomato," and "fry and combine," where chopping precedes frying. The painting task involves at least three actions such as applying primer, first coat, and second coat to each panel, which can be performed either panel-by-panel or by completing each stage across all panels sequentially. These examples illustrate the challenges of determining action order, object usage, and optimal sequencing to maximize efficiency, thereby motivating the need for a robust sequencing framework.
 
-To address such challenges, numerous studies have explored solutions across different domains, such as hierarchical planning, temporal logic, Belief-Desire-Intention (BDI) models, Natural Language Processing, and Large Language Models. While these methods have advanced reasoning about time, intention, and structure, they often lack a principled framework for interpreting and sequencing imperatives.
+To address such challenges, numerous studies have explored solutions across different domains, such as hierarchical planning, temporal logic, Belief-Desire-Intention (BDI) models, Natural Language Processing, and Large Language Models. While these methods have advanced the research in terms of reasoning about time, intention, and structure, they often lack a principled framework for interpreting and sequencing imperatives.
 
 This paper aims to address the aforementioned challenges by formalizing various instruction sequencing methods inspired by the Indian philosophical system of \mimamsa. This philosophy provides a systematic and logical method for resolving ambiguities in instructions, thereby helping to determine their proper sequence. The sequencing methods include: direct assertion sequencing (\textit{'Srutikrama}), purpose-driven sequencing (\textit{Arthakrama}), and step-by-step parallel sequencing (\textit{Pravṛttikrama}). Extending on the framework of MIRA \citep{mira} and temporal reasoning approaches \citep{llmmira}, instructions are treated as action–object pairs in this paper, which serve as the fundamental unit for sequencing in these three methods.
 
@@ -54,7 +54,7 @@ The contributions of this paper are as follows:
 \item Deduction rules for sequence validity, supported by soundness and completeness proofs.
 \end{itemize}
 
-The rest of this paper is structured as follows. Section \ref{sec:related} discusses related work. Section \ref{sec:syn_sem} describes the syntax and semantics of the action–object imperative logic. Section \ref{sec:sequencing} presents the formal representations of the three sequencing methods. Section \ref{sec:dependency} explains the object and functional dependencies, introduces the validity theorem with its proof, and outlines additional deduction rules for sequencing. Section \ref{sec:sound_complete} establishes the soundness and completeness of the proposed sequencing methods. Finally, Section \ref{sec:conclude} summarizes the findings and outlines directions for future implementation.
+The rest of this paper is structured as follows. Section \ref{sec:related} discusses related work. Section \ref{sec:syn_sem} describes the syntax and semantics of the action–object imperative logic. Section \ref{sec:sequencing} presents the formal representations of the three sequencing methods. Section \ref{sec:dependency} explains the object and functional dependencies, introduces the validity theorem with its proof, and outlines additional deduction rules for sequencing. Section \ref{sec:sound_complete} establishes the soundness and completeness of the proposed sequencing methods. Finally, Section \ref{sec:conclude} summarizes the findings and outlines directions for future work.
 
 \section{Related Work}
 \label{sec:related}
@@ -73,6 +73,12 @@ To some extent, these challenges have been mitigated by incorporating temporal l
 Extending the work of Allen, Henry A. Kautz and Peter B. Ladkin has provided a temporal reasoning system that handles dates, duration and disjointness \citep{kautz}.
 
 With the general intractability of AI planning, one effective approach is to incorporate domain-specific knowledge to guide the search process, resulting in a sequence of actions that constitute a valid plan \citep{Bacchus2000}. This domain knowledge is expressed using Linear Temporal Logic (LTL), along with the GOAL modality. This method offers several advantages, including modularity, a declarative specification of the planning problem, and the transformation of intractable problems into solvable ones.
+\subsection*{Reasoning About Actions and Change}
+
+Research on formal reasoning about action and change has significantly shaped the field of declarative planning and knowledge representation. Vladimir Lifschitz and collaborators introduced logical foundations for representing causal relationships between actions, using nonmonotonic reasoning and circumscription to formalize the principle of inertia \cite{lifschitz1987formal}. This approach addressed the frame problem by minimizing change to only those effects directly caused by an action.
+
+Subsequent developments led to the formulation of \emph{action languages}—structured representations of how actions transform states in dynamic domains. These frameworks, such as languages A, B, and C, embedded causal laws, preconditions, and indirect effects within a logic programming framework \cite{lifschitz1999action,gelfond1998representing,gelfond1998languages}. Integrating these with answer set programming enabled agents to reason about complex domains using declarative models of change. These theories provide a formal basis for capturing sequencing and dependency reasoning, core ideas extended in the proposed \mimamsa~inspired system where textual imperatives are treated as causal action objects with hermeneutic constraints.
+
 \subsection*{Hierarchical Planning}
 In hierarchial planning, the top-level tasks are split into primitive actions. These are recursively completed to achieve the end task \cite{hplan2}. The most common framework for this approach is **Hierarchical Task Network (HTN) planning**, which employs rule-based decomposition methods to break down compound tasks into smaller task networks. This allows the explicit representation of procedural knowledge and domain-specific constraints \cite{htn1}.
 
@@ -557,7 +563,7 @@ The proposed framework is computationally instantiated through the MIRA AI Agent
 
 
 
-\bibliographystyle{plainnat} % or any style you prefer, e.g., unsrtnat for numerical order
+\bibliographystyle{apalike} % or any style you prefer, e.g., unsrtnat for numerical order
 \bibliography{mira_ref}
 
 \end{document}
