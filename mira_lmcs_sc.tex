@@ -28,6 +28,7 @@
 %opening
 \title{A M\={i}m\={a}\.{m}s\={a} Inspired Framework for Instruction Sequencing in AI Agents}
 \author{Bama Srinivasan}
+%\lmcsorcid{0002-8698-1836}
 \address{Department of Information Science and Technology, CEG Campus, Anna University, India}
 \email{bama@auist.net}
 \begin{document}
@@ -35,7 +36,7 @@
 \maketitle
 
 \begin{abstract}
-This paper presents a formal framework for sequencing instructions in AI agents, inspired by the Indian philosophical system of \mimamsa. The framework formalizes sequencing mechanisms through action–object pairs in three distinct ways: direct assertion (Śrutikrama) for temporal precedence, purpose-driven sequencing (Arthakrama) for functional dependencies, and iterative procedures (Pravṛttikrama) for distinguishing between parallel and sequential execution in repetitive tasks. It introduces the syntax and semantics of an action–object imperative logic, extending the MIRA formalism \citep{mira} with explicit deduction rules for sequencing. The correctness of instruction sequencing is established through a validated theorem, which is based on object dependencies across successive instructions. This is further supported by proofs of soundness and completeness.
+This paper presents a formal framework for sequencing instructions in AI agents, inspired by the Indian philosophical system of \mimamsa. The framework formalizes sequencing mechanisms through action–object pairs in three distinct ways: direct assertion (Śrutikrama) for temporal precedence, purpose-driven sequencing (Arthakrama) for functional dependencies, and iterative procedures (Pravṛttikrama) for distinguishing between parallel and sequential execution in repetitive tasks. It introduces the syntax and semantics of an action–object imperative logic, extending the MIRA formalism \citep{mira} with explicit deduction rules for sequencing. The correctness of instruction sequencing is established through a validated theorem, which is based on object dependencies across successive instructions. This is further supported by proofs of soundness and completeness. This formal verification enables reliable instruction sequencing, impacting AI applications across areas like task planning and robotics by addressing temporal reasoning and dependency modeling
 
 \end{abstract}
 
@@ -54,11 +55,11 @@ The contributions of this paper are as follows:
 \item Deduction rules for sequence validity, supported by soundness and completeness proofs.
 \end{itemize}
 
-The rest of this paper is structured as follows. Section \ref{sec:related} discusses related work. Section \ref{sec:syn_sem} describes the syntax and semantics of the action–object imperative logic. Section \ref{sec:sequencing} presents the formal representations of the three sequencing methods. Section \ref{sec:dependency} explains the object and functional dependencies, introduces the validity theorem with its proof, and outlines additional deduction rules for sequencing. Section \ref{sec:sound_complete} establishes the soundness and completeness of the proposed sequencing methods. Finally, Section \ref{sec:conclude} summarizes the findings and outlines directions for future work.
+The rest of this paper is organized as follows. Section \ref{sec:related} discusses related work. Section \ref{sec:syn_sem} describes the syntax and semantics of the action–object imperative logic. Section \ref{sec:sequencing} presents the formal representations of the three sequencing methods. Section \ref{sec:dependency} explains the object and functional dependencies, introduces the validity theorem with its proof, and outlines additional deduction rules for sequencing. Section \ref{sec:sound_complete} establishes the soundness and completeness of the proposed sequencing methods. Finally, Section \ref{sec:conclude} summarizes the findings and outlines directions for future work.
 
 \section{Related Work}
 \label{sec:related}
-This section reviews key developments in classical and temporal planning, hierarchical methods, plan recognition, dependency modeling, BDI reasoning, normative systems, imperative logic, and LLM-based task planning. Based on this review, the proposed framework is positioned as a logical approach that addresses instruction sequencing.
+This section reviews key developments in classical and temporal planning, hierarchical methods, reasoning about actions and change, plan recognition, dependency modeling, BDI reasoning, normative systems, imperative logic, and LLM-based task planning. Based on this review, the proposed framework is positioned as a logical approach that addresses instruction sequencing.
 
 \subsection*{Classical Planning and Temporal Logic}
 Traditional planning systems, such as STRIPS, consider actions as transitions among states \citep{strips}. Each action is described using classical logic formulas that define its preconditions and effects. A search process is employed to navigate from the initial state to the goal. The resulting path represents a sequence of actions that together form a plan.
@@ -72,54 +73,53 @@ Although this method is robust, there are some disadvantages:
 To some extent, these challenges have been mitigated by incorporating temporal logic into planning frameworks \citep{allen}. Temporal logic deals with reasoning about time using the operators $\square$ (\textit{always}) and $\Diamond$ (\textit{eventually}), $\bigcirc$ (\textit{next}) and $U$ (\textit{Until}) \citep{huth}. In this approach, events are treated as objects, and necessary conditions—such as preconditions—are expressed over temporal intervals. This allows for the construction of non-linear plans and provides the flexibility to represent concurrent actions. However, this method cannot be used to break the complex task into simple ones. To overcome this limitation, a hierarchical planning structure is adopted, incorporating temporal reasoning across subtasks \citep{fei}.
 Extending the work of Allen, Henry A. Kautz and Peter B. Ladkin has provided a temporal reasoning system that handles dates, duration and disjointness \citep{kautz}.
 
-With the general intractability of AI planning, one effective approach is to incorporate domain-specific knowledge to guide the search process, resulting in a sequence of actions that constitute a valid plan \citep{Bacchus2000}. This domain knowledge is expressed using Linear Temporal Logic (LTL), along with the GOAL modality. This method offers several advantages, including modularity, a declarative specification of the planning problem, and the transformation of intractable problems into solvable ones.
+
 \subsection*{Reasoning About Actions and Change}
+Research on action and change has been a continuing focus within the field of knowledge representation and reasoning about actions. As part of non-monotonic reasoning, Lifschitz applied the concept of circumscription to formalize the effects of actions in terms of causality and preconditions \citep{lifschitz1987formal}. This formalization provides a logical framework for addressing both the frame problem and the qualification problem. Subsequent to these, there has been several works on action languages A, B, C that include causal laws, preconditions and indirect effects in logic programming framework \citep{lifschitz1999action,gelfond1998representing,gelfond1998languages}. Their integration with answer set programming (ASP) enabled agents to reason about change using declarative models.
 
-Research on formal reasoning about action and change has significantly shaped the field of declarative planning and knowledge representation. Vladimir Lifschitz and collaborators introduced logical foundations for representing causal relationships between actions, using nonmonotonic reasoning and circumscription to formalize the principle of inertia \cite{lifschitz1987formal}. This approach addressed the frame problem by minimizing change to only those effects directly caused by an action.
-
-Subsequent developments led to the formulation of \emph{action languages}—structured representations of how actions transform states in dynamic domains. These frameworks, such as languages A, B, and C, embedded causal laws, preconditions, and indirect effects within a logic programming framework \cite{lifschitz1999action,gelfond1998representing,gelfond1998languages}. Integrating these with answer set programming enabled agents to reason about complex domains using declarative models of change. These theories provide a formal basis for capturing sequencing and dependency reasoning, core ideas extended in the proposed \mimamsa~inspired system where textual imperatives are treated as causal action objects with hermeneutic constraints.
+These theories offer a formal basis for representing sequencing and dependency reasoning, ideas that are further extended in this proposed \mimamsa-inspired framework, where textual imperatives are interpreted as causal action objects derived from a hermeneutic framework.
 
 \subsection*{Hierarchical Planning}
-In hierarchial planning, the top-level tasks are split into primitive actions. These are recursively completed to achieve the end task \cite{hplan2}. The most common framework for this approach is **Hierarchical Task Network (HTN) planning**, which employs rule-based decomposition methods to break down compound tasks into smaller task networks. This allows the explicit representation of procedural knowledge and domain-specific constraints \cite{htn1}.
+In hierarchial planning, the top-level tasks are split into primitive actions. These are recursively completed to achieve the end task \citep{hplan2}. The most common framework for this approach is Hierarchical Task Network (HTN), which employs rule-based decomposition methods to break down compound tasks into smaller task networks. This allows the explicit representation of procedural knowledge and domain-specific constraints \citep{htn1}.
 
-Hierarchical planning has proven effective in intelligent user assistance scenarios -For instance, guiding the assembly of a complex home theater system with components such as a Blu-ray player, amplifier, and television \cite{hplan1}. In such a case, the overarching goal might begin as a compound task like *connect(Blu-ray, TV)*. This abstract task is then refined through decomposition rules that specify how the devices should be connected—either directly using primitive *plugIn* actions or indirectly through an intermediate device (*?din*). By embedding constraints such as signal flow within the hierarchy, the planner efficiently narrows the search space and produces valid, step-by-step instructional guidance.
+Hierarchical planning has proven effective in intelligent user assistance scenarios - For instance, guiding the assembly of a complex home theater system with components such as a Blu-ray player, amplifier, and television \citep{hplan1}. In such a case, the overarching goal might begin as a compound task like \textit{connect(Blu-ray, TV)}. This abstract task is then refined through decomposition rules that specify how the devices should be connected—either directly using primitive actions or indirectly through an intermediate device. By embedding constraints such as signal flow within the hierarchy, the planner efficiently narrows the search space and produces valid, step-by-step instructional guidance.
 \subsection*{Plan Recognition and Goal Inference}
 In the study of activity, plan, and goal recognition, the authors have examined these as a unified problem that reflects the natural way humans perceive such processes \citep{goal_act_plan}. From a computational perspective, four main approaches have been explored: logic-based methods, which are structured and rigid; classical machine learning techniques, which employ statistical models to manage uncertainty and noisy data; deep learning approaches, which automatically extract features from sensor data and are particularly effective for activity recognition; and brain-inspired models, which address ambiguity in real-world contexts. The review highlights the need for a unified framework that integrates the strengths of all these approaches.
 
-In the paper “Goal and Plan Recognition Design for Plan Libraries,” the authors extend the traditional Goal Recognition Design (GRD), originally defined for STRIPS domains, to one that incorporates plan libraries, enabling the representation of hierarchical structures and complex agent behaviors \citep{plan_library}. They define two related problems: Goal Recognition Design for Plan Libraries (GRD-PL), which focuses on identifying what goal an agent is pursuing, and Plan Recognition Design (PRD), which focuses on how the goal is achieved. Two key metrics are introduced here, namely Worst-Case Distinctiveness (\textit{wcd}), measuring the maximum number of observations needed to unambiguously determine the goal, and Worst-Case Plan Distinctiveness (\textit{wcpd}), for determining the specific plan. The study demonstrates that wcd serves as a theoretical lower bound for wcpd, offering domain designers practical tools to quantify and minimize ambiguity, thereby enhancing the accuracy and efficiency of real-time plan and goal recognition systems.
+In the paper “Goal and Plan Recognition Design for Plan Libraries,” the authors extend the traditional Goal Recognition Design (GRD), originally defined for STRIPS domains, to one that incorporates plan libraries, enabling the representation of hierarchical structures and complex agent behaviors \citep{plan_library}. They define two related problems: Goal Recognition Design for Plan Libraries (GRD-PL), which focuses on identifying what goal an agent is pursuing, and Plan Recognition Design (PRD), which focuses on how the goal is achieved. Two key metrics are introduced here, namely Worst-Case Distinctiveness (\textit{wcd}), measuring the maximum number of observations needed to unambiguously determine the goal, and Worst-Case Plan Distinctiveness (\textit{wcpd}), for determining the specific plan. The study demonstrates that \textit{wcd} serves as a theoretical lower bound for \textit{wcpd}, offering domain designers practical tools to quantify and minimize ambiguity, thereby enhancing the accuracy and efficiency of real-time plan and goal recognition systems.
 
 \subsection*{Dependency and Semantic Relations}
-Several studies have focused on identifying dependency relations among words in natural language sentences. In Semantic Role Labeling (SRL), the verb is treated as the root or predicate, and the relationships of other words to this predicate are analyzed \citep{srl}. For instance, in the sentence “Chrysler plans new investment in Latin America”, the verb plans serves as the predicate, semantically linked to the agent (Chrysler) and the patient (investment).
+Several studies have focused on identifying dependency relations among words in natural language sentences. In Semantic Role Labeling (SRL), the verb is treated as the root or predicate, and the relationships of other words to this predicate are analyzed \citep{srl}. For instance, in the sentence \textit{“Chrysler plans new investment in Latin America”}, the verb \textit{`plans'} serves as the predicate, semantically linked to the agent (\textit{Chrysler}) and the patient (\textit{investment}).
 
-In dependency parsing, each word in a sentence is connected to another word, except for the main verb, which serves as the root. This word functions as the root node. For example, in the sentence “A man sleeps”, sleeps is the root, man depends on sleeps, and a depends on man \citep{srl_survey}.  These word-to-word dependencies help in identifying the semantic relationships within a text.
+In dependency parsing, each word in a sentence is connected to another word, except for the main verb, which serves as the root. This word functions as the root node. For example, in the sentence “A man sleeps”, \textit{`sleeps'} is the root, \textit{`man'} depends on \textit{`sleeps'}, and \textit{`a'} depends on \textit{`man'} \citep{srl_survey}.  These word-to-word dependencies help in identifying the semantic relationships within a text.
 \subsection*{BDI Model and Practical Reasoning}
-Analogous to how humans select actions based on their goals, the Belief–Desire–Intention (BDI) model endows an intelligent agent with goal-oriented reasoning by representing goals as *desires* and actionable commitments as *intentions*, guided by the agent’s current *beliefs* \citep{bdi}, \citep{bdi_reasoning}. For instance, if a robot’s goal is to deliver a package, it might form a plan and commit to executing it—such as “take hallway A to room 10.” However, if it discovers that the hallway is blocked (a new belief), it will revise its intention and replan accordingly. Thus, the framework enables the agent to continuously update its knowledge while remaining aligned with its goals.
+Analogous to how humans select actions based on their goals, the Belief–Desire–Intention (BDI) model includes an intelligent agent with goal-oriented reasoning by representing goals as desires and actionable commitments as intentions, guided by the agent’s current beliefs \citep{bdi}, \citep{bdi_reasoning}. For instance, if a robot’s goal is to deliver a package, it might form a plan and commit to executing it—such as “take hallway A to room 10.” However, if it discovers that the hallway is blocked (a new belief), it will revise its intention and replan accordingly. Thus, the framework enables the agent to continuously update its knowledge while remaining aligned with its goals.
 
 
 \subsection*{Normative Systems and Philosophical Foundations}
 Normative logic in both Western and Indian philosophical traditions shares a common view on how rules and obligations guide rational action \citep{sanyal}. Deontic logic formalizes such norms through concepts of obligations and prohibitions, offering a useful framework for reasoning in multi-agent systems. Similarly, the Indian philosophical system of \mimamsa presents a sophisticated hermeneutical framework for interpreting texts, providing well-developed principles to distinguish between primary and auxiliary duties as well as exceptions \citep{davis}.
 
 \subsection*{Imperative Logic and Action Representation}
-Imperatives differ from declarative statements in that they cannot be evaluated as \textit{True} or \textit{False}, which limits the applicability of classical logic in reasoning about them. To address this, several studies have explored translating imperatives into propositions and then applying classical logic rules. However, such approaches often encounter paradoxes, as highlighted by Ross, revealing fundamental limitations in representing imperatives within standard logical frameworks. A detailed survey of various perspectives on imperative logic, particularly in the context of action representation in AI, has been presented in \citep{survey}. Inspired by the Indian philosophical system of \mimamsa, a three-valued formalism has been proposed to handle imperatives, where each instruction is evaluated as \textit{Satisfaction} ($S$), \textit{Violation} ($V$), or \textit{No intention to achieve the goal} ($N$) \citep{mira}. This framework provides a more expressive representation of actions, which is useful in applications such as
+Imperatives differ from declarative statements in that they cannot be evaluated as \textit{True} or \textit{False}, which limits the applicability of classical logic in reasoning about them. To address this, several studies have explored translating imperatives into propositions and then applying classical logic rules. However, such approaches often encounter paradoxes, as highlighted by Ross, revealing fundamental limitations in representing imperatives within standard logical frameworks. A detailed survey of various perspectives on imperative logic, particularly in the context of action representation in AI, has been presented in the survey of imperatives and action representation formalisms \citep{survey}. Inspired by the Indian philosophical system of \mimamsa, a three-valued formalism has been proposed to handle imperatives, where each instruction is evaluated as \textit{Satisfaction} ($S$), \textit{Violation} ($V$), or \textit{No intention to achieve the goal} ($N$) \citep{mira}. This framework provides a more expressive representation of actions, which is useful in applications such as
  task analysis for special education \citep{ta} and robotics \citep{mira_robot}. Building on this foundation, the same authors have also extended the formalism to handle the temporal sequencing of instructions, enabling reasoning about ordered action execution \citep{llmmira}.
 
 \subsection*{Task Planning with Large Language Models}
-Of late, LLMs have shown promise in supporting task planning. Although LLMs excel at text generation and general reasoning, they struggle with temporal reasoning. A proposed solution involves translating temporal information into a graph structure, enabling LLMs to learn and reason over it more effectively \citep{xiong}. LLMs do not always produce truthful or consistent responses and may sometimes generate hallucinated or incorrect information. To address these issues and better align model outputs with human expectations, InstructGPT was developed using reinforcement learning from human feedback (RLHF) \citep{llm_human}
+Of late, LLMs have shown promise in supporting task planning. Although LLMs excel at text generation and general reasoning, they struggle with temporal reasoning. A proposed solution involves translating temporal information into a graph structure, enabling LLMs to learn and reason over it more effectively \citep{xiong}. LLMs do not always produce truthful or consistent responses and may sometimes generate hallucinated or incorrect information. To address these issues and better align model outputs with human expectations, InstructGPT was developed using reinforcement learning from human feedback (RLHF) \citep{llm_human}. However, the sequencing mechanisms of instructions is yet to be addressed.
 
 
 \subsection*{Positioning of the proposed paper}
 The proposed \mimamsa–inspired framework advances this domain by offering a philosophically grounded approach to instruction sequencing across several dimensions, as outlined below:
 \begin{itemize}
-\item **Philosophical Foundation:** In contrast to purely algorithmic methods, the proposed framework is rooted in the hermeneutical principles of \mimamsa~philosophy, providing systematic techniques for resolving ambiguities and ensuring coherent sequencing.
-\item **Action–Object Decomposition:** By explicitly modeling instructions as action–object pairs, the framework enables more precise dependency analysis than traditional representations based solely on atomic actions.
-\item **Multiple Sequencing Paradigms:** The formalization of three complementary sequencing strategies—direct assertion, purpose-based sequencing, and iterative procedures—offers flexibility for coordinating different instruction types.
-\item **Formal Verification:** The inclusion of deduction rules and completeness proofs ensures formal guarantees of sequence validity, effectively linking philosophical reasoning with computational verification.
-\item **Cultural Perspective:** Drawn from an Indian philosophical perspective, this work expands the Western-centric theoretical foundations of reasoning systems.
+\item Philosophical Foundation: In contrast to purely algorithmic methods, the proposed framework is rooted in the hermeneutical principles of \mimamsa~philosophy, providing systematic techniques for instruction sequencing.
+\item Action–Object Decomposition: By explicitly modeling instructions as action–object pairs, the framework enables more precise dependency analysis than traditional representations based solely on atomic actions.
+\item Multiple Sequencing Paradigms: The formalization of three complementary sequencing strategies—direct assertion, purpose-based sequencing, and iterative procedures—offers flexibility for coordinating different instruction types.
+\item Formal Verification: The inclusion of deduction rules and completeness proofs ensures formal guarantees of sequence validity, effectively linking philosophical reasoning with computational verification.
+\item Cultural Perspective: Drawn from an Indian philosophical perspective, this work expands the western-centric theoretical foundations of reasoning systems.
 \end{itemize}
 
  \section{Extension of Syntax and Semantics for Action-Object Imperative Logic}
  \label{sec:syn_sem}
-This section extends the formal syntax and semantics framework of Srinivasan and Parthasarathi (2021) \cite{mira} by refining imperative instructions to explicit action-object pairs.
+This section extends the formal syntax and semantics framework of \cite{mira} by refining imperative instructions to explicit action-object pairs.
 \subsection{Syntax}
 \label{sec:syntax}
 The language of imperatives is given by \(\mathcal{L}_i = \langle I, R, P, B \rangle\), where:
@@ -217,10 +217,10 @@ N, & \text{if there is no intention to achieve goal } g.
 
 \item \textbf{Imperatives in Sequence}:
 \[
-eval(s, (a_1, o_1) \rightarrow_i (a_2, o_2)) =
+eval(r, (a_1, o_1) \rightarrow_i (a_2, o_2)) =
 \begin{cases}
-S, & \text{if } eval(r, (a_1, o_1)) = S \text{, } eval(s', (a_2, o_2)) = S \text{ and object consistency holds,} \\
-V, & \text{if } eval(r, (a_1, o_1)) = V \text{ or } eval(s', (a_2, o_2)) = V.
+S, & \text{if } eval(r, (a_1, o_1)) = S \text{, } eval(r, (a_2, o_2)) = S \text{ and object consistency holds,} \\
+V, & \text{otherwise}
 \end{cases}
 \]
 
@@ -239,7 +239,7 @@ V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ or } eval(r_2, (a_2, o_2)) = V.
 eval((r_1, (a_1, o_1)) \oplus (r_2, (a_2, o_2))) =
 \begin{cases}
 S, & \text{if } eval(r_1, (a_1, o_1)) = S \text{ or } eval(r_2, (a_2, o_2)) = S, \\
-V, & \text{if } eval(r_1, (a_1, o_1)) = V \text{ and } eval(r_2, (a_2, o_2)) = V.
+V, & \text{otherwise}
 \end{cases}
 \]
 \end{itemize}
@@ -247,12 +247,12 @@ This formal action-object representation provides a foundation for capturing the
 
 \section{Sequencing Methods}
 \label{sec:sequencing}
-According to the Indian philosophical system of \mimamsa, a set of instructions can be sequenced using six distinct ordering principles to ensure coherent and uninterrupted execution. These are: Direct Assertion (\textit{Śrutikrama}), Purpose-Based Sequencing (\textit{Arthakrama}), Order as Given (\textit{P\={a}\d{t}hakrama}), Position-Based Order (\textit{Sth\={a}nakrama}), Principal Activity-Based Order (\textit{Mukhyakrama}), and Iterative Procedure (\textit{Pravri\d{t}\d{t}ikrama}). For more details on the sequencing aspects from the philosophy, the reader may refer to the prior work on temporal ordering of instructions \cite{llm_mira}. Among these, three methods—Direct Assertion, Purpose-Based Sequencing, and Iterative Procedure—are formalized in this paper and discussed in Sections \ref{sec:sruti}, \ref{sec:artha}, and \ref{sec:pravritti}, respectively.
+According to the Indian philosophical system of \mimamsa, a set of instructions can be sequenced using six distinct ordering principles to ensure coherent and uninterrupted execution. These are: Direct Assertion (\textit{Śrutikrama}), Purpose-Based Sequencing (\textit{Arthakrama}), Order as Given (\textit{P\={a}\d{t}hakrama}), Position-Based Order (\textit{Sth\={a}nakrama}), Principal Activity-Based Order (\textit{Mukhyakrama}), and Iterative Procedure (\textit{Pravri\d{t}\d{t}ikrama}). For more details on the sequencing aspects from the philosophy, the reader may refer to the prior work on temporal ordering of instructions \citep{llmmira}. Among these, three methods—Direct Assertion, Purpose-Based Sequencing, and Iterative Procedure—are formalized in this paper and discussed in Sections \ref{sec:sruti}, \ref{sec:artha}, and \ref{sec:pravritti}, respectively.
 
 
 \subsection{Direct Assertion (\'{S}rutikrama)}
 \label{sec:sruti}
-In this type, instructions are provided in a direct and sequential manner. Following the notation from the work of sequencing methods based on \mimamsa~\cite{llm_mira}, let:
+In this type, instructions are provided in a direct and sequential manner. Following the notation from the work of sequencing methods based on \mimamsa~\citep{llmmira}, let:
 \begin{itemize}
  \item $i_t = (a_t,o_t)$: instruction at the first instant $t$, with action $a_t$ and object(s) $o_t$
 \item $i_{t+1} = (a_{t+1},o_{t+1})$: instruction at the next instant $t+1$
@@ -287,7 +287,7 @@ This type of representation serves two major purposes.
 \end{enumerate}
 \subsection{Sequencing based on purpose}
 \label{sec:artha}
-In this type, each instruction is of the form $(\tau \rightarrow_r (i \rightarrow_p p))$ \cite{llm_mira}, indicating there is a precondition ($\tau$) for the instruction ($i$) to take place, inorder to achieve the goal ($p$). Here, $\rightarrow_r$ and $\rightarrow_p$ denote ``because of reason (indicating precondition)'' and ``inorder to achieve  goal'', respectively.
+In this type, each instruction is of the form $(\tau \rightarrow_r (i \rightarrow_p p))$ \citep{llmmira}, indicating there is a precondition ($\tau$) for the instruction ($i$) to take place, inorder to achieve the goal ($p$). Here, $\rightarrow_r$ and $\rightarrow_p$ denote ``because of reason (indicating precondition)'' and ``inorder to achieve  goal'', respectively.
 
 This representation can be extended to a series of instructions as given by Equation \ref{eq:artha_ext}.
 \begin{eqnarray}
@@ -295,7 +295,7 @@ This representation can be extended to a series of instructions as given by Equa
  (r_1 \rightarrow_r (i_1 \rightarrow_p p_1)), (r_2 \rightarrow_r (i_2 \rightarrow_p p_2), ..., (r_n \rightarrow_r (i_n \rightarrow_p p_n))
 \end{eqnarray}
 
-If the purpose $p_k$ of instruction $i_k$ becomes the precondition $r_{k+1}$ for the next instruction $i_{k+1}$, then $i_k$ precedes $i_{k+1}$, because $r_{k+1} = p_k$. This relation signifies that the second insruction ($i_{k+1}$) depends on the first ($i_k$) and is referred to as \textbf{functional dependency} and has already been used in task analysis for special education \cite{ta}.
+If the purpose $p_k$ of instruction $i_k$ becomes the precondition $r_{k+1}$ for the next instruction $i_{k+1}$, then $i_k$ precedes $i_{k+1}$, because $r_{k+1} = p_k$. This relation signifies that the second insruction ($i_{k+1}$) depends on the first ($i_k$) and is referred to as \textbf{functional dependency} and has already been used in task analysis for special education \citep{ta}.
 
 Extending this further into the representation  of $i_j$ as ($a_j,o_j$) pair, Equation \ref{eq:artha_ext} can be formalized as shown in Equation \ref{eq:ao_artha}.
 \begin{eqnarray}
@@ -305,9 +305,9 @@ Extending this further into the representation  of $i_j$ as ($a_j,o_j$) pair, Eq
 
 \subsection{Sequential and Parallel Execution Methods for Repetitive Tasks}
 \label{sec:pravritti}
-In some tasks, it is necessary to repeat the same action multiple times across different items. Two common approaches to sequence such repetitive actions have been identified in previous work with LLMs \cite{llm_mira}, reiterated here for clarity.
+In some tasks, it is necessary to repeat the same action multiple times across different items. Two common approaches to sequence such repetitive actions have been identified in previous work with LLMs \citep{llmmira}, reiterated here for clarity.
 
-Consider the task of a teacher grading answer scripts from 20 students, each answer script containing 5 questions. In the \textbf{Sequential Completion Method}, the teacher grades all five questions of the first student's script before moving on to completely grade the second student’s script, continuing this process sequentially for all students. Alternatively, the \textbf{Step-by-Step Parallel Method}, also known as the \textbf{Iterative Procedure}, involves the teacher grading the first question across all 20 scripts before proceeding to grade the second question for all scripts, and so forth.
+Consider the task of a teacher grading answer scripts from 20 students, each answer script containing 5 questions. In the \textbf{Sequential Completion Method}, the teacher grades all five questions of the first student's script before moving on to completely grade the second student’s script, continuing this process sequentially for all students. Alternatively, the \textbf{Step-by-Step Parallel Method}, also known as the \textbf{Iterative Procedure}, involves the teacher grading the first question across all 20 scripts before proceeding to grade the second question for all scripts, and so forth. The formal representation of these two methods are given below.
 
 
 \subsubsection{Sequential Completion Method}
@@ -370,17 +370,17 @@ Using these sequencing mechanisms, validity can be logically determined through 
 The validity of an instruction sequence relies on two main conditions: \textbf{object dependency} and \textbf{functional dependency} across instructions. These ensure that the instruction sequence respects the logical dependencies and state transformations of objects involved.
 
 \subsection{Object Dependency Condition}
-\begin{definition}
+\begin{defi}
 \textbf{Object Dependency Condition} \\
 A sequence of instructions \( I = \{i_1, i_2, \ldots, i_n\} \), where each \( i_j = (a_j, O_j) \), exhibits valid object dependency if for every pair of consecutive instructions \( (i_j, i_{j+1}) \), there exists at least one object \( o^* \) such that:
 \[
 o^* \in O_j \cap O_{j+1}.
 \]
 This signifies that the two instructions share at least one object, establishing a valid dependency consistent with direct assertion (śrutikrama).
-\end{definition}
+\end{defi}
 
 \subsection{Functional Dependency Condition}
-\begin{definition}
+\begin{defi}
 \textbf{Functional Dependency Condition} \\
 For instructions \( i_j = (a_j, O_j) \) and \( i_{j+1} = (a_{j+1}, O_{j+1}) \) with shared objects \( o^* \in O_j \cap O_{j+1} \), the sequence maintains functional dependency if:
 \[
@@ -392,10 +392,10 @@ Here:
   \item \( s_{j+1}^{\mathrm{req}}(o^*) \) is the required state of \( o^* \) to start executing \( i_{j+1} \).
 \end{itemize}
 This relation captures the classical notion of functional dependency, where the post-state of an object after one instruction determines the input state required for the next.
-\end{definition}
+\end{defi}
 
 \subsection{Validity Theorem for Sequencing}
-\begin{theorem}
+\begin{thm}
 \label{th:validity}
 \textbf{Validity of Instruction Sequence with Object and Functional Dependencies} \\
 Let \( I = \{i_1, i_2, \ldots, i_n\} \) be a sequence of instructions with \( i_j = (a_j, O_j) \). The sequence is valid if:
@@ -408,7 +408,7 @@ O_j \cap O_{j+1} \neq \emptyset \quad \text{and} \quad
 \forall o^* \in O_j \cap O_{j+1}, \quad s_j(o^*) = s_{j+1}^{\mathrm{req}}(o^*),
 \]
 where \( D(i_j, i_{j+1}) \) expresses a dependency between \( i_j \) and \( i_{j+1} \).
-\end{theorem}
+\end{thm}
 \begin{proof}
 We prove the theorem by induction on the instruction sequence length, focusing on maintenance of functional dependency (state consistency) between consecutive instructions.
 
@@ -469,7 +469,7 @@ A sequence is invalid if there exists a pair \( (i_j, i_{j+1}) \) such that:
 \end{itemize}
 \subsection{Deduction Rules for Sequencing}
 
-Extending the original deduction rules from MIRA \cite{mira}, this section provides a representation in terms of <\textit{action,object}> pair towards the sequencing methods of direct assertion \ref{sec:sruti} and purpose based approach \ref{sec:artha}. Among the deduction rules, only the rule conditional enjoining action $cni$ with $X = \phi$, $Y = \psi$ and $w = i$ is applicable, which reflects the sequencing according to direct assertion method that includes object dependency condition. Additionally, the deduction rule of purpose based sequencing method is also included.
+Extending the original deduction rules from MIRA \citep{mira}, this section provides a representation in terms of $<$\textit{action,object}$>$ pair towards the sequencing methods of direct assertion \ref{sec:sruti} and purpose based approach \ref{sec:artha}. Among the deduction rules, only the rule conditional enjoining action $cni$ with $X = \phi$, $Y = \psi$ and $w = i$ is applicable, which reflects the sequencing according to direct assertion method that includes object dependency condition. Additionally, the deduction rule of purpose based sequencing method is also included.
 
 
 \paragraph{Object-Consistent Sequencing Rule (OCS)}
@@ -478,7 +478,7 @@ Assume $i_1$ leads to $i_2$ and there is at least one object common to both inst
 
 \[
 \frac{
-    [i_1] \quad \cdots \quad i_2 \qquad O_1 \cap O_2 \neq \emptyset O_1 \cap O_{1} \neq \emptyset \quad \text{and} \quad
+    [i_1] \quad \cdots \quad i_2 \qquad O_1 \cap O_2 \neq \emptyset \text{, } O_1 \cap O_{1} \neq \emptyset \quad \text{and} \quad
 \forall o^* \in O_1 \cap O_2
 }{
     i_1 \rightarrow_i i_2
@@ -508,17 +508,17 @@ These rules ensure that instruction sequencing is logically justified only when 
 
 \section{Soundness and Completeness of Deduction Rules}
 \label{sec:sound_complete}
-In this section, we establish the soundness and completeness of the deduction rules (OCS and PLS) with respect to the semantic model and the Validity Theorem (Theorem 1).
+In this section, we establish the soundness and completeness of the deduction rules (OCS and PLS) with respect to the semantic model and the Validity Theorem (Theorem \ref{th:validity}).
 Soundness ensures that every sequence of instructions derivable within the framework satisfies the semantic validity conditions, which consists of both object and functional dependencies.
 Completeness guarantees the converse, that is every sequence that satisfies these semantic validity conditions is derivable within the framework.
 
-We consider sequences of instructions \( I = \{i_1, i_2, \dots, i_n\} \), where each \( i_j = (a_j, O_j) \), and validity is defined per Theorem 1. The semantic model \( M = \langle \mathcal{R}, A, O, G, \textit{intention}, \textit{eval} \rangle \) interprets these sequences, with satisfaction statuses S (satisfied), V (violated), or N (neutral). Derivability (\( \vdash \)) refers to proofs using OCS and PLS.
+We consider sequences of instructions \( I = \{i_1, i_2, \dots, i_n\} \), where each \( i_j = (a_j, O_j) \), and validity is defined per Theorem \ref{th:validity}. The semantic model \( M = \langle \mathcal{R}, A, O, G, \textit{intention}, \textit{eval} \rangle \) interprets these sequences, with satisfaction statuses S (satisfied), V (violated), or N (no intention to achieve goal). Derivability (\( \vdash \)) refers to proofs using OCS and PLS.
 
 \subsection{Soundness}
-
-\textbf{Theorem 2 (Soundness).} If a sequence \( I \) is derivable (\( \vdash I \)) using OCS and PLS, then \( I \) is semantically valid in \( M \) (i.e., it satisfies Theorem 1: for all dependent consecutive pairs \( (i_j, i_{j+1}) \), \( O_j \cap O_{j+1} \neq \emptyset \) and \( \forall o^* \in O_j \cap O_{j+1} \), \( r_j(o^*) = r_{j+1}^{\text{req}}(o^*) \), and \( \textit{eval}(r, I) = S \) for some initial precondition \( r \in \mathcal{R} \)).
-
-\textbf{Proof.} We proceed by induction on the length of the derivation.
+\begin{thm}
+ If a sequence \( I \) is derivable (\( \vdash I \)) using OCS and PLS, then \( I \) is semantically valid in \( M \) (i.e., it satisfies Theorem \ref{th:validity}: for all dependent consecutive pairs \( (i_j, i_{j+1}) \), \( O_j \cap O_{j+1} \neq \emptyset \) and \( \forall o^* \in O_j \cap O_{j+1} \), \( r_j(o^*) = r_{j+1}^{\text{req}}(o^*) \), and \( \textit{eval}(r, I) = S \) for some initial precondition \( r \in \mathcal{R} \)).
+\end{thm}
+\begin{proof} We proceed by induction on the length of the derivation.
 
 \textbf{Base Case:} For a single instruction \( i_1 = (a_1, O_1) \), derivability is trivial (no rules applied). Semantic validity holds vacuously (no pairs). By the semantics, \( \textit{eval}(r, (a_1, O_1)) = S \) if \( a_1 \) is performed on objects in \( O_1 \) under precondition \( r \), assuming initial preconditions match requirements.
 
@@ -526,15 +526,17 @@ We consider sequences of instructions \( I = \{i_1, i_2, \dots, i_n\} \), where 
 
 - \textbf{Case OCS (Object Dependency):} The rule derives \( i_1 \rightarrow_i i_2 \) from premises \( [i_1] \dots i_2 \), with \( O_1 \cap O_2 \neq \emptyset \) and object consistency. By inductive hypothesis, the premises are semantically valid (each sub-sequence evaluates to S). Semantics for imperatives in sequence (Section 2.2) yield \( \textit{eval}(r, (a_1, o_1) \rightarrow_i (a_2, o_2)) = S \) if both sub-evaluations are S and object consistency holds. This satisfies the object dependency part of Theorem 1 for the pair. Functional dependency, if required, is preserved through concurrent or prior applications of PLS in the derivation.
 
-- \textbf{Case PLS (Functional Dependency):} The rule derives \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \rightarrow (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) from premises with functional dependency \( p_k = r_{k+1} \). By inductive hypothesis, premises are valid. Semantics for purpose-enjoined imperatives ensure \( \textit{eval}(r, (a_k, o_k) \rightarrow_p g) = S \) only if intention holds and the action satisfies the goal. Specifically, in the context of functional dependency: (i) \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \) evaluates to S if the intention of the goal \( p_k \) is true and the action \( i_k \) is performed with precondition \( r_k \) true; (ii) after execution, the intention of goal \( p_k \) becomes reality (i.e., the evaluation from step (i) turns to a true value, serving as the precondition for the next step \( r_{k+1} \)); (iii) the next \( (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) then becomes S when the intention of goal \( p_{k+1} \) is true and action \( i_{k+1} \) is performed with precondition \( r_{k+1} \). The linkage \( p_k = r_{k+1} \) enforces functional dependency (post-precondition of \( i_k \) provides the precondition for \( i_{k+1} \)), yielding overall S. Object dependency, if required, is enforced through concurrent or prior OCS applications in the full derivation (e.g., ensuring shared objects with consistent preconditions), satisfying both parts of Theorem 1.
+- \textbf{Case PLS (Functional Dependency):} The rule derives \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \rightarrow (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) from premises with functional dependency \( p_k = r_{k+1} \). By inductive hypothesis, premises are valid. Semantics for purpose-enjoined imperatives ensure \( \textit{eval}(r, (a_k, o_k) \rightarrow_p g) = S \) only if intention holds and the action satisfies the goal. Specifically, in the context of functional dependency: (i) \( (r_k \rightarrow_r (i_k \rightarrow_p p_k)) \) evaluates to S if the intention of the goal \( p_k \) is true and the action \( i_k \) is performed with precondition \( r_k \) true; (ii) after execution, the intention of goal \( p_k \) becomes reality (i.e., the evaluation from step (i) turns to a true value, serving as the precondition for the next step \( r_{k+1} \)); (iii) the next \( (r_{k+1} \rightarrow_r (i_{k+1} \rightarrow_p p_{k+1})) \) then becomes S when the intention of goal \( p_{k+1} \) is true and action \( i_{k+1} \) is performed with precondition \( r_{k+1} \). The linkage \( p_k = r_{k+1} \) enforces functional dependency yielding overall S. Object dependency, if required, is enforced through concurrent or prior OCS applications in the full derivation (e.g., ensuring shared objects with consistent preconditions), satisfying both parts of Theorem \ref{th:validity}.
 
 Derivations combine OCS and PLS as needed (e.g., OCS for object overlap and PLS for purpose-precondition chaining in mixed sequences), ensuring both dependencies are captured and leading to overall semantic validity by induction.
-
+\end{proof}
 \subsection{Completeness}
+\begin{thm}
+ If a sequence \( I \) is semantically valid in \( M \) (i.e., satisfies Theorem \ref{th:validity} and \( \textit{eval}(r, I) = S \) for some \( r \in \mathcal{R} \)), then \( I \) is derivable (\( \vdash I \)) using OCS and PLS.
+ \end{thm}
 
-\textbf{Theorem 3 (Completeness).} If a sequence \( I \) is semantically valid in \( M \) (i.e., satisfies Theorem 1 and \( \textit{eval}(r, I) = S \) for some \( r \in \mathcal{R} \)), then \( I \) is derivable (\( \vdash I \)) using OCS and PLS.
-
-\textbf{Proof.} Again, by induction on the sequence length \( n \).
+ \begin{proof}
+Again, by induction on the sequence length \( n \).
 
 \textbf{Base Case:} For \( n=1 \), \( i_1 \) is valid if \( \textit{eval}(r, (a_1, O_1)) = S \). No rules needed; derivability is trivial.
 
@@ -546,12 +548,12 @@ The sub-sequence \( \{i_1, \dots, i_{n-1}\} \) is valid by assumption, so deriva
 
 - Apply PLS for functional dependency (pairs link via \( p_j = r_{j+1} \)), deriving purpose-chained sequencing, where the semantic evaluation to S follows the steps: (i) intention of \( p_{n-1} \) true and action performed under \( r_{n-1} \); (ii) post-execution realization of \( p_{n-1} \) as true, becoming \( r_n \); (iii) subsequent evaluation to S for the next imperative under \( r_n \) with intention of \( p_n \) true.
 
-Since Theorem 1 requires both dependencies for validity, apply both rules for each relevant pair: OCS to enforce object overlap and precondition consistency, and PLS to enforce purpose-precondition linkage. For mixed sequences, decompose into sub-sequences, derive them using the appropriate rule(s), then combine. Semantic validity ensures both conditions align with the premises of OCS and PLS, so the full derivation exists by combining the rules.
+Since Theorem \ref{th:validity} requires both dependencies for validity, apply both rules for each relevant pair: OCS to enforce object overlap and precondition consistency, and PLS to enforce purpose-precondition linkage. For mixed sequences, decompose into sub-sequences, derive them using the appropriate rule(s), then combine. Semantic validity ensures both conditions align with the premises of OCS and PLS, so the full derivation exists by combining the rules.
 
 By induction, all semantically valid sequences are derivable.
 
 These proofs align the proof theory (deduction rules) with the semantics, ensuring the framework's logical consistency for instruction sequencing.
-
+\end{proof}
 
 
 \section{Conclusion and Future Work}
